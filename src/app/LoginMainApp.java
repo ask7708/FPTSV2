@@ -32,8 +32,8 @@ public class LoginMainApp extends Application {
     public void start(Stage primaryStage) throws IOException {
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("FPTS");
-        Parent loginView = FXMLLoader.load(getClass().getResource("LoginView.fxml"));
-        Parent otherView = FXMLLoader.load(getClass().getResource("TheOtherScene.fxml"));
+        Parent loginView = FXMLLoader.load(getClass().getResource("../views/LoginView.fxml"));
+        Parent otherView = FXMLLoader.load(getClass().getResource("../views/TheOtherScene.fxml"));
         Scene scene = new Scene(loginView);
         
         this.primaryStage.setTitle("FPTS");
