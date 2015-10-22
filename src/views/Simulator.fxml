@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.SimulatorController">
+   <children>
+      <TableView fx:id="simulationsTable" layoutX="312.0" layoutY="6.0" prefHeight="388.0"
+                 prefWidth="175.0">
+        <columns>
+          <TableColumn fx:id="simColumn" editable="false" prefWidth="174.0"
+                       text="Simulations" />
+        </columns>
+      </TableView>
+      <TableView fx:id="equitiesTable" layoutX="4.0" layoutY="6.0" prefHeight="388.0" prefWidth="301.0">
+        <columns>
+          <TableColumn fx:id="tickSymbolColumn" prefWidth="48.0" text="Ticker" />
+          <TableColumn fx:id="nameColumn" prefWidth="65.0" text="Name" />
+            <TableColumn fx:id="priceColumn" prefWidth="56.0" text="Price" />
+            <TableColumn fx:id="simPriceColumn" prefWidth="131.0" text="Simulated Price" />
+        </columns>
+      </TableView>
+      <Button fx:id="addNewSimButton" onAction="#addNewSimulation" layoutX="499.0"
+              layoutY="50.0"
+              mnemonicParsing="false"
+              prefHeight="27.0" prefWidth="87.0" text="Add New Sim" textOverrun="CLIP">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </Button>
+      <Button fx:id="resetOneButton" onAction="#removeOneSimulation" layoutX="499.0"
+              layoutY="88.0"
+              mnemonicParsing="false"
+              prefHeight="27.0" prefWidth="87.0" text="Reset One" />
+      <Button fx:id="resetAllButton" onAction="#removeAllSimulation" layoutX="499.0"
+              layoutY="125.0"
+              mnemonicParsing="false"
+              prefHeight="27.0" prefWidth="87.0" text="Reset All" />
+      <Button fx:id="exitButton" layoutX="499.0" layoutY="359.0"
+              mnemonicParsing="false"
+              prefHeight="27.0" prefWidth="87.0" text="Exit" textFill="#f20000" />
+      <Label alignment="TOP_LEFT" contentDisplay="TEXT_ONLY" layoutX="506.0" layoutY="234.0" prefHeight="51.0" prefWidth="74.0" text="Portfolio $$ from last simulation" textOverrun="CLIP" wrapText="true" />
+      <ImageView fx:id="arrowView" fitHeight="59.0" fitWidth="34.0" layoutX="499.0"
+                 layoutY="287.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/redarrow.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="percentChange" layoutX="543.0" layoutY="296.0" text="5.4%" />
+      <Label fx:id="portfolioValue" alignment="CENTER" layoutX="500.0" layoutY="327.0"
+             prefHeight="17.0" prefWidth="87.0" text="\$4,000.21">
+         <effect>
+            <Bloom />
+         </effect>
+      </Label>
+      <Label alignment="CENTER" layoutX="500.0" layoutY="4.0" prefHeight="17.0" prefWidth="87.0" text="Simulator Date" underline="true">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </Label>
+      <Label fx:id="simulatorDate" alignment="CENTER" layoutX="498.0" layoutY="21.0"
+             prefHeight="17.0" prefWidth="87.0" text="10-18-2015">
+         <font>
+            <Font size="12.0" />
+         </font>
+      </Label>
+   </children>
+</Pane>
