@@ -62,10 +62,10 @@ public class Simulation {
     /** Getter for short version of toString property (JavaFX style) **/
     public String getShortVersion() {
 
-        return marketType.toString() + " / " +
+        return marketType.toString() + "/" +
                 getTimeAmount() + " " + step.toString() + " @ " +
                 String.format("%.01f", percentageProperty().getValue()*100) +
-                "%" + " / " + getStartDate().toString();
+                "%" + "/" + getStartDate().toString();
     }
 
     public void setShortVersion() {

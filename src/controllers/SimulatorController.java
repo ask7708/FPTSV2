@@ -62,20 +62,26 @@ public class SimulatorController {
     @FXML
     private Label portfolioValue;
 
-    private ObservableList<Simulation> simulations =
-            FXCollections.observableArrayList();
-
+    private ObservableList<Simulation> simulations;
+            
+    private ObservableList<Equity> equities =
+          FXCollections.observableArrayList();
+    
     public SimulatorController() {}
 
     @FXML
     private void initialize() {
 
-        simulationsTable.setItems(simulations);
+        equitiesTable.setItems(equities);
+        
+        simulations = FXCollections.observableArrayList();
+        
         tickSymbolColumn.setCellValueFactory(cellData -> cellData.getValue().tickSymbolProperty());
         nameColumn.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
-    //    priceColumn.setCellValueFactory(cellData -> cellData.getValue()
-    //            .initPriceProperty());
+        priceColumn.setCellValueFactory(cellData -> cellData.getValue().initPriceProperty().asObject());
+        simPriceColumn.setCellValueFactory(cellData -> cellData.getValue().getSimPriceProperty().asObject());
         simColumn.setCellValueFactory(cellData -> cellData.getValue().shortVersionProperty());
+        
         resetOneButton.setDisable(true);
         resetAllButton.setDisable(true);
 
@@ -102,14 +108,13 @@ public class SimulatorController {
 
             AddNewSimController controller = loader.getController();
             controller.setDialogStage(dialogStage);
-            Simulation newSim = new Simulation();
-            System.out.println("Simulation given");
-            controller.setSimulation(newSim);
-            simulations.add(newSim);
+            controller.getSimulations(simulations);
             addNewSimButton.setDisable(true);
             dialogStage.showAndWait();
             addNewSimButton.setDisable(false);
-
+            
+            simulationsTable.setItems(simulations);
+            
             checkForResets();
 
         } catch (IOException e) {
@@ -123,7 +128,6 @@ public class SimulatorController {
     @FXML
     private void removeOneSimulation() {
 
-        System.out.println("Reset One pressed");
         simulations.remove(0);
         checkForResets();
     }
@@ -131,16 +135,12 @@ public class SimulatorController {
     @FXML
     private void removeAllSimulation() {
 
-        System.out.println("Reset All pressed");
-
         while(!simulations.isEmpty()) { removeOneSimulation(); }
-
         checkForResets();
     }
 
     private void checkForResets() {
 
-        System.out.println("Checks for resets called");
         if(!simulations.isEmpty()) {
 
             resetOneButton.setDisable(false);

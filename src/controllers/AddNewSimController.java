@@ -57,13 +57,14 @@ public class AddNewSimController {
             );
 
     private Stage dialogStage;
-    private Simulation sim;
+    
+    private ObservableList<Simulation> sims;
 
     @FXML
     private void initialize() {
 
         System.out.println("Sim is made null");
-        this.sim = null;
+//        this.sim = null;
         marketChoiceBox.getItems().addAll(marketChoices);
         intervalChoiceBox.getItems().addAll(intervalChoices);
 
@@ -110,31 +111,18 @@ public class AddNewSimController {
         length = timeStepComboBox.getSelectionModel().getSelectedItem();
         percent = Double.parseDouble(percentageTextField.getText());
 
-        if(this.sim != null) {
-
-            System.out.println("Simulations was set up");
-            this.sim.setMarketType(mType);
-            this.sim.setStep(iType);
-            this.sim.setPercentage(percent / 100.0);
-            this.sim.setTimeAmount(length);
-            this.sim.setStartDate(LocalDate.now());
-            this.sim.setEndDate(LocalDate.now().plusDays(1));
-            this.sim.setShortVersion();
-        }
-
-        System.out.println(sim.toStringShortProperty().toString());
-//        this.sim = null;
+        sims.add(new Simulation(mType, iType, length, percent, LocalDate.now()));
         dialogStage.close();
-        removeSimulation();
-
     }
 
+    @FXML
+    public void handleCancelPressed() { dialogStage.close(); }
+    
     public void setDialogStage(Stage dialogStage) {
 
         this.dialogStage = dialogStage;
     }
 
-    public void setSimulation(Simulation sim) { this.sim = sim; }
+    public void getSimulations(ObservableList<Simulation> sims) { this.sims = sims; }
 
-    public void removeSimulation() { this.sim = null; }
 }

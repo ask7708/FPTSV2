@@ -11,8 +11,8 @@ public class App extends Application {
    @Override
    public void start(Stage primaryStage) throws Exception {
       
-      Parent root = FXMLLoader.load(getClass().getResource("../views/LoginView.fxml"));
-      primaryStage.setTitle("FPTS - Login");
+      Parent root = FXMLLoader.load(getClass().getResource("../views/Simulator.fxml"));
+      primaryStage.setTitle("FPTS - Simulation");
       primaryStage.setScene(new Scene(root));
       primaryStage.show();
    }

@@ -6,7 +6,6 @@ package model;
 public class DecryptStrategy implements PasswordMgmtStrategy {
 
     @Override
-    // for one password
     public String assessPassword(String pswd) {
 
         String decrypted = "";

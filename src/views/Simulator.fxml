@@ -10,11 +10,9 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.SimulatorController">
    <children>
-      <TableView fx:id="simulationsTable" layoutX="312.0" layoutY="6.0" prefHeight="388.0"
-                 prefWidth="175.0">
+      <TableView fx:id="simulationsTable" layoutX="312.0" layoutY="6.0" prefHeight="388.0" prefWidth="194.0">
         <columns>
-          <TableColumn fx:id="simColumn" editable="false" prefWidth="174.0"
-                       text="Simulations" />
+          <TableColumn fx:id="simColumn" editable="false" prefWidth="193.0" text="Simulations" />
         </columns>
       </TableView>
       <TableView fx:id="equitiesTable" layoutX="4.0" layoutY="6.0" prefHeight="388.0" prefWidth="301.0">
@@ -25,46 +23,38 @@
             <TableColumn fx:id="simPriceColumn" prefWidth="131.0" text="Simulated Price" />
         </columns>
       </TableView>
-      <Button fx:id="addNewSimButton" onAction="#addNewSimulation" layoutX="499.0"
-              layoutY="50.0"
-              mnemonicParsing="false"
-              prefHeight="27.0" prefWidth="87.0" text="Add New Sim" textOverrun="CLIP">
+      <Button fx:id="addNewSimButton" layoutX="516.0" layoutY="50.0" mnemonicParsing="false" onAction="#addNewSimulation" prefHeight="27.0" prefWidth="74.0" text="Create Sim" textOverrun="CLIP">
          <font>
-            <Font size="11.0" />
+            <Font size="10.0" />
          </font>
       </Button>
-      <Button fx:id="resetOneButton" onAction="#removeOneSimulation" layoutX="499.0"
-              layoutY="88.0"
-              mnemonicParsing="false"
-              prefHeight="27.0" prefWidth="87.0" text="Reset One" />
-      <Button fx:id="resetAllButton" onAction="#removeAllSimulation" layoutX="499.0"
-              layoutY="125.0"
-              mnemonicParsing="false"
-              prefHeight="27.0" prefWidth="87.0" text="Reset All" />
-      <Button fx:id="exitButton" layoutX="499.0" layoutY="359.0"
-              mnemonicParsing="false"
-              prefHeight="27.0" prefWidth="87.0" text="Exit" textFill="#f20000" />
-      <Label alignment="TOP_LEFT" contentDisplay="TEXT_ONLY" layoutX="506.0" layoutY="234.0" prefHeight="51.0" prefWidth="74.0" text="Portfolio $$ from last simulation" textOverrun="CLIP" wrapText="true" />
-      <ImageView fx:id="arrowView" fitHeight="59.0" fitWidth="34.0" layoutX="499.0"
-                 layoutY="287.0" pickOnBounds="true" preserveRatio="true">
+      <Button fx:id="resetOneButton" layoutX="515.0" layoutY="88.0" mnemonicParsing="false" onAction="#removeOneSimulation" prefHeight="27.0" prefWidth="74.0" text="Remove Sim">
+         <font>
+            <Font size="10.0" />
+         </font></Button>
+      <Button fx:id="resetAllButton" layoutX="516.0" layoutY="125.0" mnemonicParsing="false" onAction="#removeAllSimulation" prefHeight="27.0" prefWidth="74.0" text="Remove All">
+         <font>
+            <Font size="10.0" />
+         </font></Button>
+      <Button fx:id="exitButton" layoutX="515.0" layoutY="359.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="74.0" text="Exit" textFill="#f20000" />
+      <Label alignment="TOP_LEFT" contentDisplay="TEXT_ONLY" layoutX="516.0" layoutY="234.0" prefHeight="51.0" prefWidth="74.0" text="Portfolio $$ from last simulation" textOverrun="CLIP" wrapText="true" />
+      <ImageView fx:id="arrowView" fitHeight="59.0" fitWidth="34.0" layoutX="509.0" layoutY="287.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../img/redarrow.png" />
          </image>
       </ImageView>
-      <Label fx:id="percentChange" layoutX="543.0" layoutY="296.0" text="5.4%" />
-      <Label fx:id="portfolioValue" alignment="CENTER" layoutX="500.0" layoutY="327.0"
-             prefHeight="17.0" prefWidth="87.0" text="\$4,000.21">
+      <Label fx:id="percentChange" layoutX="553.0" layoutY="296.0" text="5.4%" />
+      <Label fx:id="portfolioValue" alignment="CENTER" layoutX="510.0" layoutY="327.0" prefHeight="17.0" prefWidth="87.0" text="\$4,000.21">
          <effect>
             <Bloom />
          </effect>
       </Label>
-      <Label alignment="CENTER" layoutX="500.0" layoutY="4.0" prefHeight="17.0" prefWidth="87.0" text="Simulator Date" underline="true">
+      <Label alignment="CENTER" layoutX="510.0" layoutY="4.0" prefHeight="17.0" prefWidth="87.0" text="Simulator Date" underline="true">
          <font>
             <Font size="10.0" />
          </font>
       </Label>
-      <Label fx:id="simulatorDate" alignment="CENTER" layoutX="498.0" layoutY="21.0"
-             prefHeight="17.0" prefWidth="87.0" text="10-18-2015">
+      <Label fx:id="simulatorDate" alignment="CENTER" layoutX="508.0" layoutY="21.0" prefHeight="17.0" prefWidth="87.0" text="10-18-2015">
          <font>
             <Font size="12.0" />
          </font>
