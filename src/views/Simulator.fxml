@@ -18,9 +18,9 @@
       <TableView fx:id="equitiesTable" layoutX="4.0" layoutY="6.0" prefHeight="388.0" prefWidth="301.0">
         <columns>
           <TableColumn fx:id="tickSymbolColumn" prefWidth="48.0" text="Ticker" />
-          <TableColumn fx:id="nameColumn" prefWidth="65.0" text="Name" />
-            <TableColumn fx:id="priceColumn" prefWidth="56.0" text="Price" />
-            <TableColumn fx:id="simPriceColumn" prefWidth="131.0" text="Simulated Price" />
+          <TableColumn fx:id="nameColumn" prefWidth="105.0" text="Name" />
+            <TableColumn fx:id="priceColumn" prefWidth="70.0" text="Price" />
+            <TableColumn fx:id="simPriceColumn" prefWidth="77.0" text="Sim Price" />
         </columns>
       </TableView>
       <Button fx:id="addNewSimButton" layoutX="516.0" layoutY="50.0" mnemonicParsing="false" onAction="#addNewSimulation" prefHeight="27.0" prefWidth="74.0" text="Create Sim" textOverrun="CLIP">
@@ -36,7 +36,7 @@
          <font>
             <Font size="10.0" />
          </font></Button>
-      <Button fx:id="exitButton" layoutX="515.0" layoutY="359.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="74.0" text="Exit" textFill="#f20000" />
+      <Button fx:id="exitButton" onAction="#exitSimulator" layoutX="515.0" layoutY="359.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="74.0" text="Exit" textFill="#f20000" />
       <Label alignment="TOP_LEFT" contentDisplay="TEXT_ONLY" layoutX="516.0" layoutY="234.0" prefHeight="51.0" prefWidth="74.0" text="Portfolio $$ from last simulation" textOverrun="CLIP" wrapText="true" />
       <ImageView fx:id="arrowView" fitHeight="59.0" fitWidth="34.0" layoutX="509.0" layoutY="287.0" pickOnBounds="true" preserveRatio="true">
          <image>

@@ -32,9 +32,9 @@ public class SimulatorController {
         @FXML
         private TableColumn<Equity, String> nameColumn;
         @FXML
-        private TableColumn<Equity, Double> priceColumn;
+        private TableColumn<Equity, String> priceColumn;
         @FXML
-        private TableColumn<Equity, Double> simPriceColumn;
+        private TableColumn<Equity, String> simPriceColumn;
 
     @FXML
     private TableView<Simulation> simulationsTable;
@@ -64,22 +64,31 @@ public class SimulatorController {
 
     private ObservableList<Simulation> simulations;
             
-    private ObservableList<Equity> equities =
-          FXCollections.observableArrayList();
+    private ObservableList<Equity> equities;
     
-    public SimulatorController() {}
-
     @FXML
     private void initialize() {
 
-        equitiesTable.setItems(equities);
-        
         simulations = FXCollections.observableArrayList();
+        equities = FXCollections.observableArrayList();
+        
+        Equity e1 = new Equity("Google Inc.", "GOOG", 50.00);
+        e1.putSimulationOn();
+        
+        Equity e2 = new Equity("Apple Inc.", "AAPL", 100.00);
+        e2.putSimulationOn();
+        
+        Equity e3 = new Equity("Microsoft Corporation", "MSFT", 150.00);
+        e3.putSimulationOn();
+        
+        equities.add(e1);
+        equities.add(e2);
+        equities.add(e3);
         
         tickSymbolColumn.setCellValueFactory(cellData -> cellData.getValue().tickSymbolProperty());
         nameColumn.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
-        priceColumn.setCellValueFactory(cellData -> cellData.getValue().initPriceProperty().asObject());
-        simPriceColumn.setCellValueFactory(cellData -> cellData.getValue().getSimPriceProperty().asObject());
+        priceColumn.setCellValueFactory(cellData -> cellData.getValue().initPriceProperty());
+        simPriceColumn.setCellValueFactory(cellData -> cellData.getValue().simPriceProperty());
         simColumn.setCellValueFactory(cellData -> cellData.getValue().shortVersionProperty());
         
         resetOneButton.setDisable(true);
@@ -115,6 +124,13 @@ public class SimulatorController {
             
             simulationsTable.setItems(simulations);
             
+            for(Equity holding: equities)
+               //simulations.get(simulations.size()-1).changeHoldingPrice(holding);
+               simulations.get(0).changeHoldingPrice(holding);
+
+            
+            equitiesTable.setItems(equities);
+            
             checkForResets();
 
         } catch (IOException e) {
@@ -129,6 +145,9 @@ public class SimulatorController {
     private void removeOneSimulation() {
 
         simulations.remove(0);
+        
+        for(Equity obj: this.equities) { obj.removePriceChange(); }
+        //simPriceColumn.setCellValueFactory(cellData -> cellData.getValue().getSimPriceProperty().asObject());
         checkForResets();
     }
 
@@ -139,6 +158,12 @@ public class SimulatorController {
         checkForResets();
     }
 
+    @FXML
+    private void exitSimulator() {
+       
+       Stage stage = (Stage) simulationsTable.getScene().getWindow();
+       stage.close();
+    }
     private void checkForResets() {
 
         if(!simulations.isEmpty()) {
@@ -154,4 +179,3 @@ public class SimulatorController {
         }
     }
 }
-

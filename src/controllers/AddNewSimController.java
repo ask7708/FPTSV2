@@ -63,8 +63,6 @@ public class AddNewSimController {
     @FXML
     private void initialize() {
 
-        System.out.println("Sim is made null");
-//        this.sim = null;
         marketChoiceBox.getItems().addAll(marketChoices);
         intervalChoiceBox.getItems().addAll(intervalChoices);
 

@@ -92,7 +92,11 @@ public class Equity {
 
     public void setInitPrice(double price) { this.initPrice.set(price); }
 
-    public DoubleProperty initPriceProperty() { return this.initPrice; }
+    public StringProperty initPriceProperty() { 
+       
+       //return this.initPrice;
+       return new SimpleStringProperty("$" + String.format("%.02f", initPrice.get()));
+    }
 
     public void putSimulationOn() {
 
@@ -120,15 +124,17 @@ public class Equity {
         }
     }
 
-    public DoubleProperty getSimPriceProperty() {
+    public StringProperty simPriceProperty() {
 
-        DoubleProperty simPrice = new SimpleDoubleProperty(getInitPrice());
+       System.out.println("Getting the simulation price");
+       StringProperty simPrice = new SimpleStringProperty("$" + 
+             String.format("%.02f", initPrice.doubleValue()));
 
         if(this.priceChanges != null) {
 
             if(!this.priceChanges.empty())
-                simPrice = new SimpleDoubleProperty(priceChanges.peek()
-                        .getValue());
+               simPrice = new SimpleStringProperty("$" + 
+                       String.format("%.02f", priceChanges.peek().doubleValue()));
         }
 
         return simPrice;
