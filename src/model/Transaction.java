@@ -22,8 +22,9 @@ public class Transaction {
 	 */
 	final private StringProperty time;
 	final private DoubleProperty cash;
-	final private ObjectProperty<Object> receiver;
-	final private ObjectProperty<Object> transfer;
+	private Object receiver;
+	private Object transfer;
+	final private StringProperty typeString;
 	
 	/**
 	 * 
@@ -42,8 +43,8 @@ public class Transaction {
 	public Transaction(String time, double amount, Object receiver,Object transfer){
 		this.time = new SimpleStringProperty(time);
 		this.cash = new SimpleDoubleProperty(amount);
-		this.receiver = new SimpleObjectProperty<Object>(receiver);
-		this.transfer = new SimpleObjectProperty<Object>(transfer);
+		this.receiver = receiver;
+		this.transfer = transfer;
 		
 		if(transfer instanceof Account){
 			if(((Account) transfer).getAmount() < cash.get()){
@@ -56,16 +57,20 @@ public class Transaction {
 			}
 			
 			if(receiver instanceof Equity){
+				typeString = new SimpleStringProperty("AccountToEquity");
 				AccountToEquity();
 			}
 			else if(receiver instanceof String){
+				typeString = new SimpleStringProperty("Withdraw");
 				Withdraw();
 			}
 			else{
+				typeString = new SimpleStringProperty("AccountToAccount");
 				AccountToAccount();
 			}
 		}
 		else if(transfer instanceof String){
+			typeString = new SimpleStringProperty("Deposit");
 			Deposit();
 		}
 		else{
@@ -79,6 +84,7 @@ public class Transaction {
 					e.printStackTrace();
 				}
 			}
+			typeString = new SimpleStringProperty("EquityToAccount");
 			EquityToAccount();
 		}
 		
@@ -91,6 +97,10 @@ public class Transaction {
 		return time.get();
 	}
 	
+	public StringProperty frontTime(){
+		return time;
+	}
+	
 	/**
 	 * returns the amount being transferred
 	 */
@@ -99,18 +109,62 @@ public class Transaction {
 		return cash.get();
 	}
 	
+	public DoubleProperty frontAmount(){
+		return cash;
+	}
+	
 	/**
 	 * returns the object that receives the money
 	 */
 	public Object getReceiver(){
-		return receiver.get();
+		return receiver;
+	}
+	
+	public StringProperty frontReceiver(){
+		StringProperty name = null;
+		if(typeString.get() == "AccounToAccount" || typeString.get() == "Deposit" || typeString.get() == "AccountToEquity"){
+			Account receivers = (Account) receiver;
+			name = new SimpleStringProperty(receivers.getAccountName());
+		}
+		if(typeString.get() == "EquityToAccount"){
+			Equity receivers = (Equity) receiver;
+			name = new SimpleStringProperty(receivers.getTickSymbol());
+		}
+		else{
+			name = new SimpleStringProperty("User");
+		}
+		return name;
 	}
 	
 	/**
 	 * returns the object that transfers the money
 	 */
 	public Object getTransfer(){
-		return transfer.get();
+		return transfer;
+	}
+	
+	public StringProperty frontTransfer(){
+		StringProperty name = null;
+		if(typeString.get() == "AccounToAccount" || typeString.get() == "Withdraw" || typeString.get() == "EquityToAccount"){
+			Account receivers = (Account) receiver;
+			name = new SimpleStringProperty(receivers.getAccountName());
+		}
+		if(typeString.get() == "AccountToEquity" ){
+			Equity receivers = (Equity) receiver;
+			name = new SimpleStringProperty(receivers.getTickSymbol());
+		}
+		else{
+			name = new SimpleStringProperty("User");
+		}
+		return name;
+	}
+	
+	public String getType(){
+		return typeString.get();
+	}
+	
+	public StringProperty frontType(){
+		return typeString;
 	}
 	
 	/**
@@ -123,8 +177,8 @@ public class Transaction {
 		double total = getAmount()/receivers.getInitPrice();
 		transfers.setAmount(transfers.getAmount() - total);
 		receivers.setShares((int) (receivers.getShares() + total));
-		transfer.set(transfers);
-		receiver.set(receiver);
+		transfer = transfers;
+		receiver = receivers;
 		
 	}
 	
@@ -138,8 +192,8 @@ public class Transaction {
 		double total = (getAmount()/transfers.getInitPrice());
 		transfers.setShares(transfers.getShares() - total);
 		receivers.setAmount(getAmount() + (total*transfers.getInitPrice()));
-		transfer.set(transfers);
-		receiver.set(receivers);
+		transfer = transfers;
+		receiver = receivers;
 		
 	}
 	
@@ -152,8 +206,8 @@ public class Transaction {
 		Account recivers = (Account) getReceiver(); //receivers is the account version of receivers
 		recivers.setAmount(recivers.getAmount() + getAmount());
 		transfers.setAmount(transfers.getAmount() - getAmount());
-		transfer.set(transfers);
-		receiver.set(recivers);
+		transfer = transfers;
+		receiver = recivers;
 		
 		
 	}
@@ -165,7 +219,7 @@ public class Transaction {
 	public void Withdraw(){
 		Account transfers = (Account) getTransfer(); //transfers is the account version of transfer
 		transfers.setAmount(transfers.getAmount() - getAmount());
-		transfer.set(transfers);
+		transfer = transfers;
 	}
 	
 	/**
@@ -175,7 +229,7 @@ public class Transaction {
 	public void Deposit(){
 		Account recivers = (Account) getReceiver(); //receivers is the account version of receiver
 		recivers.setAmount(recivers.getAmount() + getAmount());
-		receiver.set(recivers);
+		receiver = recivers;
 	}
 	
 	public static void main(String[] args){
