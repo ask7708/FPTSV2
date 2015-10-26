@@ -15,6 +15,7 @@ import java.util.Scanner;
 
 import javax.swing.JOptionPane;
 
+import app.LoginMainApp;
 import model.User;
 //import ch.makery.login.model.*;
 import javafx.event.ActionEvent;
@@ -25,6 +26,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -32,8 +34,7 @@ import javafx.stage.Stage;
 
 public class LoginOverviewController implements Initializable {
 
-	  
-
+	LoginMainApp main = new LoginMainApp();
 	
 	public LoginOverviewController() {
 		// TODO Auto-generated constructor stub
@@ -45,12 +46,13 @@ public class LoginOverviewController implements Initializable {
 
 	@FXML private TextField usernameText;
 	@FXML private PasswordField passwordText;
+	@FXML private Button loginButton;
 	private Scanner numScan;
 
 	public boolean userExists(String usernamem, String password) throws FileNotFoundException {
 
 		File f = new File("users.txt");
-
+		
 		numScan = new Scanner(f);
 		numScan.useDelimiter(",");
 		String line;
@@ -99,42 +101,31 @@ public class LoginOverviewController implements Initializable {
 	}
 	
 	
-    public boolean loginHandler(ActionEvent even ) throws FileNotFoundException{
+    public void loginHandler(ActionEvent even ) throws FileNotFoundException{
     	System.out.println("again!");
- 
+    	Stage stage = null;
+    	Parent root = null;
     	try{
         	if(userExists(usernameText.getText().toString(),passwordText.getText().toString() ) == true){
         		System.out.println("we got it");
-                //Parent root = FXMLLoader.load(getClass().getResource("TheOtherScene.fxml"));
-                //Scene scene = new Scene(root);
-                
-                //this.primaryStage.setTitle("FPTS");
-                //this.primaryStage.setScene(scene);
-                //this.primaryStage.show();
-                return true;
-/**
-        		Alert alert = new Alert(AlertType.CONFIRMATION);
-        		alert.setTitle("Information Dialog");
-        		alert.setContentText("It Looks like you are in the system!");
-        		alert.showAndWait();
-        		
-**/        		
-        	}else{
+        		stage=(Stage) loginButton.getScene().getWindow();
+                root = FXMLLoader.load(getClass().getResource("../views/TheOtherScene.fxml"));         
+             	}else{
         		Alert alert = new Alert(AlertType.ERROR);
         		alert.setTitle("Information Dialog");
         		alert.setContentText("Invalid Password or Username");
         		alert.showAndWait();
-        	System.out.println("we did not get " +  usernameText.getText());
-        	return false;
-    		
+        	System.out.println("we did not get " +  usernameText.getText());	
     	}
 
     	}catch(Exception e){
     		System.out.println(e.toString());
     		
     	}
-		return false;
-    	
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+		
     }
 
 
