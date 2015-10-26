@@ -1,4 +1,4 @@
-package model;
+/*package model;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -8,22 +8,22 @@ import java.util.Scanner;
 import model.Equity;
 
 public class ReadFile {
-	/**
+	*//**
 	 * EquityData - the arraylist of Equities in the file
 	 * TransactionData- the arraylist of Transactions in the file
 	 * AccountData - the arraylist of Accounts in the file
-	 */
+	 *//*
 	ArrayList<Equity> EquityData = new ArrayList<Equity>();
 	ArrayList<Transaction> TransactionData = new ArrayList<Transaction>();
 	ArrayList<Account> AccountData = new ArrayList<Account>();
 	ArrayList<Equity> OwnedEquityData = new ArrayList<Equity>();
 	
-	/**
+	*//**
 	 * textName - the name of the file that will be used as the database
 	 * 
 	 * The constructor takes all the lines from the text file and
 	 * then converts them into a respective format and add them into an array
-	 */
+	 *//*
 	public ReadFile(String textName) throws FileNotFoundException{
 
 		//
@@ -63,10 +63,10 @@ public class ReadFile {
 		   }
 		dataRead.close();
 	}
-	/**
+	*//**
 	 * 
 	 * returns the array of Equities
-	 */
+	 *//*
 	public ArrayList<Equity> getEquities(){
 		return EquityData;
 	}
@@ -98,4 +98,4 @@ public class ReadFile {
 	}
 
 
-}
+}*/
