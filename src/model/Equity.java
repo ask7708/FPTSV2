@@ -10,6 +10,7 @@ import java.util.Stack;
 
 /**
  * @author dxr5716 Daniel Roach
+ * @author ask7708 Arshdeep Khalsa
  */
 public class Equity implements Holdings {
 
@@ -62,7 +63,7 @@ public class Equity implements Holdings {
     
     public Equity() { this(null, null, 0.0); }
 
-    public Equity(String name, String tickSymbol, double eqPrice) {
+    public Equity(String tickSymbol, String name,  double eqPrice) {
 
         this.name = new SimpleStringProperty(name);
         this.tSymbol = new SimpleStringProperty(tickSymbol);
@@ -76,7 +77,21 @@ public class Equity implements Holdings {
 
     }
 
-    /** Getters And Setters for name property (JavaFX style) **/
+    public Equity(String tickSymbol, String name,  double eqPrice, double shares, String date) {
+
+        this.name = new SimpleStringProperty(name);
+        this.tSymbol = new SimpleStringProperty(tickSymbol);
+        this.initPrice = new SimpleDoubleProperty(eqPrice);
+
+        // dummy / default values
+        this.shares = new SimpleDoubleProperty(shares);
+        this.attributes = new ArrayList<StringProperty>();
+        this.priceChanges = null;
+        this.date = new SimpleStringProperty(date);
+
+    }
+
+	/** Getters And Setters for name property (JavaFX style) **/
     public String getName() { return this.name.get(); }
 
     public void setName(String name) { this.name.set(name); }
@@ -106,13 +121,18 @@ public class Equity implements Holdings {
     
     public void setTime(String time) { this.date.set(time);}
     
-    public ArrayList<StringProperty> getAttributes(){
+    public ArrayList<StringProperty> getSectors(){
     	return this.attributes;
     }
     
+	public StringProperty dateProperty() {
+		// TODO Auto-generated method stub
+		return this.date;
+	}
+    
+	
     public void addAttribute(String Attribute){
-    	SimpleStringProperty Attributes = new SimpleStringProperty("Attribute");
-    	getAttributes().add(Attributes);
+    	this.attributes.add(new SimpleStringProperty(Attribute));
     }
 
     public StringProperty initPriceProperty() { 
@@ -175,4 +195,36 @@ public class Equity implements Holdings {
 
         return simPrice;
     }
+
+    /**
+   	 * Creates a toString method to print out an Equity Object
+   	 * @param the String representation of Equity
+   	 */
+   	public String toString(){
+   		
+   		 String newS = new String();
+            newS += this.getTickSymbol();
+            newS += " , " + this.getName();
+            newS += " , $" + (this.getInitPrice() +" , ");
+            if(this.getShares() != 0.0){
+           	 newS += "$" + (this.getShares() +" , ");
+            }
+            if(this.getTime() != null){
+           	 newS += (this.getTime() +" , ");
+            }
+            
+            ArrayList<StringProperty> sectors = this.getSectors();
+            
+            if(!sectors.isEmpty()) {
+               
+               for(StringProperty o: sectors){
+                  newS += o.get() + ", ";
+               }
+            }
+            
+            newS += "\n";
+            newS = newS.substring(0, newS.length()-2);
+            return newS;
+   		}
+    
 }
