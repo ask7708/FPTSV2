@@ -22,7 +22,7 @@ public class ReadEquitiesRaw extends ReadHoldingsStrategy {
 		double temp2 = Double.parseDouble(temp[2]); //value of Equity
 		Equity EquityInfo = new Equity(temp[0], temp[1], temp2); //creating Equity
 		for(int x = 3; x < temp.length; x++){ //loop to add index or Sectors
-			//EquityInfo.addIndexOrSec(temp[x]); //adds a sector as long as it's not out of bounce
+			EquityInfo.addAttribute(temp[x]); //adds a sector as long as it's not out of bounce
 		}
 		return EquityInfo; //returns Equity Object
 	}

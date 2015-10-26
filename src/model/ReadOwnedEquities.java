@@ -29,10 +29,10 @@ public class ReadOwnedEquities extends ReadHoldingsStrategy {
 		double temp4 = Double.parseDouble(temp[4]); //Price of Shares
 		Equity EquityInfo = new Equity(temp1, temp2, temp3); //creating Equity
 		for(int x = 6; x < temp.length; x++){
-			//EquityInfo.se(temp[x]); //adding the number of Sec according the length of the Equity
+			EquityInfo.addAttribute(temp[x]); //adding the number of Sec according the length of the Equity
 		}
 		EquityInfo.setShares(temp4); //Setting number of shares
-		//EquityInfo.setDate(Time.toString()); //Setting the date 
+		EquityInfo.setTime(temp[5]);; //Setting the date 
 		return EquityInfo;  //returning Equity
 	}
 	
