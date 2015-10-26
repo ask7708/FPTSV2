@@ -78,13 +78,6 @@ public class OwnedEquityController {
 		return this.ownedEquities;
 	}
 
-	
-	private void initialize() {
-        
-		
-		
-    }
-
 
 	public ObservableList getTableData(){
 		
@@ -101,11 +94,14 @@ public class OwnedEquityController {
 
 	}
 
-	public void initialize(URL location, ResourceBundle resources) {
-	
-		ObservableList<Equity> data = FXCollections.observableArrayList();
+	@FXML
+	public void initialize() {
 		
-		data.add(new Equity("ASSD","Assistance Co.",12.37,23.48,"20151013"));
+		viewOwnedEquities();
+		ObservableList<Equity> data = FXCollections.observableArrayList(getEquityArray());
+		
+		//data.add(new Equity("ASSD","Assistance Co.",12.37,23.48,"20151013"));
+		//System.out.println(getEquityArray());
 		
 		ownedTable.getItems().clear();
 		System.out.println("Before OwnedTable"+ownedTable.getItems());
