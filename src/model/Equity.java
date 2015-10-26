@@ -11,7 +11,7 @@ import java.util.Stack;
 /**
  * @author dxr5716 Daniel Roach
  */
-public class Equity {
+public class Equity implements Holdings {
 
     /**
      * the equity's name
@@ -91,6 +91,19 @@ public class Equity {
     public double getInitPrice() { return this.initPrice.get(); }
 
     public void setInitPrice(double price) { this.initPrice.set(price); }
+    
+    public String getTime(){ return this.date.get();}
+    
+    public void setTime(String time) { this.date.set(time);}
+    
+    public ArrayList<StringProperty> getAttributes(){
+    	return this.attributes;
+    }
+    
+    public void addAttribute(String Attribute){
+    	SimpleStringProperty Attributes = new SimpleStringProperty("Attribute");
+    	getAttributes().add(Attributes);
+    }
 
     public StringProperty initPriceProperty() { 
        
