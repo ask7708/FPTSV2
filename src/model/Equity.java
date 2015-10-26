@@ -50,6 +50,16 @@ public class Equity implements Holdings {
      */
     private Stack<DoubleProperty> priceChanges;
 
+    /**
+     * the high trigger price 
+     */
+    private DoubleProperty highTrigger;
+    
+    /**
+     * the low trigger price
+     */
+    private DoubleProperty lowTrigger;
+    
     public Equity() { this(null, null, 0.0); }
 
     public Equity(String name, String tickSymbol, double eqPrice) {

@@ -7,6 +7,8 @@ public class Portfolio {
 
    private ObservableList<Holdings> holdings;
    private ObservableList<Transaction> transactions;
+   private ObservableList<Holdings> watchlist;
+   
    
    public Portfolio() {
       
