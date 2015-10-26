@@ -8,7 +8,7 @@ public class Watchlist {
    private ArrayList<Equity> equities;
    private ArrayList<Double> lastTradePrices;
    
-   public Watchlist(){
+   public Watchlist() {
       
       this.tickerSymbols = new ArrayList<String>();
       this.lastTradePrices = new ArrayList<Double>();
@@ -18,7 +18,11 @@ public class Watchlist {
    public void addTickerSymbol(String tSym) { this.tickerSymbols.add(tSym); }
    
    // this method (and maybe class) may involve threading of some sort 
-   public void getLastTradePrices() {}
+   public void getLastTradePrices() {
+      
+      lastTradePrices.clear();
+      
+   }
    
    public void addEquity(Equity e) { this.equities.add(e); }
 

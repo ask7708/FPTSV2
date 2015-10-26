@@ -7,12 +7,12 @@ public class Portfolio {
 
    private ObservableList<Holdings> holdings;
    private ObservableList<Transaction> transactions;
-   private ObservableList<Holdings> watchlist;
-   
+   private Watchlist watchlist;
    
    public Portfolio() {
       
       this.holdings = FXCollections.observableArrayList();
       this.transactions = FXCollections.observableArrayList();
+      this.watchlist = new Watchlist();
    }
 }
