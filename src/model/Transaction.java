@@ -47,45 +47,22 @@ public class Transaction {
 		this.transfer = transfer;
 		
 		if(transfer instanceof Account){
-			if(((Account) transfer).getAmount() < cash.get()){
-				try {
-					throw new CashException();
-				} catch (CashException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
 			
 			if(receiver instanceof Equity){
 				typeString = new SimpleStringProperty("AccountToEquity");
-				AccountToEquity();
 			}
 			else if(receiver instanceof String){
 				typeString = new SimpleStringProperty("Withdraw");
-				Withdraw();
 			}
 			else{
 				typeString = new SimpleStringProperty("AccountToAccount");
-				AccountToAccount();
 			}
 		}
 		else if(transfer instanceof String){
 			typeString = new SimpleStringProperty("Deposit");
-			Deposit();
 		}
 		else{
-			Equity transfers = (Equity) transfer;
-			double total = transfers.getShares() * transfers.getInitPrice();
-			if(total < cash.get()){
-				try {
-					throw new CashException();
-				} catch (CashException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
 			typeString = new SimpleStringProperty("EquityToAccount");
-			EquityToAccount();
 		}
 		
 	}
@@ -172,10 +149,18 @@ public class Transaction {
 	 * account and Equity
 	 */
 	public void AccountToEquity(){
+		if(((Account) transfer).getAmount() < cash.get()){
+			try {
+				throw new CashException();
+			} catch (CashException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		Account transfers = (Account) getTransfer(); //Transfers is the Account version of transfer
 		Equity receivers = (Equity) getReceiver(); //Receivers is the Equity version of Receiver
 		double total = getAmount()/receivers.getInitPrice();
-		transfers.setAmount(transfers.getAmount() - total);
+		transfers.setAmount(transfers.getAmount() - getAmount());
 		receivers.setShares((int) (receivers.getShares() + total));
 		transfer = transfers;
 		receiver = receivers;
@@ -189,9 +174,18 @@ public class Transaction {
 	public void EquityToAccount(){
 		Equity transfers = (Equity) getTransfer(); //transfers is the Equity version of transfer
 		Account receivers = (Account) getReceiver(); //receivers is the Account version of receiver
+		double totalexp = transfers.getShares() * transfers.getInitPrice();
+		if(totalexp < cash.get()){
+			try {
+				throw new CashException();
+			} catch (CashException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		double total = (getAmount()/transfers.getInitPrice());
 		transfers.setShares(transfers.getShares() - total);
-		receivers.setAmount(getAmount() + (total*transfers.getInitPrice()));
+		receivers.setAmount(receivers.getAmount() + (total*transfers.getInitPrice()));
 		transfer = transfers;
 		receiver = receivers;
 		
@@ -202,6 +196,14 @@ public class Transaction {
 	 * between Equity and Account
 	 */
 	public void AccountToAccount(){
+		if(((Account) transfer).getAmount() < cash.get()){
+			try {
+				throw new CashException();
+			} catch (CashException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		Account transfers = (Account) getTransfer(); //transfers is the account version of transfer
 		Account recivers = (Account) getReceiver(); //receivers is the account version of receivers
 		recivers.setAmount(recivers.getAmount() + getAmount());
@@ -217,6 +219,14 @@ public class Transaction {
 	 * the account and user
 	 */
 	public void Withdraw(){
+		if(((Account) transfer).getAmount() < cash.get()){
+			try {
+				throw new CashException();
+			} catch (CashException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		Account transfers = (Account) getTransfer(); //transfers is the account version of transfer
 		transfers.setAmount(transfers.getAmount() - getAmount());
 		transfer = transfers;
@@ -232,6 +242,24 @@ public class Transaction {
 		receiver = recivers;
 	}
 	
+	public void Transfer(){
+		if(typeString.get() == "Deposit"){
+			Deposit();
+		}
+		else if(typeString.get() == "Withdraw"){
+			Withdraw();
+		}
+		else if(typeString.get() == "AccountToAccount"){
+			AccountToAccount();
+		}
+		else if(typeString.get() == "EquityToAccount"){
+			EquityToAccount();
+		}
+		else if(typeString.get() == "AccountToEquity"){
+			AccountToEquity();
+		}
+	}
+	
 	public static void main(String[] args){
 		Account things = new BankAccount("Dolla", 5000, "20150002", 1004, 99541);
 		Account thingsExtra = new MarketAccount("Dollas", 5000, "20150002", 1005, 99542);
@@ -239,17 +267,22 @@ public class Transaction {
 		System.out.print("" + things.getAmount() + '\n');
 		System.out.print("" + stuff.getShares() + '\n');
 		Transaction done = new Transaction("20150103", 120, stuff, things);
+		done.Transfer();
 		System.out.print("" + things.getAmount()+ '\n');
 		System.out.print("" + stuff.getShares() + '\n');
 		Transaction dones = new Transaction("20150103", 80, thingsExtra, things);
+		dones.Transfer();
 		System.out.print("" + things.getAmount()+ '\n');
 		System.out.print("" + thingsExtra.getAmount()+ '\n');
 		Transaction Extradone = new Transaction("20150103", 60, things, stuff);
+		Extradone.Transfer();
 		System.out.print("" + things.getAmount() + '\n');
 		System.out.print("" + stuff.getShares() + '\n');
 		Transaction Withdrawdone = new Transaction("20150103", 100, "User", things);
+		Withdrawdone.Transfer();
 		System.out.print("" + things.getAmount() + '\n');
 		Transaction Depositdone = new Transaction("20150103", 10000.50, things, "User");
+		Depositdone.Transfer();
 		System.out.print("" + things.getAmount() + '\n');
 		
 	}
