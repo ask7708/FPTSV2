@@ -17,8 +17,9 @@ public class BankAccount extends Account {
     * @param accountNum the account's identification number
     * @param routingNum the account's routing number
     */
-	public BankAccount(String accountName, double amount, String date, int accountNum, int routingNum) {
-		super(accountName, amount, date, accountNum, routingNum);
+	public BankAccount(String type, String accountName, double amount, String date, String accountNum, String routingNum) {
+
+		super(type, accountName, amount, date, accountNum, routingNum);
 		// TODO Auto-generated constructor stub
 	}
 	

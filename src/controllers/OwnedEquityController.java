@@ -108,11 +108,11 @@ public class OwnedEquityController {
 		ownedTable.setItems(data);
 		System.out.println("After OwnedTable"+ownedTable.getItems());
 		
-		tickCol.setCellValueFactory(cellData -> cellData.getValue().tickSymbolProperty());
-		nameCol.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
-		priceCol.setCellValueFactory(cellData -> cellData.getValue().initPriceProperty());
-		shareCol.setCellValueFactory(cellData -> cellData.getValue().sharesProperty());
-		dateCol.setCellValueFactory(cellData -> cellData.getValue().dateProperty());
+		//tickCol.setCellValueFactory(cellData -> cellData.getValue().tickSymbolProperty());
+		//nameCol.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
+		//priceCol.setCellValueFactory(cellData -> cellData.getValue().initPriceProperty());
+		//shareCol.setCellValueFactory(cellData -> cellData.getValue().sharesProperty());
+		//dateCol.setCellValueFactory(cellData -> cellData.getValue().dateProperty());
 		
 		
 	}

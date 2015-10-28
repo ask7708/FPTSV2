@@ -18,6 +18,12 @@ import model.MarketAccount;
  */
 public abstract class Account implements Holdings {
 	
+	
+	/**
+	 * The name of an account
+	 */
+	private StringProperty typeOfAccount;
+	
 	/**
 	 * The name of an account
 	 */
@@ -36,12 +42,12 @@ public abstract class Account implements Holdings {
 	/**
 	 * The account number for this account
 	 */
-	private IntegerProperty accountNo;
+	private StringProperty accountNo;
 	
 	/**
 	 * The routing number for this account
 	 */
-	private IntegerProperty routingNo;
+	private StringProperty routingNo;
 	
 	/**
 	 * Creates an account object with the name, initial amount, 
@@ -51,13 +57,14 @@ public abstract class Account implements Holdings {
 	 * @param amount
 	 * @param date
 	 */
-	public Account(String accountName, double amount, String date, int accountNum, int routingNum){
+	public Account(String typeOfAccount,String accountName, double amount, String date, String accountNum, String routingNum){
 		
+		this.typeOfAccount = new SimpleStringProperty(typeOfAccount);
 		this.accountName = new SimpleStringProperty(accountName);
 		this.amount = new SimpleDoubleProperty(amount);
 		this.date= new SimpleStringProperty(date);
-		this.accountNo = new SimpleIntegerProperty(accountNum);
-		this.routingNo = new SimpleIntegerProperty(routingNum);
+		this.accountNo = new SimpleStringProperty(accountNum);
+		this.routingNo = new SimpleStringProperty(routingNum);
 		
 	}
 
@@ -73,17 +80,32 @@ public abstract class Account implements Holdings {
 	
 	/**
 	 * gets the routing number of the
-	 * specified int
+	 * specified string
 	 */
-	public int getRoutingnum(){
+	public String getRoutingNum(){
 		return routingNo.get();
 	}
 	/**
-	 * sets the routingno for the specified int
+	 * sets the routingno for the specified string
 	 */
-	public void setRoutingnum(int setNumber){
+	public void setRoutingNum(String setNumber){
 		this.routingNo.set(setNumber);
 	}
+	
+	/**
+	 * gets the account number of the
+	 * specified String
+	 */
+	public String getAccountNum(){
+		return accountNo.get();
+	}
+	/**
+	 * sets the accountno for the specified int
+	 */
+	public void setAccountNum(String setNumber){
+		this.accountNo.set(setNumber);
+	}
+	
 	/**
 	 * Set the name of an account
 	 * 
@@ -138,7 +160,8 @@ public abstract class Account implements Holdings {
 		String newS = new String();
         newS += this.getAccountName();
         newS += " , " + this.getAmount();
-        newS += " , " + (this.getDate() +" , ");
+        newS += " , " + (this.getRoutingNum() +" , ");
+        newS += (this.getAccountNum() +" , ");
         newS += this.getDate();
         
         newS += "\n";
@@ -150,9 +173,41 @@ public abstract class Account implements Holdings {
 
 	public static void main(String args[]){
 		
-		Account testAccount = new MarketAccount("ArshBank", 100.0, "20151013", 000000000, 000000000);
+		Account testAccount = new MarketAccount("","ArshBank", 100.0, "20151013", "000000000", "000000000");
 		System.out.println(testAccount.toString());
 		
 	}
+
+	public StringProperty accountNameProperty() {
+		// TODO Auto-generated method stub
+		return this.accountName;
+	}
+
+	public DoubleProperty amountProperty() {
+		// TODO Auto-generated method stub
+		return this.amount;
+	}
+
+	public StringProperty accountNoProperty() {
+		// TODO Auto-generated method stub
+		return this.accountNo;
+	}
+
+	public StringProperty routingNoProperty() {
+		// TODO Auto-generated method stub
+		return this.routingNo;
+	}
+
+	public StringProperty dateProperty() {
+		// TODO Auto-generated method stub
+		return this.date;
+	}
+
+	public StringProperty typeProperty() {
+		
+		return this.typeOfAccount;
+	}
+	
+	
 	
 }
