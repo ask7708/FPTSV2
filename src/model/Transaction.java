@@ -99,11 +99,11 @@ public class Transaction {
 	
 	public StringProperty frontReceiver(){
 		StringProperty name = null;
-		if(typeString.get() == "AccounToAccount" || typeString.get() == "Deposit" || typeString.get() == "AccountToEquity"){
+		if(typeString.get() == "AccounToAccount" || typeString.get() == "Deposit" || typeString.get() == "EquityToAccount"){
 			Account receivers = (Account) receiver;
 			name = new SimpleStringProperty(receivers.getAccountName());
 		}
-		if(typeString.get() == "EquityToAccount"){
+		if(typeString.get() == "AccountToEquity"){
 			Equity receivers = (Equity) receiver;
 			name = new SimpleStringProperty(receivers.getTickSymbol());
 		}
@@ -261,8 +261,8 @@ public class Transaction {
 	}
 	
 	public static void main(String[] args){
-		Account things = new BankAccount("Dolla", 5000, "20150002", 1004, 99541);
-		Account thingsExtra = new MarketAccount("Dollas", 5000, "20150002", 1005, 99542);
+		Account things = new BankAccount("Bank", "Dolla", 5000, "20150002", "1004", "99541");
+		Account thingsExtra = new MarketAccount("Market", "Dollas", 5000, "20150002", "1005", "99542");
 		Equity stuff = new Equity("Stuff", "YaY", 40);
 		System.out.print("" + things.getAmount() + '\n');
 		System.out.print("" + stuff.getShares() + '\n');

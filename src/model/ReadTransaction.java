@@ -80,8 +80,8 @@ public class ReadTransaction {
 		anArray[5] = "20151104";
 		anArray[6] = "User";
 		
-		Account Hey = new BankAccount(":D", 0, "20141104", 1162, 11234);
-		Account Bye = new MarketAccount("D:", 0, "20141104", 1163, 11235);
+		Account Hey = new BankAccount("Bank", ":D", 0, "20141104", "1162", "11234");
+		Account Bye = new MarketAccount("Market", "D:", 0, "20141104", "1163", "11235");
 		Equity Greetings = new Equity("GREET", "Communication", 50);
 		ArrayList<Equity> Equities = new ArrayList<Equity>();
 		ArrayList<Account> Accounts = new ArrayList<Account>();
