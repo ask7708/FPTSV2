@@ -24,6 +24,7 @@
           </Menu>
             <Menu fx:id="marketMenu" mnemonicParsing="false" text="Market">
               <items>
+                  <MenuItem fx:id="viewMarketItem" onAction="#viewMarketHandler" mnemonicParsing="false" text="View Market" />
                 <MenuItem fx:id="simMarketItem" onAction="#simulateMarketHandler" mnemonicParsing="false" text="Simulate Market" />
               </items>
             </Menu>

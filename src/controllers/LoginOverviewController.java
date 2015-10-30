@@ -104,8 +104,11 @@ public class LoginOverviewController {
 	
     public void loginHandler(ActionEvent even ) throws FileNotFoundException{
        
-       if(userExists(usernameText.getText().toString(), passwordText.getText().toString()))   
+       if(userExists(usernameText.getText().toString(), passwordText.getText().toString())) {  
+          
+          this.application.setUsername(usernameText.getText().toString());
           this.application.showDashboardView();
+       }
        
        else {
           System.out.println("Did not get the right password ");

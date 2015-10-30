@@ -96,7 +96,7 @@ public class App extends Application {
          
          rootController.disableEntireMenu();
          
-         LoginOverviewController loginController  = loader.getController();
+         LoginOverviewController loginController = loader.getController();
          loginController.setMainApp(this);
 
      } catch (IOException e) {
@@ -116,9 +116,9 @@ public class App extends Application {
          Pane loginView = (Pane) loader.load();
          rootLayout.setCenter(loginView);
 
-         primaryStage.setTitle("FPTS - usernameHere - Dashboard");
+         primaryStage.setTitle("FPTS - " + username + " - Dashboard");
          
-         rootController.enableEntireMenu();
+         rootController.resetDashboardMenu();
          DashboardController dashboardController  = loader.getController();
          dashboardController.setMainApp(this);
 
@@ -139,11 +139,33 @@ public class App extends Application {
          Pane simulatorView = (Pane) loader.load();
          rootLayout.setCenter(simulatorView);
 
+         rootController.resetDashboardMenu();
          rootController.disableSimMarketItem();
-         primaryStage.setTitle("FPTS - usernameHere - Simulator");
+         
+         primaryStage.setTitle("FPTS - " + username + " - Simulator");
          SimulatorController simController = loader.getController();
          simController.setMainApp(this);
-         //simController.getEquities(equities);
+
+     } catch (IOException e) {
+         e.printStackTrace();
+     }
+   }
+   
+   public void showMarketView() {
+      
+      try {
+
+         FXMLLoader loader = new FXMLLoader();
+         loader.setLocation(App.class.getResource("../views/ViewMarket.fxml"));
+         Pane marketView = (Pane) loader.load();
+         rootLayout.setCenter(marketView);
+
+         rootController.resetDashboardMenu();
+         rootController.disableViewMarketItem();
+         
+         primaryStage.setTitle("FPTS - " + username + " - View Market");
+         MarketController marketController = loader.getController();
+         marketController.setMainApp(this);
 
      } catch (IOException e) {
          e.printStackTrace();
@@ -157,8 +179,13 @@ public class App extends Application {
     */
    public void logout() {
    
+      this.portfolio = null;
+      this.market = null;
+      this.watchlist = null;
       
    }
+   
+   public void setUsername(String user) { this.username = user; }
    
    public static void main(String[] args) { launch(args); }
    
