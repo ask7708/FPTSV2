@@ -2,7 +2,9 @@ package app;
 
 import java.io.IOException;
 
+import controllers.DashboardController;
 import controllers.LoginOverviewController;
+import controllers.RootLayoutController;
 import controllers.SimulatorController;
 import javafx.application.Application;
 import javafx.collections.ObservableList;
@@ -28,6 +30,8 @@ public class App extends Application {
    private Stage primaryStage;
    private BorderPane rootLayout;
    private Portfolio portfolio;
+   
+   private RootLayoutController rootController;
 
    public App() {
       
@@ -50,7 +54,9 @@ public class App extends Application {
          FXMLLoader loader = new FXMLLoader();
          loader.setLocation(App.class.getResource("../views/RootLayout.fxml"));
          rootLayout = (BorderPane) loader.load();
-
+         
+         rootController = loader.getController();
+                  
          Scene scene = new Scene(rootLayout);
          primaryStage.setScene(scene);
          primaryStage.show();
@@ -69,7 +75,11 @@ public class App extends Application {
          loader.setLocation(App.class.getResource("../views/LoginView.fxml"));
          AnchorPane loginView = (AnchorPane) loader.load();
          rootLayout.setCenter(loginView);
-
+         
+         primaryStage.setTitle("FPTS - Login");
+         
+         rootController.disableEntireMenu();
+         
          LoginOverviewController loginController  = loader.getController();
          loginController.setMainApp(this);
 
@@ -87,8 +97,11 @@ public class App extends Application {
          Pane loginView = (Pane) loader.load();
          rootLayout.setCenter(loginView);
 
-         LoginOverviewController loginController  = loader.getController();
-         loginController.setMainApp(this);
+         primaryStage.setTitle("FPTS - usernameHere - Dashboard");
+         
+         rootController.enableEntireMenu();
+         DashboardController dashboardController  = loader.getController();
+         dashboardController.setMainApp(this);
 
      } catch (IOException e) {
          e.printStackTrace();
@@ -104,6 +117,7 @@ public class App extends Application {
          Pane simulatorView = (Pane) loader.load();
          rootLayout.setCenter(simulatorView);
 
+         primaryStage.setTitle("FPTS - usernameHere - Simulator");
          SimulatorController simController = loader.getController();
          simController.setMainApp(this);
          //simController.getEquities(equities);

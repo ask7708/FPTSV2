@@ -162,17 +162,12 @@ public class SimulatorController {
     }
 
     @FXML
-    private void exitSimulator() throws IOException {
+    private void exitHandler() throws IOException { 
        
-       Stage stage = null;
-       Parent root = null;
+       for(Equity obj: equities)
+          obj.putSimulationOff();
        
-       stage = (Stage) simulationsTable.getScene().getWindow();
-       root = FXMLLoader.load(getClass().getResource("../views/TheOtherScene.fxml"));
-       
-       Scene scene = new Scene(root);
-       stage.setScene(scene);
-       stage.show();
+       this.application.showDashboardView(); 
     }
     
     private void checkForResets() {

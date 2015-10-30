@@ -7,7 +7,7 @@
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.DashboardController">
    <children>
       <Button layoutX="223.0" layoutY="241.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="155.0" text="Manage Your Watchlist" />
-      <Button layoutX="223.0" layoutY="205.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="155.0" text="Create Simulations" />
+      <Button onAction="#createSimulationHandler" layoutX="223.0" layoutY="205.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="155.0" text="Create Simulations" />
       <Button layoutX="223.0" layoutY="170.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="155.0" text="Add an equity" />
       <Button layoutX="223.0" layoutY="134.0" mnemonicParsing="false" text="Veiw Your Owned Equities" />
       <Label layoutX="224.0" layoutY="65.0" text="Welcome to your Dashboard" />

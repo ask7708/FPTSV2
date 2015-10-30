@@ -4,25 +4,28 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.RootLayoutController">
    <top>
       <MenuBar BorderPane.alignment="CENTER">
         <menus>
-          <Menu mnemonicParsing="false" text="File">
+          <Menu fx:id="accountMenu" mnemonicParsing="false" text="Account">
             <items>
-              <MenuItem mnemonicParsing="false" text="Close" />
+              <MenuItem fx:id="viewAccountsItem" mnemonicParsing="false" text="View Accounts" />
+                  <MenuItem fx:id="importAccountItem" mnemonicParsing="false" text="Import An Account" />
+                  <MenuItem fx:id="exportAccountItem" mnemonicParsing="false" text="Export Your Accounts" />
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="Manage Portfolio">
+          <Menu fx:id="equityMenu" mnemonicParsing="false" text="Equity">
             <items>
-              <MenuItem mnemonicParsing="false" text="Delete" />
+              <MenuItem fx:id="viewEquitiesItem" mnemonicParsing="false" text="View Equities" />
+                  <MenuItem fx:id="importEquitiesItem" mnemonicParsing="false" text="Import Equities" />
+                  <MenuItem fx:id="exportEquitiesItem" mnemonicParsing="false" text="Export Equities" />
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="Help">
+          <Menu fx:id="helpMenu" mnemonicParsing="false" text="Help">
             <items>
-              <MenuItem mnemonicParsing="false" text="About" />
-                  <MenuItem mnemonicParsing="false" text="Settings" />
+              <MenuItem fx:id="aboutItem" mnemonicParsing="false" text="About" />
+                  <MenuItem fx:id="settingsItem" mnemonicParsing="false" text="Settings" />
             </items>
           </Menu>
         </menus>

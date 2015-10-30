@@ -13,6 +13,7 @@ import java.util.Scanner;
 
 import javax.swing.JOptionPane;
 
+import app.App;
 import app.LoginMainApp;
 import model.User;
 //import ch.makery.login.model.*;
@@ -36,10 +37,12 @@ public class DashboardController {
 
 	}
 	
+	private App application; 
 	@FXML private Button logoutB;
 	
 	
 	
+	public void createSimulationHandler() { this.application.showSimulatorView(); }
 	
 	public void logoutHandler(ActionEvent even) throws IOException{
 	    Stage stage = null; 
@@ -53,4 +56,5 @@ public class DashboardController {
 	      stage.show();
 	    }
 	
+	public void setMainApp(App app) { this.application = app; }
 }
