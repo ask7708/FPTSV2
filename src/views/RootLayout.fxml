@@ -8,24 +8,30 @@
    <top>
       <MenuBar BorderPane.alignment="CENTER">
         <menus>
-          <Menu fx:id="accountMenu" mnemonicParsing="false" text="Account">
+          <Menu fx:id="accountMenu" mnemonicParsing="false" text="My Accounts">
             <items>
               <MenuItem fx:id="viewAItem" mnemonicParsing="false" text="View Accounts" />
-                  <MenuItem fx:id="importAItem" mnemonicParsing="false" text="Import An Account" />
-                  <MenuItem fx:id="exportAItem" mnemonicParsing="false" text="Export Your Accounts" />
+                  <MenuItem fx:id="importAItem" mnemonicParsing="false" text="Import" />
+                  <MenuItem fx:id="exportAItem" mnemonicParsing="false" text="Export" />
             </items>
           </Menu>
-          <Menu fx:id="equityMenu" mnemonicParsing="false" text="Equity">
+          <Menu fx:id="equityMenu" mnemonicParsing="false" text="My Equities">
             <items>
               <MenuItem fx:id="viewEItem" mnemonicParsing="false" text="View Equities" />
-                  <MenuItem fx:id="importEItem" mnemonicParsing="false" text="Import Equities" />
-                  <MenuItem fx:id="exportEItem" mnemonicParsing="false" text="Export Equities" />
+                  <MenuItem fx:id="importEItem" mnemonicParsing="false" text="Import" />
+                  <MenuItem fx:id="exportEItem" mnemonicParsing="false" text="Export" />
             </items>
           </Menu>
+            <Menu fx:id="marketMenu" mnemonicParsing="false" text="Market">
+              <items>
+                <MenuItem fx:id="simMarketItem" onAction="#simulateMarketHandler" mnemonicParsing="false" text="Simulate Market" />
+              </items>
+            </Menu>
           <Menu fx:id="helpMenu" mnemonicParsing="false" text="Help">
             <items>
               <MenuItem fx:id="aboutItem" mnemonicParsing="false" text="About" />
                   <MenuItem fx:id="settingsItem" mnemonicParsing="false" text="Settings" />
+                  <MenuItem mnemonicParsing="false" text="Logout" />
             </items>
           </Menu>
         </menus>

@@ -13,7 +13,9 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import model.Holdings;
+import model.Market;
 import model.Portfolio;
+import model.Watchlist;
 
 public class App extends Application {
 
@@ -26,14 +28,27 @@ public class App extends Application {
    
    private Stage primaryStage;
    private BorderPane rootLayout;
+   
+   // the logged in user's portfolio object
    private Portfolio portfolio;
    
+   // the market object holding all the equities we can buy
+   private Market market;
+   
+   // the Watchlist object holding the equities the user would 
+   // like to monitor???
+   private Watchlist watchlist;
+   
+   // a reference to the root layout's controller (used to manipulate menus)
    private RootLayoutController rootController;
+   
+   private String username;
 
    public App() {
       
-      System.out.println("Constructor called");
-      
+      this.portfolio = new Portfolio();
+      this.market = new Market("nameoftxtfilehere.txt");
+      this.watchlist = new Watchlist();
    }
    
    @Override
@@ -53,6 +68,7 @@ public class App extends Application {
          this.rootLayout = (BorderPane) loader.load();
          
          this.rootController = loader.getController();
+         rootController.setMainApp(this);
                   
          Scene scene = new Scene(rootLayout);
          primaryStage.setScene(scene);
@@ -64,6 +80,9 @@ public class App extends Application {
       
    }
    
+   /**
+    * Makes a transition to the login view
+    */
    public void showLoginView() {
       
       try {
@@ -85,6 +104,9 @@ public class App extends Application {
      }
    }
    
+   /**
+    * Makes a transition to the simulator view
+    */
    public void showDashboardView() {
       
       try {
@@ -105,6 +127,9 @@ public class App extends Application {
      }
    }
    
+   /**
+    * Makes a transition to the simulator view
+    */
    public void showSimulatorView() {
       
       try {
@@ -114,6 +139,7 @@ public class App extends Application {
          Pane simulatorView = (Pane) loader.load();
          rootLayout.setCenter(simulatorView);
 
+         rootController.disableSimMarketItem();
          primaryStage.setTitle("FPTS - usernameHere - Simulator");
          SimulatorController simController = loader.getController();
          simController.setMainApp(this);
@@ -122,6 +148,16 @@ public class App extends Application {
      } catch (IOException e) {
          e.printStackTrace();
      }
+   }
+   
+   /**
+    * Makes a transition back to the login view by logging out 
+    * (maybe prompt for saving the user's portfolio, cancel any scheduled price
+    * updates, etc.)
+    */
+   public void logout() {
+   
+      
    }
    
    public static void main(String[] args) { launch(args); }
