@@ -5,6 +5,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
@@ -62,6 +63,8 @@ public class SimulatorController {
     @FXML
     private Label portfolioValue;
 
+    private App application;
+    
     private ObservableList<Simulation> simulations;
             
     private ObservableList<Equity> equities;
@@ -72,13 +75,13 @@ public class SimulatorController {
         simulations = FXCollections.observableArrayList();
         equities = FXCollections.observableArrayList();
         
-        Equity e1 = new Equity("Google Inc.", "GOOG", 50.00);
+        Equity e1 = new Equity("GOOG", "Google Inc.", 50.00);
         e1.putSimulationOn();
         
-        Equity e2 = new Equity("Apple Inc.", "AAPL", 100.00);
+        Equity e2 = new Equity("AAPL", "Apple Inc.", 100.00);
         e2.putSimulationOn();
         
-        Equity e3 = new Equity("Microsoft Corporation", "MSFT", 150.00);
+        Equity e3 = new Equity("MSFT", "Microsoft Corporation", 150.00);
         e3.putSimulationOn();
         
         equities.add(e1);
@@ -159,11 +162,19 @@ public class SimulatorController {
     }
 
     @FXML
-    private void exitSimulator() {
+    private void exitSimulator() throws IOException {
        
-       Stage stage = (Stage) simulationsTable.getScene().getWindow();
-       stage.close();
+       Stage stage = null;
+       Parent root = null;
+       
+       stage = (Stage) simulationsTable.getScene().getWindow();
+       root = FXMLLoader.load(getClass().getResource("../views/TheOtherScene.fxml"));
+       
+       Scene scene = new Scene(root);
+       stage.setScene(scene);
+       stage.show();
     }
+    
     private void checkForResets() {
 
         if(!simulations.isEmpty()) {
@@ -178,4 +189,8 @@ public class SimulatorController {
             resetAllButton.setDisable(true);
         }
     }
+    
+    public void setMainApp(App app) { this.application = app; }
+    
+    public void getEquities(ObservableList<Equity> e) { this.equities = e; } 
 }

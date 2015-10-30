@@ -15,4 +15,6 @@ public class Portfolio {
       this.transactions = FXCollections.observableArrayList();
       this.watchlist = new Watchlist();
    }
+   
+   public ObservableList<Holdings> getHoldings() { return this.holdings; }
 }
