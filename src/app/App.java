@@ -6,8 +6,8 @@ import controllers.*;
 import javafx.application.Application;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.SplitPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
@@ -42,6 +42,7 @@ public class App extends Application {
    // a reference to the root layout's controller (used to manipulate menus)
    private RootLayoutController rootController;
    
+   // the logged in user's username
    private String username;
 
    public App() {
@@ -151,6 +152,9 @@ public class App extends Application {
      }
    }
    
+   /**
+    * Makes a transition to the market view
+    */
    public void showMarketView() {
       
       try {
@@ -166,6 +170,30 @@ public class App extends Application {
          primaryStage.setTitle("FPTS - " + username + " - View Market");
          MarketController marketController = loader.getController();
          marketController.setMainApp(this);
+
+     } catch (IOException e) {
+         e.printStackTrace();
+     }
+   }
+   
+   /**
+    * Makes a transition to the transaction view
+    */
+   public void showTransactionView() {
+      
+      try {
+
+         FXMLLoader loader = new FXMLLoader();
+         loader.setLocation(App.class.getResource("../views/TransactionView.fxml"));
+         SplitPane transactionView = (SplitPane) loader.load();
+         rootLayout.setCenter(transactionView);
+
+         rootController.resetDashboardMenu();
+         //rootController.disableViewMarketItem();
+         
+         primaryStage.setTitle("FPTS - " + username + " - View Transactions");
+         TransactionController transactionController = loader.getController();
+         transactionController.setMainApp(this);
 
      } catch (IOException e) {
          e.printStackTrace();

@@ -40,4 +40,5 @@
             <Image url="@../../../../Sandbox/Java%20Scrap/SimulationSubsystem/src/img/redarrow.png" />
          </image>
       </ImageView>
+      <Button layoutX="14.0" onAction="#viewTransactionHandler" layoutY="186.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="179.0" text="View Your Transactions" />
    </children></Pane>

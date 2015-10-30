@@ -38,9 +38,10 @@ public class DashboardController {
 	}
 	
 	private App application; 
+	
 	@FXML private Button logoutB;
 	
-	
+	public void viewTransactionHandler() { this.application.showTransactionView(); }
 	
 	public void createSimulationHandler() { this.application.showSimulatorView(); }
 	
