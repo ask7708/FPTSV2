@@ -29,6 +29,7 @@ public class RootLayoutController {
       
       @FXML private MenuItem aboutItem;
       @FXML private MenuItem settingsItem;
+      @FXML private MenuItem logoutItem;
       
    private App application;
    
@@ -74,6 +75,8 @@ public class RootLayoutController {
   public void simulateMarketHandler() { this.application.showSimulatorView(); }
 
   public void viewMarketHandler() { this.application.showMarketView(); }
+  
+  public void logoutHandler() { this.application.logout(); }
   
   public void disableAccountMenu() { accountMenu.setVisible(false); }
   

@@ -182,7 +182,9 @@ public class App extends Application {
       this.portfolio = null;
       this.market = null;
       this.watchlist = null;
+      this.username = null;
       
+      showLoginView();   
    }
    
    public void setUsername(String user) { this.username = user; }
