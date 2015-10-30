@@ -8,15 +8,15 @@ public class RootLayoutController {
    
    @FXML private Menu accountMenu;
       
-      @FXML private MenuItem viewAccountsItem;
-      @FXML private MenuItem importAccountItem;
-      @FXML private MenuItem exportAccountItem;
+      @FXML private MenuItem viewAItem;
+      @FXML private MenuItem importAItem;
+      @FXML private MenuItem exportAItem;
       
    @FXML private Menu equityMenu;
       
-      @FXML private MenuItem viewEquitiesItem;
-      @FXML private MenuItem importEquitiesItem;
-      @FXML private MenuItem exportEquitiesItem;
+      @FXML private MenuItem viewEItem;
+      @FXML private MenuItem importEItem;
+      @FXML private MenuItem exportEItem;
       
    @FXML private Menu helpMenu;
       
@@ -36,4 +36,13 @@ public class RootLayoutController {
      equityMenu.setVisible(true);
      helpMenu.setVisible(true);
   }
+  
+  public void disableViewAItem() { viewAItem.setVisible(false); }
+  
+  public void enableViewAItem() { viewAItem.setVisible(true); }
+  
+  public void disableImportAItem() { importAItem.setVisible(false); }
+  
+  public void enableImportAItem() { importAItem.setVisible(true); }
+  
 }

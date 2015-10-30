@@ -2,10 +2,7 @@ package app;
 
 import java.io.IOException;
 
-import controllers.DashboardController;
-import controllers.LoginOverviewController;
-import controllers.RootLayoutController;
-import controllers.SimulatorController;
+import controllers.*;
 import javafx.application.Application;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
@@ -53,9 +50,9 @@ public class App extends Application {
 
          FXMLLoader loader = new FXMLLoader();
          loader.setLocation(App.class.getResource("../views/RootLayout.fxml"));
-         rootLayout = (BorderPane) loader.load();
+         this.rootLayout = (BorderPane) loader.load();
          
-         rootController = loader.getController();
+         this.rootController = loader.getController();
                   
          Scene scene = new Scene(rootLayout);
          primaryStage.setScene(scene);
@@ -74,7 +71,7 @@ public class App extends Application {
          FXMLLoader loader = new FXMLLoader();
          loader.setLocation(App.class.getResource("../views/LoginView.fxml"));
          AnchorPane loginView = (AnchorPane) loader.load();
-         rootLayout.setCenter(loginView);
+         this.rootLayout.setCenter(loginView);
          
          primaryStage.setTitle("FPTS - Login");
          
