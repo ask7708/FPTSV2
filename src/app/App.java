@@ -170,7 +170,7 @@ public class App extends Application {
       try {
 
          FXMLLoader loader = new FXMLLoader();
-         loader.setLocation(App.class.getResource("../views/ViewMarket.fxml"));
+         loader.setLocation(App.class.getResource("../views/MarketView.fxml"));
          Pane marketView = (Pane) loader.load();
          rootLayout.setCenter(marketView);
 
