@@ -53,13 +53,14 @@ public class App extends Application {
       this.watchlist = new Watchlist();
    }
    
+   
    @Override
    public void start(Stage primaryStage) throws Exception {
       
 
       // you can change this line to start the app with the fxml file you've made
       // it helps for testing your individual subsystem
-      Parent root = FXMLLoader.load(getClass().getResource("../views/ViewOfEquity.fxml"));
+      Parent root = FXMLLoader.load(getClass().getResource("../views/RootLayout.fxml"));
      // primaryStage.setTitle("FPTS - Simulation");
       primaryStage.setScene(new Scene(root));
       primaryStage.show();
