@@ -15,6 +15,7 @@ import java.util.Scanner;
 
 import javax.swing.JOptionPane;
 
+import app.App;
 import app.LoginMainApp;
 import model.User;
 //import ch.makery.login.model.*;
@@ -32,22 +33,22 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 
-public class LoginOverviewController implements Initializable {
+public class LoginOverviewController {
 
-	LoginMainApp main = new LoginMainApp();
+   private App application;
+   
+   @FXML private TextField usernameText;
+	@FXML private PasswordField passwordText;
+	@FXML private Button loginButton;
+	
+	private Scanner numScan;
 	
 	public LoginOverviewController() {
-		// TODO Auto-generated constructor stub
-		
-
 	    
 	}
 	
 
-	@FXML private TextField usernameText;
-	@FXML private PasswordField passwordText;
-	@FXML private Button loginButton;
-	private Scanner numScan;
+
 
 	public boolean userExists(String usernamem, String password) throws FileNotFoundException {
 
@@ -102,41 +103,21 @@ public class LoginOverviewController implements Initializable {
 	
 	
     public void loginHandler(ActionEvent even ) throws FileNotFoundException{
-    	System.out.println("again!");
-    	Stage stage = null;
-    	Parent root = null;
-    	try{
-        	if(userExists(usernameText.getText().toString(),passwordText.getText().toString() ) == true){
-        		System.out.println("we got it");
-        		stage=(Stage) loginButton.getScene().getWindow();
-                root = FXMLLoader.load(getClass().getResource("../views/TheOtherScene.fxml"));         
-             	}else{
-        		Alert alert = new Alert(AlertType.ERROR);
-        		alert.setTitle("Information Dialog");
-        		alert.setContentText("Invalid Password or Username");
-        		alert.showAndWait();
-        	System.out.println("we did not get " +  usernameText.getText());	
-    	}
-
-    	}catch(Exception e){
-    		System.out.println(e.toString());
-    		
-    	}
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-		
+       
+       if(userExists(usernameText.getText().toString(), passwordText.getText().toString())) {  
+          
+          this.application.setUsername(usernameText.getText().toString());
+          this.application.showDashboardView();
+       }
+       
+       else {
+          System.out.println("Did not get the right password ");
+          Alert alert = new Alert(AlertType.ERROR);
+          alert.setTitle("Information Dialog");
+          alert.setContentText("Invalid Password or Username");
+          alert.showAndWait();
+       }	
     }
 
-
-
-	@Override
-	public void initialize(URL arg0, ResourceBundle arg1) {
-		// TODO Auto-generated method stub
-		
-	}
-    
-   
-    
-
+    public void setMainApp(App app) { this.application = app; }
 }

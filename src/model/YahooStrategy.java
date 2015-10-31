@@ -1,4 +1,5 @@
 package model;
+
 /**
  * @author dxr5716 Daniel Roach
  */

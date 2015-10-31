@@ -30,4 +30,16 @@ public class Market {
       this.equities.add(e);
    }
 
+   /**
+    * Method to return an Equity object from the Market
+    * (could be useful in searching for equities)
+    * @param tSymbol
+    * @return
+    */
+   public Equity findEquity(String tSymbol) {
+      
+      Equity e = null;
+      
+      return e;
+   }
 }

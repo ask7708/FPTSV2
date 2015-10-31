@@ -61,6 +61,7 @@ public class LoginMainApp extends Application {
            this.primaryStage.show();
         
     }
+    
     public void showOther() throws IOException{
         Parent root = FXMLLoader.load(getClass().getResource("../views/TheOtherScene.fxml"));
         Scene scene = new Scene(root);

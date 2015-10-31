@@ -3,6 +3,7 @@ package controllers;
 import model.Transaction;
 import model.Equity;
 import model.MarketAccount;
+import app.App;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -11,21 +12,17 @@ import model.Account;
 
 public class TransactionController {
 	
-	@FXML
-	private TableView<Transaction> Transactiontable;
-	@FXML
-	private TableColumn<Transaction, String> typeColumn;
-	@FXML
-	private TableColumn<Transaction, String> TransferColumn;
-	@FXML
-	private TableColumn<Transaction, String> ReceiverColumn;
-	@FXML
-	private TableColumn<Transaction, Number> AmountColumn;
-	@FXML
-	private TableColumn<Transaction, String> DateColumn;
+	@FXML private TableView<Transaction> Transactiontable;
 	
-	@FXML
-	private Button backButton;
+	   @FXML private TableColumn<Transaction, String> typeColumn;
+	   @FXML private TableColumn<Transaction, String> TransferColumn;
+	   @FXML private TableColumn<Transaction, String> ReceiverColumn;
+	   @FXML private TableColumn<Transaction, Number> AmountColumn;
+	   @FXML private TableColumn<Transaction, String> DateColumn;
+	
+	@FXML private Button backButton;
+	
+	private App application;
 	
 	private ObservableList<Transaction> transactions;
 	
@@ -48,5 +45,8 @@ public class TransactionController {
 		Transactiontable.setItems(transactions);
 	}
 	
-
+	public void backHandler() { this.application.showDashboardView(); }
+	
+	public void setMainApp(App app) { this.application = app; } 
+	
 }

@@ -1,4 +1,5 @@
 package model;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -28,6 +29,7 @@ public class EquityStrategy implements YahooStrategy {
             con.setRequestMethod("GET");
             con.setConnectTimeout(5000);
             con.setReadTimeout(10000);
+
 
             BufferedReader in = new BufferedReader(
                     new InputStreamReader(con.getInputStream()));
