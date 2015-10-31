@@ -20,7 +20,7 @@ public class ReadEquitiesRaw extends ReadHoldingsStrategy {
 	 */
 	public Holdings readHolding(String[] temp) {
 		double temp2 = Double.parseDouble(temp[2]); //value of Equity
-		Equity EquityInfo = new Equity(temp[0], temp[1], temp2); //creating Equity
+		Equity EquityInfo = new Equity(temp[0].replace(" " , ""), temp[1], temp2); //creating Equity
 		for(int x = 3; x < temp.length; x++){ //loop to add index or Sectors
 			EquityInfo.addAttribute(temp[x]); //adds a sector as long as it's not out of bounce
 		}

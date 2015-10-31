@@ -6,6 +6,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.Scanner;
+import javafx.stage.Stage;
 
 import model.Equity;
 import model.ReadHoldingsContext;
@@ -13,8 +14,11 @@ import model.ReadOwnedEquities;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.stage.FileChooser;
+
 
 public class OwnedEquityController {
 	
@@ -32,6 +36,12 @@ public class OwnedEquityController {
 	
 	@FXML
 	private TableView ownedTable;
+	
+	@FXML
+	private Button importButton;
+	
+	@FXML
+	private Button exportButton;
 	
 	ArrayList<Equity> ownedEquities = new ArrayList<Equity>();
 	
@@ -84,7 +94,20 @@ public class OwnedEquityController {
 		return ownedTable.getItems();
 	}
 	
+	public void importEquities(){
+		
+		
+		System.out.println("Import Equities");
+		FileChooser fileChooser = new FileChooser();
+		fileChooser.setTitle("Open Resource File");
+		
+		
+	}
 	
+	public void exportEquities(){
+		
+		System.out.println("Export Clicked");
+	}
 
 	public static void main(String args[]) {
 
@@ -108,11 +131,11 @@ public class OwnedEquityController {
 		ownedTable.setItems(data);
 		System.out.println("After OwnedTable"+ownedTable.getItems());
 		
-		//tickCol.setCellValueFactory(cellData -> cellData.getValue().tickSymbolProperty());
-		//nameCol.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
-		//priceCol.setCellValueFactory(cellData -> cellData.getValue().initPriceProperty());
-		//shareCol.setCellValueFactory(cellData -> cellData.getValue().sharesProperty());
-		//dateCol.setCellValueFactory(cellData -> cellData.getValue().dateProperty());
+		tickCol.setCellValueFactory(cellData -> cellData.getValue().tickSymbolProperty());
+		nameCol.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
+		priceCol.setCellValueFactory(cellData -> cellData.getValue().initPriceProperty());
+		shareCol.setCellValueFactory(cellData -> cellData.getValue().sharesProperty());
+		dateCol.setCellValueFactory(cellData -> cellData.getValue().dateProperty());
 		
 		
 	}
