@@ -1,5 +1,9 @@
 package model;
-import java.time.LocalDate;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 import model.Account;
 import model.BankAccount;
@@ -7,9 +11,7 @@ import model.CashException;
 import model.Equity;
 import model.MarketAccount;
 import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
@@ -99,11 +101,11 @@ public class Transaction {
 	
 	public StringProperty frontReceiver(){
 		StringProperty name = null;
-		if(typeString.get() == "AccounToAccount" || typeString.get() == "Deposit" || typeString.get() == "EquityToAccount"){
+		if(this.getType().equals("AccounToAccount") || this.getType().equals("Deposit") || this.getType().equals("EquityToAccount")){
 			Account receivers = (Account) receiver;
 			name = new SimpleStringProperty(receivers.getAccountName());
 		}
-		if(typeString.get() == "AccountToEquity"){
+		else if(this.getType().equals("AccountToEquity")){
 			Equity receivers = (Equity) receiver;
 			name = new SimpleStringProperty(receivers.getTickSymbol());
 		}
@@ -122,13 +124,13 @@ public class Transaction {
 	
 	public StringProperty frontTransfer(){
 		StringProperty name = null;
-		if(typeString.get() == "AccounToAccount" || typeString.get() == "Withdraw" || typeString.get() == "EquityToAccount"){
-			Account receivers = (Account) receiver;
-			name = new SimpleStringProperty(receivers.getAccountName());
+		if(this.getType().equals("AccounToAccount") || this.getType().equals("Withdraw") || this.getType().equals("EquityToAccount")){
+			Account transfers = (Account) transfer;
+			name = new SimpleStringProperty(transfers.getAccountName());
 		}
-		if(typeString.get() == "AccountToEquity" ){
-			Equity receivers = (Equity) receiver;
-			name = new SimpleStringProperty(receivers.getTickSymbol());
+		else if(this.getType().equals("AccountToEquity") ){
+			Equity transfers = (Equity) transfer;
+			name = new SimpleStringProperty(transfers.getTickSymbol());
 		}
 		else{
 			name = new SimpleStringProperty("User");
@@ -204,8 +206,8 @@ public class Transaction {
 				e.printStackTrace();
 			}
 		}
-		Account transfers = (Account) getTransfer(); //transfers is the account version of transfer
-		Account recivers = (Account) getReceiver(); //receivers is the account version of receivers
+		Account transfers = (Account) this.getTransfer(); //transfers is the account version of transfer
+		Account recivers = (Account) this.getReceiver(); //receivers is the account version of receivers
 		recivers.setAmount(recivers.getAmount() + getAmount());
 		transfers.setAmount(transfers.getAmount() - getAmount());
 		transfer = transfers;
@@ -261,8 +263,8 @@ public class Transaction {
 	}
 	
 	public static void main(String[] args){
-		Account things = new BankAccount("Bank", "Dolla", 5000, "20150002", "1004", "99541");
-		Account thingsExtra = new MarketAccount("Market", "Dollas", 5000, "20150002", "1005", "99542");
+		Account things = new BankAccount("!BANK", "Dolla", 5000, "20150002", "1004", "99541");
+		Account thingsExtra = new MarketAccount("!MM", "Dollas", 5000, "20150002", "1005", "99542");
 		Equity stuff = new Equity("Stuff", "YaY", 40);
 		System.out.print("" + things.getAmount() + '\n');
 		System.out.print("" + stuff.getShares() + '\n');

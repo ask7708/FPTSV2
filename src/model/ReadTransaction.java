@@ -3,12 +3,15 @@ package model;
 import java.util.ArrayList;
 
 public class ReadTransaction {
+	public ReadTransaction(){
+		
+	}
 	
 	//Transaction Format
 	//Transaction id, Ticker (Equity or Account), Name of Equity/Account
 	//CurrentValue, #Shares (amount for account), Date, bankName
 	
-	public static Transaction readTransaction(String[] temp, ArrayList<Equity> Equities, ArrayList<Account> Accounts){
+	public Transaction readTransaction(String[] temp, ArrayList<Equity> Equities, ArrayList<Account> Accounts){
 		Object reciever = null;
 		Object transfer = null;
 		if(temp[1] != "!BANK"){
@@ -88,7 +91,8 @@ public class ReadTransaction {
 		Equities.add(Greetings);
 		Accounts.add(Hey);
 		Accounts.add(Bye);
-		Transaction done = readTransaction(anArray, Equities, Accounts);
-		System.out.println(done.getReceiver());
+		ReadTransaction stuff = new ReadTransaction();
+		Transaction done = stuff.readTransaction(anArray, Equities, Accounts);
+		System.out.println(done);
 	}
 }
