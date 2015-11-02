@@ -3,6 +3,12 @@ package controllers;
 import model.Transaction;
 import model.Equity;
 import model.MarketAccount;
+import model.ParseTransaction;
+import model.ReadTransaction;
+
+import java.io.File;
+import java.util.ArrayList;
+
 import app.App;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -31,28 +37,13 @@ public class TransactionController {
 	private void initialize(){
 		transactions = FXCollections.observableArrayList();
 		
-		Equity bye = new Equity("AADA", "Ada", 20);
-		Account goodbyte = new BankAccount("bank", "nooo", 50, "whatever", "extra", "moreextra");
-		Account hello = new MarketAccount("Market", "hello", 40, "12110412", "2012", "21345");
-		Transaction hi = new Transaction("20111206", 40, bye, hello);
-		
-		Transaction greetings = new Transaction("201111206", 40, hello, bye);
-		
-		Transaction grah = new Transaction("date", 40, goodbyte, hello);
-		
-		Transaction ford = new Transaction("date", 40, hello, goodbyte);
-		
-		Transaction nope = new Transaction("date", 40, "User", goodbyte);
-		
-		Transaction yep = new Transaction("date", 40, goodbyte, "User");
-		
-		
-		transactions.add(hi);
-		transactions.add(greetings);
-		transactions.add(ford);
-		transactions.add(nope);
-		transactions.add(yep);
-		transactions.add(grah);
+		File data = new File("itnks.txt");
+		ParseTransaction build = new ParseTransaction();
+		ArrayList<String[]> temp = build.ParseFile(data);
+		for(int i = 0; i < temp.size(); i++){
+			Transaction TransactionTemp = new Transaction(temp.get(i));
+			transactions.add(TransactionTemp);
+		}
 		
 		typeColumn.setCellValueFactory(cellData -> cellData.getValue().frontType());
 		TransferColumn.setCellValueFactory(cellData -> cellData.getValue().frontTransfer());

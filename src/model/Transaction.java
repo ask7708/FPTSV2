@@ -42,6 +42,7 @@ public class Transaction {
 	 *It also raises exceptions if there isn't enough in the account or equity
 	 */
 	
+	//Use this for fuctionalitiy purposes 
 	public Transaction(String time, double amount, Object receiver,Object transfer){
 		this.time = new SimpleStringProperty(time);
 		this.cash = new SimpleDoubleProperty(amount);
@@ -67,6 +68,38 @@ public class Transaction {
 			typeString = new SimpleStringProperty("EquityToAccount");
 		}
 		
+	}
+	
+	//Use this for display purposes only
+	public Transaction(String[] temp){
+		this.time = new SimpleStringProperty(temp[5]);
+		this.cash = new SimpleDoubleProperty(Double.parseDouble(temp[4]));
+		if(this.cash.get() >= 0){
+			this.receiver = temp[6];
+			this.transfer = temp[2];
+			if(temp[6].equals("User")){
+				typeString = new SimpleStringProperty("Deposit");
+			}
+			else if(!temp[1].equals("!BANK")){
+				typeString = new SimpleStringProperty("EquityToAccount");
+			}
+			else{
+				typeString = new SimpleStringProperty("AccountToAccount");
+			}
+		}
+		else{
+			this.receiver = temp[2];
+			this.transfer = temp[6];
+			if(temp[6].equals("User")){
+				typeString = new SimpleStringProperty("Withdraw");
+			}
+			else if(!temp[1].equals("!BANK")){
+				typeString = new SimpleStringProperty("AccountToEquity");
+			}
+			else{
+				typeString = new SimpleStringProperty("AccountToAccount");
+			} 
+		}
 	}
 	
 	/**
@@ -101,6 +134,10 @@ public class Transaction {
 	
 	public StringProperty frontReceiver(){
 		StringProperty name = null;
+		if(this.receiver instanceof String){
+			name = new SimpleStringProperty((String) this.receiver);
+			return name;
+		}
 		if(this.getType().equals("AccountToAccount") || this.getType().equals("Deposit") || this.getType().equals("EquityToAccount")){
 			Account receivers = (Account) receiver;
 			name = new SimpleStringProperty(receivers.getAccountName());
@@ -124,6 +161,10 @@ public class Transaction {
 	
 	public StringProperty frontTransfer(){
 		StringProperty name = null;
+		if(this.transfer instanceof String){
+			name = new SimpleStringProperty((String) this.transfer);
+			return name;
+		}
 		if(this.getType().equals("AccountToAccount") || this.getType().equals("Withdraw") ||this.getType().equals("AccountToEquity")){
 			Account transfers = (Account) transfer;
 			name = new SimpleStringProperty(transfers.getAccountName());
