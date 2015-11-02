@@ -165,7 +165,7 @@ public abstract class Account implements Holdings {
         newS += this.getDate();
         
         newS += "\n";
-        newS = newS.substring(0, newS.length()-2);
+        newS = newS.substring(0, newS.length()-1);
         return newS;
 	}
 	
