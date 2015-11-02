@@ -101,7 +101,7 @@ public class Transaction {
 	
 	public StringProperty frontReceiver(){
 		StringProperty name = null;
-		if(this.getType().equals("AccounToAccount") || this.getType().equals("Deposit") || this.getType().equals("EquityToAccount")){
+		if(this.getType().equals("AccountToAccount") || this.getType().equals("Deposit") || this.getType().equals("EquityToAccount")){
 			Account receivers = (Account) receiver;
 			name = new SimpleStringProperty(receivers.getAccountName());
 		}
@@ -124,11 +124,11 @@ public class Transaction {
 	
 	public StringProperty frontTransfer(){
 		StringProperty name = null;
-		if(this.getType().equals("AccounToAccount") || this.getType().equals("Withdraw") || this.getType().equals("EquityToAccount")){
+		if(this.getType().equals("AccountToAccount") || this.getType().equals("Withdraw") ||this.getType().equals("AccountToEquity")){
 			Account transfers = (Account) transfer;
 			name = new SimpleStringProperty(transfers.getAccountName());
 		}
-		else if(this.getType().equals("AccountToEquity") ){
+		else if(this.getType().equals("EquityToAccount")){
 			Equity transfers = (Equity) transfer;
 			name = new SimpleStringProperty(transfers.getTickSymbol());
 		}
