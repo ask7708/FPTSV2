@@ -56,7 +56,7 @@ public class App extends Application {
    public App() {
       
       this.portfolio = new Portfolio();
-    //  this.market = new Market("equities.txt");
+      this.market = new Market("shorteqs.txt");
       this.watchlist = new Watchlist();
    }
    

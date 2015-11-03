@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import model.Equity;
+import model.Market;
 
 /**
  * @author Arsh
@@ -34,11 +35,12 @@ public class BuyEquityController {
 	
 	private MarketController markControl;
 	
+	private Market market;
+	
 	private Equity selectedEq;
 	
 	public void initialize(){
-		
-		
+	
 		
 		
 	}
@@ -75,5 +77,9 @@ public class BuyEquityController {
 	priceToSetLabel.setText(price);
 	}
 	
+	public void setMarket(Market market){
+		
+		this.market = market;
+	}
 	
 }
