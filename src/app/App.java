@@ -13,6 +13,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import model.Equity;
 import model.Holdings;
 import model.Market;
 import model.Portfolio;
@@ -230,7 +231,7 @@ public class App extends Application {
    
    public static void main(String[] args) { launch(args); }
    
-   public ObservableList<Holdings> getHoldings() { return this.portfolio.getHoldings(); }
+   public ObservableList<Equity> getHoldings() { return this.portfolio.getHoldings(); }
    
    public String getBaseURL() {return this.base; }
    
