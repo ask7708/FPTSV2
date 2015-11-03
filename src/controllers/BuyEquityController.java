@@ -42,7 +42,13 @@ public class BuyEquityController {
 	public void initialize(){
 	
 		
+	}
+	
+	@FXML
+	public void buyPressed(){
 		
+		System.out.println(this.tickSymbolToBeSetLabel.getText());
+		System.out.println(this.market.findEquity(this.tickSymbolToBeSetLabel.getText()));
 	}
 	
 	@FXML
