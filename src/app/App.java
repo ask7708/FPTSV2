@@ -282,4 +282,9 @@ public class App extends Application {
 	   return this.username;
    }
    
+   public Portfolio getPortfolio(){
+	   
+	   return this.portfolio;
+   }
+   
 }

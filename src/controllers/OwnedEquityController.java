@@ -89,7 +89,9 @@ public class OwnedEquityController {
 		}
 
 		dataRead.close();
-		ownedTable.setItems(ownedEquities);
+		application.getPortfolio().setEquityList(ownedEquities);
+		ownedTable.setItems(application.getPortfolio().getEquityList());
+		//ownedTable.setItems(ownedEquities);
 
 	}
 
