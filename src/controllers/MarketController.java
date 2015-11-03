@@ -107,8 +107,8 @@ public class MarketController {
 
 		MarketController evc = new MarketController();
 		evc.viewEquities();
-		//System.out.println(evc.getEquityArray().toString());
-
+		System.out.println(evc.getEquityArray().toString());
+		
 	}
 
 	@FXML

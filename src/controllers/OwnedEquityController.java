@@ -1,11 +1,18 @@
 package controllers;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.Scanner;
+
+import javax.swing.filechooser.FileNameExtensionFilter;
+
 import javafx.stage.Stage;
 
 import model.Equity;
@@ -97,10 +104,54 @@ public class OwnedEquityController {
 	public void importEquities(){
 		
 		
-		System.out.println("Import Equities");
-		FileChooser fileChooser = new FileChooser();
-		fileChooser.setTitle("Open Resource File");
 		
+		FileChooser fileChooser = new FileChooser();
+		FileNameExtensionFilter filter = new FileNameExtensionFilter("Text Files", "txt");
+		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Text files (*.txt)", "*.txt");
+		fileChooser.getExtensionFilters().add(extFilter);
+		File selectedFile = fileChooser.showOpenDialog(null);
+
+		if(selectedFile != null){
+		   Scanner dataRead = null;
+			try {
+				dataRead = new Scanner(selectedFile);
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			String line;
+			//StringBuffer sb = new StringBuffer();
+			PrintWriter out;
+			
+			while (dataRead.hasNextLine())
+			{
+	     	line = dataRead.nextLine();
+	     	//System.out.println(line);
+	     	if(line.startsWith("\"!OWNED\"")){
+	     		//sb.append(line+"\n");
+	     		System.out.println("Import Equities");
+	    		File writeFile = new File("itnks.txt");
+	    		writeFile.setWritable(true);
+	    		try {
+					out = new PrintWriter(new BufferedWriter(new FileWriter("itnks.txt", true)));
+					out.println(line);
+					out.close();
+	    		} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+	    		
+	    		
+	     	}
+	     	
+	     		
+	     	}
+			
+			dataRead.close();
+		}
+		
+		initialize();
 		
 	}
 	
