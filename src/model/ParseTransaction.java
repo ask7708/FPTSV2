@@ -9,6 +9,8 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 
@@ -82,14 +84,13 @@ public class ParseTransaction {
 		
 		Account hi = new BankAccount("hi", "hi", 22, "hi", "hi", "hi");
 		Equity bye = new Equity("bye", "bye", 22);
-		ArrayList<Equity> Equities = new ArrayList<Equity>();
-		ArrayList<Account> accounts = new ArrayList<Account>();
-		Equities.add(bye);
-		accounts.add(hi);
+		ObservableList<Holdings> holdings = FXCollections.observableArrayList();
+		holdings.add(bye);
+		holdings.add(hi);
 		
 		ReadTransaction stuffs = new ReadTransaction();
 		
-		Transaction stuff = stuffs.readTransaction(data.get(0), Equities, accounts);
+		Transaction stuff = stuffs.readTransaction(data.get(0),holdings);
 		System.out.print(stuff.getType());
 	}
 
