@@ -214,6 +214,7 @@ public class App extends Application {
          primaryStage.setTitle("FPTS - " + username + " - View Transactions");
          TransactionController transactionController = loader.getController();
          transactionController.setMainApp(this);
+         transactionController.setinformation(username);
 
      } catch (IOException e) {
          e.printStackTrace();

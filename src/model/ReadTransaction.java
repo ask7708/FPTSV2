@@ -1,6 +1,12 @@
  package model;
 
 import java.util.ArrayList;
+import java.util.Iterator;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import model.Portfolio.AccountIterator;
+import model.Portfolio.EquityIterator;
 
 public class ReadTransaction {
 	public ReadTransaction(){
@@ -11,26 +17,28 @@ public class ReadTransaction {
 	//Transaction id, Ticker (Equity or Account), Name of Equity/Account
 	//CurrentValue, #Shares (amount for account), Date, bankName
 	
-	
-	public Transaction readTransaction(String[] temp, ArrayList<Equity> Equities, ArrayList<Account> Accounts){
+
+	public Transaction readTransaction(String[] temp, ObservableList<Holdings> holdings ){
 		Object reciever = null;
 		Object transfer = null;
+		AccountIterator Aitr = new AccountIterator(holdings);
+		EquityIterator Eitr = new EquityIterator(holdings);
 		if(temp[1] != "!BANK"){
-			for(int i = 0; i < Equities.size(); i++){
-				if(Equities.get(i).getName() == temp[2]){
+			for(Eitr.first(); !Eitr.isDone(); Eitr.next()){
+				if(Eitr.currentItem().getName() == temp[2]){
 					if(Integer.parseInt(temp[4]) < 0){
-						transfer = Equities.get(i);
-						for(int j = 0; j < Accounts.size(); j++){
-							if(Accounts.get(j).getAccountName() == temp[6]){
-								reciever = Accounts.get(j);
+						transfer = Eitr.currentItem();
+						for(Aitr.first(); !Aitr.isDone(); Aitr.next()){
+							if(Aitr.currentItem().getAccountName() == temp[6]){
+								reciever = Aitr.currentItem();
 							}
 						}
 					}
 					else{
-						reciever = Equities.get(i);
-						for(int j = 0; j < Accounts.size(); j++){
-							if(Accounts.get(j).getAccountName() == temp[6]){
-								transfer = Accounts.get(j);
+						reciever = Eitr.currentItem();
+						for(Aitr.first(); !Aitr.isDone(); Aitr.next()){
+							if(Aitr.currentItem().getAccountName() == temp[6]){
+								transfer = Aitr.currentItem();
 							}
 						}
 					}
@@ -38,30 +46,30 @@ public class ReadTransaction {
 			}
 		}
 		else{
-			for(int j = 0; j < Accounts.size(); j++){
-				if(Accounts.get(j).getAccountName() == temp[2]){
+			for(Aitr.first(); !Aitr.isDone(); Aitr.next()){
+				if(Aitr.currentItem().getAccountName() == temp[2]){
 					if(Integer.parseInt(temp[4]) < 0){
-						transfer = Accounts.get(j);
+						transfer = Aitr.currentItem();
 						if(temp[6] == "User"){
 							reciever = "User";
 						}
 						else{
-							for(int i = 0; i < Accounts.size(); i++){
-								if(Accounts.get(i).getAccountName() == temp[6]){
-									reciever = Accounts.get(i);
+							for(Aitr.first(); !Aitr.isDone(); Aitr.next()){
+								if(Aitr.currentItem().getAccountName() == temp[6]){
+									reciever = Aitr.currentItem();
 								}
 							}
 						}
 					}
 					else{
-						reciever = Accounts.get(j);
+						reciever = Aitr.currentItem();
 						if(temp[6] == "User"){
 							transfer = "User";
 						}
 						else{
-							for(int i = 0; i < Accounts.size(); i++){
-								if(Accounts.get(i).getAccountName() == temp[6]){
-									transfer = Accounts.get(i);
+							for(Aitr.first(); !Aitr.isDone(); Aitr.next()){
+								if(Aitr.currentItem().getAccountName() == temp[6]){
+									transfer = Aitr.currentItem();
 								}
 							}
 						}
@@ -87,13 +95,12 @@ public class ReadTransaction {
 		Account Hey = new BankAccount("Bank", ":D", 0, "20141104", "1162", "11234");
 		Account Bye = new MarketAccount("Market", "D:", 0, "20141104", "1163", "11235");
 		Equity Greetings = new Equity("GREET", "Communication", 50);
-		ArrayList<Equity> Equities = new ArrayList<Equity>();
-		ArrayList<Account> Accounts = new ArrayList<Account>();
-		Equities.add(Greetings);
-		Accounts.add(Hey);
-		Accounts.add(Bye);
+		ObservableList<Holdings> holdings = FXCollections.observableArrayList();
+		holdings.add(Greetings);
+		holdings.add(Hey);
+		holdings.add(Bye);
 		ReadTransaction stuff = new ReadTransaction();
-		Transaction done = stuff.readTransaction(anArray, Equities, Accounts);
-		System.out.println(done);
+		Transaction done = stuff.readTransaction(anArray, holdings);
+		System.out.println(done.getAmount());
 	}
 }

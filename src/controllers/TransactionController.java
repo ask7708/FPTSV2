@@ -37,14 +37,6 @@ public class TransactionController {
 	private void initialize(){
 		transactions = FXCollections.observableArrayList();
 		
-		File data = new File("itnks.txt");
-		ParseTransaction build = new ParseTransaction();
-		ArrayList<String[]> temp = build.ParseFile(data);
-		for(int i = 0; i < temp.size(); i++){
-			Transaction TransactionTemp = new Transaction(temp.get(i));
-			transactions.add(TransactionTemp);
-		}
-		
 		typeColumn.setCellValueFactory(cellData -> cellData.getValue().frontType());
 		TransferColumn.setCellValueFactory(cellData -> cellData.getValue().frontTransfer());
 		ReceiverColumn.setCellValueFactory(cellData -> cellData.getValue().frontReceiver());
@@ -57,5 +49,19 @@ public class TransactionController {
 	public void backHandler() { this.application.showDashboardView(); }
 	
 	public void setMainApp(App app) { this.application = app; } 
+	
+	public void setinformation(String user){
+		String name = "";
+		name = name + user + ".txt"; 
+		
+		File data = new File("itnks.txt");
+		ParseTransaction build = new ParseTransaction();
+		ArrayList<String[]> temp = build.ParseFile(data);
+		for(int i = 0; i < temp.size(); i++){
+			Transaction TransactionTemp = new Transaction(temp.get(i));
+			transactions.add(TransactionTemp);
+		}
+		
+	}
 	
 }
