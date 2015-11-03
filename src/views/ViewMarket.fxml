@@ -5,7 +5,6 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="371.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MarketController">
    <children>
       <Label layoutX="192.0" layoutY="14.0" text="Financial Portfolio Tracking System" textOverrun="CLIP" />
@@ -38,8 +37,9 @@
             <Label alignment="CENTER" prefHeight="110.0" prefWidth="146.0" text="N/A" GridPane.columnIndex="1" GridPane.rowIndex="3" />
          </children>
       </GridPane>
-      <Button fx:id="exitButton" onAction="#exitHandler" layoutX="447.0" layoutY="324.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="120.0" text="Exit" textFill="RED" />
-      <Button fx:id="addButton" layoutX="300.0" layoutY="324.0" mnemonicParsing="false" text="Add to Watchlist" textFill="#14c36b" />
+      <Button fx:id="exitButton" layoutX="479.0" layoutY="324.0" mnemonicParsing="false" onAction="#exitHandler" prefHeight="27.0" prefWidth="84.0" text="Exit" textFill="RED" />
+      <Button fx:id="addButton" layoutX="284.0" layoutY="325.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="111.0" text="Add to Watchlist" textFill="#14c36b" />
+      <Button layoutX="395.0" layoutY="325.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="84.0" text="Buy Equity" />
    </children>
    <effect>
       <Blend />

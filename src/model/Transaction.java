@@ -42,8 +42,9 @@ public class Transaction {
 	 *It also raises exceptions if there isn't enough in the account or equity
 	 */
 	
+	//Amount = user specified shares * price
 	//Use this for fuctionalitiy purposes 
-	public Transaction(String time, double amount, Object receiver,Object transfer){
+	public Transaction(String time, double amount, Object receiver, Object transfer){
 		this.time = new SimpleStringProperty(time);
 		this.cash = new SimpleDoubleProperty(amount);
 		this.receiver = receiver;

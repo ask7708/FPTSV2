@@ -56,7 +56,7 @@ public class App extends Application {
    public App() {
       
       this.portfolio = new Portfolio();
-      this.market = new Market("nameoftxtfilehere.txt");
+      this.market = new Market("equities.txt");
       this.watchlist = new Watchlist();
    }
    
@@ -178,7 +178,7 @@ public class App extends Application {
       try {
 
          FXMLLoader loader = new FXMLLoader();
-         loader.setLocation(App.class.getResource("../views/MarketView.fxml"));
+         loader.setLocation(App.class.getResource("../views/ViewMarket.fxml"));
          Pane marketView = (Pane) loader.load();
          rootLayout.setCenter(marketView);
 
@@ -188,7 +188,9 @@ public class App extends Application {
          primaryStage.setTitle("FPTS - " + username + " - View Market");
          MarketController marketController = loader.getController();
          marketController.setMainApp(this);
-
+         marketController.setMarket(this.market);
+        // marketController.initialize();
+         
      } catch (IOException e) {
          e.printStackTrace();
      }
@@ -242,5 +244,10 @@ public class App extends Application {
    public String getBaseURL() {return this.base; }
    
    public String getEnduRL() { return this.end; }
+   
+   public Market getMarket(){
+	   
+	   return this.market;
+   }
 
 }

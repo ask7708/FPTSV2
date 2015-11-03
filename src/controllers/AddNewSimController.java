@@ -82,6 +82,7 @@ public class AddNewSimController {
 
         switch (marketChoiceBox.getSelectionModel().getSelectedIndex()) {
 
+        
             case 0:
                 mType = SimulationType.BULL;
                 break;

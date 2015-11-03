@@ -11,6 +11,7 @@ public class ReadTransaction {
 	//Transaction id, Ticker (Equity or Account), Name of Equity/Account
 	//CurrentValue, #Shares (amount for account), Date, bankName
 	
+	
 	public Transaction readTransaction(String[] temp, ArrayList<Equity> Equities, ArrayList<Account> Accounts){
 		Object reciever = null;
 		Object transfer = null;
