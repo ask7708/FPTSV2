@@ -32,7 +32,7 @@ public class SellEquity implements TypeOfTransaction{
 	@Override
 	public void execute() {
 		
-		ObservableList<Equity> findBoughtEquity =  port.getHoldings();
+		ObservableList<Equity> findBoughtEquity =  port.getEquityList();
 		ListIterator li = findBoughtEquity.listIterator(findBoughtEquity.size());
 		
 			for(int i = findBoughtEquity.size()-1; i >= 0; i--){

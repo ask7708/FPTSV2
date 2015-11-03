@@ -40,7 +40,7 @@ public class BuyEquity implements TypeOfTransaction {
 	@Override
 	public void undo() {
 		
-		ObservableList<Equity> findBoughtEquity =  port.getHoldings();
+		ObservableList<Equity> findBoughtEquity =  port.getEquityList();
 		ListIterator li = findBoughtEquity.listIterator(findBoughtEquity.size());
 
 		// Iterate in reverse.

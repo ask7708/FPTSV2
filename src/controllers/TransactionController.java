@@ -3,12 +3,19 @@ package controllers;
 import model.Transaction;
 import model.Equity;
 import model.MarketAccount;
+import model.ParseTransaction;
+import model.ReadTransaction;
+
+import java.io.File;
+import java.util.ArrayList;
+
 import app.App;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import model.Account;
+import model.BankAccount;
 
 public class TransactionController {
 	
@@ -30,11 +37,13 @@ public class TransactionController {
 	private void initialize(){
 		transactions = FXCollections.observableArrayList();
 		
-		Equity bye = new Equity("AADA", "Ada", 20);
-		Account hello = new MarketAccount("Market", "hello", 40, "12110412", "2012", "21345");
-		Transaction hi = new Transaction("20111206", 40, bye, hello);
-		
-		transactions.add(hi);
+		File data = new File("itnks.txt");
+		ParseTransaction build = new ParseTransaction();
+		ArrayList<String[]> temp = build.ParseFile(data);
+		for(int i = 0; i < temp.size(); i++){
+			Transaction TransactionTemp = new Transaction(temp.get(i));
+			transactions.add(TransactionTemp);
+		}
 		
 		typeColumn.setCellValueFactory(cellData -> cellData.getValue().frontType());
 		TransferColumn.setCellValueFactory(cellData -> cellData.getValue().frontTransfer());

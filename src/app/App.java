@@ -17,6 +17,7 @@ import model.Equity;
 import model.Holdings;
 import model.Market;
 import model.Portfolio;
+import model.UpdateTimer;
 import model.Watchlist;
 
 public class App extends Application {
@@ -47,6 +48,11 @@ public class App extends Application {
    // the logged in user's username
    private String username;
 
+   // the update timer we will use to refresh stock prices at a certain interval
+   private UpdateTimer timer;
+   
+   
+   
    public App() {
       
       this.portfolio = new Portfolio();
@@ -231,7 +237,7 @@ public class App extends Application {
    
    public static void main(String[] args) { launch(args); }
    
-   public ObservableList<Equity> getHoldings() { return this.portfolio.getHoldings(); }
+   public ObservableList<Holdings> getHoldings() { return this.portfolio.getHoldings(); }
    
    public String getBaseURL() {return this.base; }
    

@@ -46,15 +46,7 @@ public class DashboardController {
 	public void createSimulationHandler() { this.application.showSimulatorView(); }
 	
 	public void logoutHandler(ActionEvent even) throws IOException{
-	    Stage stage = null; 
-	    Parent root = null;
-	    // if(even.getSource()==logoutButton){        
-			  stage=(Stage) logoutB.getScene().getWindow();
-			  root = FXMLLoader.load(getClass().getResource("../views/LoginView.fxml"));
-	      //}
-	      Scene scene = new Scene(root);
-	      stage.setScene(scene);
-	      stage.show();
+	      this.application.logout();
 	    }
 	
 	public void setMainApp(App app) { this.application = app; }

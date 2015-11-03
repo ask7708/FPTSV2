@@ -18,11 +18,10 @@ public class ParseTransaction {
 		
 	}
 	
-	public static ArrayList<String[]> ParseFile(File file){
+	public ArrayList<String[]> ParseFile(File file){
 		ArrayList<String[]> allTransactions = new ArrayList<String[]>();
 		String[] temp;
 		Scanner numscan = null;
-		file = new File("Transaction.txt");
 		String line;
 		try {
 			numscan = new Scanner(file);
@@ -35,7 +34,7 @@ public class ParseTransaction {
 			line = numscan.nextLine();
 			temp = line.split("\",\"");
 			if(temp[0].equals("\"!T")){
-				temp[6].replaceAll("\"", "");
+				temp[6] = temp[6].replace("\"", "");
 				allTransactions.add(temp);
 			}
 		}
@@ -59,7 +58,7 @@ public class ParseTransaction {
 	public static ArrayList<String> ReadtoCSV(ArrayList<String[]> Read){
 		//Transaction Format
 		//Transaction id, Ticker (Equity or Account), Name of Equity/Account
-		//CurrentValue, #Shares (amount for account), Date, bankName
+		//CurrentValue, #Shares, Date, bankName
 		String cutter = "\",\"";
 		String ReadFinal = "";
 		ArrayList<String> change = new ArrayList<String>();
@@ -76,7 +75,8 @@ public class ParseTransaction {
 
 	public static void main(String[] args){
 		File file = new File("Transaction.txt");
-		ArrayList<String[]> data = ParseFile(file);
+		ParseTransaction parse = new ParseTransaction();
+		ArrayList<String[]> data = parse.ParseFile(file);
 		ArrayList<String> Data = ReadtoCSV(data);
 		WriteList(Data);
 		

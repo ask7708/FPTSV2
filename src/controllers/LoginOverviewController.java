@@ -17,6 +17,8 @@ import javax.swing.JOptionPane;
 
 import app.App;
 import app.LoginMainApp;
+import model.DecryptStrategy;
+import model.EncryptStrategy;
 import model.User;
 //import ch.makery.login.model.*;
 import javafx.event.ActionEvent;
@@ -59,12 +61,14 @@ public class LoginOverviewController {
 		String line;
 		String[] temp;
 
+		DecryptStrategy ds = new DecryptStrategy();
+		
 		while (numScan.hasNextLine()) {
 			line = numScan.nextLine();
 			temp = line.split(",");
 			if (temp[0].equals(usernamem)) {
 
-				if (temp[1].equals(password)) {
+				if (password.equalsIgnoreCase(ds.assessPassword(temp[1]))) {
 					return true;
 				} else {
 					return false;
@@ -76,14 +80,19 @@ public class LoginOverviewController {
 	
 	public void registerHandler(ActionEvent even) throws IOException{
 		System.out.println("yes1");
+		
+		EncryptStrategy es = new EncryptStrategy();
+		
 		String tempPassword = passwordText.getText().toString() ;
+		String encrypted = es.assessPassword(tempPassword);
 		String tempName = usernameText.getText().toString();
 		User theUserModel = new User(tempName, tempPassword);
+		
 		File file = new File("users.txt");
 		if (!theUserModel.userExists(tempName)) {
 			//System.out.println("there no one with this username " + tempName);
 			PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("users.txt", true)));
-			out.println(tempName + "," + tempPassword);
+			out.println(tempName + "," + encrypted);
 			out.close();
     		Alert alert = new Alert(AlertType.CONFIRMATION);
     		alert.setTitle("Information Dialog");
