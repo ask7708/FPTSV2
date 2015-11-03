@@ -5,6 +5,7 @@ package controllers;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -12,8 +13,12 @@ import app.App;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import model.Equity;
 import model.EquityStrategy;
 import model.Market;
@@ -25,6 +30,7 @@ import model.YahooContext;
 import model.YahooStrategy;
 import app.App;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -144,6 +150,7 @@ public class MarketController {
    
    @FXML private Button addButton;
    @FXML private Button exitButton;
+   @FXML private Button buyEquityButton;
    
    private App application;
    
@@ -187,8 +194,52 @@ public class MarketController {
 		marketTable.setItems(this.market.getMarketEquities());
 		
 	}
+	
+	 @FXML
+	 public void buyEquityViaMarket() {
+
+
+		 	
+	        try {
+
+	            FXMLLoader loader = new FXMLLoader();
+	            loader.setLocation(App.class.getResource("../views/BuyEquityView" +
+	                    ".fxml"));
+	            AnchorPane page = (AnchorPane) loader.load();
+
+	            Stage dialogStage = new Stage();
+	            dialogStage.setTitle("FPTS - Market - Buy an Equity");
+	            dialogStage.initModality(Modality.WINDOW_MODAL);
+	            Scene scene = new Scene(page);
+	            dialogStage.setScene(scene);
+	            
+	            
+	            BuyEquityController controller = loader.getController();
+	            controller.setDialogStage(dialogStage);
+	            Equity selectedEq = getSelectedEquity();
+	            controller.setTickSymbolLabel(selectedEq.getTickSymbol());
+	            controller.setEquityNameLabel(selectedEq.getName());
+	            controller.setPriceLabel(Double.toString(selectedEq.getInitPrice()));
+	            
+	            dialogStage.showAndWait();
+
+	        } catch (IOException e) {
+
+	            e.printStackTrace();
+
+	        }
+		 
+
+	    }
    
+	 public Equity getSelectedEquity(){
+		 
+		 
+		 Equity selecEq = marketTable.getSelectionModel().getSelectedItem();
+		 
+		 return selecEq;
+	 }
 
-
+	 
 }
 
