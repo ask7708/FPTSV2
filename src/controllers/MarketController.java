@@ -220,7 +220,7 @@ public class MarketController {
 	            controller.setTickSymbolLabel(selectedEq.getTickSymbol());
 	            controller.setEquityNameLabel(selectedEq.getName());
 	            controller.setPriceLabel(Double.toString(selectedEq.getInitPrice()));
-	            
+	            controller.setMarket(this.market);
 	            dialogStage.showAndWait();
 
 	        } catch (IOException e) {
