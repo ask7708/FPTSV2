@@ -76,6 +76,8 @@ public class RootLayoutController {
 
   public void viewMarketHandler() { this.application.showMarketView(); }
   
+  public void viewOwnedEquityHandler() { this.application.showOwnedEquitiesView();}
+  
   public void logoutHandler() { this.application.logout(); }
   
   public void disableAccountMenu() { accountMenu.setVisible(false); }
