@@ -3,12 +3,15 @@
  */
 package controllers;
 
+import app.App;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
+import model.BuyEquity;
 import model.Equity;
 import model.Market;
+import model.TypeOfTransactionManager;
 
 /**
  * @author Arsh
@@ -39,6 +42,8 @@ public class BuyEquityController {
 	
 	private Equity selectedEq;
 	
+	private App application;
+	
 	public void initialize(){
 	
 		
@@ -49,7 +54,12 @@ public class BuyEquityController {
 		
 		System.out.println(this.tickSymbolToBeSetLabel.getText());
 		System.out.println(this.market.findEquity(this.tickSymbolToBeSetLabel.getText()));
+		//BuyEquity be = new BuyEquity(newEquity, newPort);
+		//TypeOfTransactionManager tm = new TypeOfTransactionManager();
+	
 	}
+	
+	
 	
 	@FXML
 	public void cancelPressed(){

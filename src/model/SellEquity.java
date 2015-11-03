@@ -1,8 +1,7 @@
+package model;
 import java.util.ListIterator;
 
 import javafx.collections.ObservableList;
-import model.Equity;
-import model.Portfolio;
 
 /**
  * 
