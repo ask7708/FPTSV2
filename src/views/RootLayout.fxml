@@ -17,22 +17,22 @@
           </Menu>
           <Menu fx:id="equityMenu" mnemonicParsing="false" text="My Equities">
             <items>
-              <MenuItem fx:id="viewEItem" mnemonicParsing="false" text="View Equities" />
+              <MenuItem fx:id="viewEItem" mnemonicParsing="false" onAction="#viewOwnedEquityHandler" text="View Equities" />
                   <MenuItem fx:id="importEItem" mnemonicParsing="false" text="Import" />
                   <MenuItem fx:id="exportEItem" mnemonicParsing="false" text="Export" />
             </items>
           </Menu>
             <Menu fx:id="marketMenu" mnemonicParsing="false" text="Market">
               <items>
-                  <MenuItem fx:id="viewMarketItem" onAction="#viewMarketHandler" mnemonicParsing="false" text="View Market" />
-                <MenuItem fx:id="simMarketItem" onAction="#simulateMarketHandler" mnemonicParsing="false" text="Simulate Market" />
+                  <MenuItem fx:id="viewMarketItem" mnemonicParsing="false" onAction="#viewMarketHandler" text="View Market" />
+                <MenuItem fx:id="simMarketItem" mnemonicParsing="false" onAction="#simulateMarketHandler" text="Simulate Market" />
               </items>
             </Menu>
           <Menu fx:id="helpMenu" mnemonicParsing="false" text="Help">
             <items>
               <MenuItem fx:id="aboutItem" mnemonicParsing="false" text="About" />
                   <MenuItem fx:id="settingsItem" mnemonicParsing="false" text="Settings" />
-                  <MenuItem fx:id="logoutItem" onAction="#logoutHandler" mnemonicParsing="false" text="Logout" />
+                  <MenuItem fx:id="logoutItem" mnemonicParsing="false" onAction="#logoutHandler" text="Logout" />
             </items>
           </Menu>
         </menus>
