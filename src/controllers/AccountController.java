@@ -5,9 +5,11 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import app.App;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import model.Account;
@@ -35,14 +37,19 @@ public class AccountController {
 	@FXML
 	private TableView accountTable;
 	
-	ArrayList<Account> accounts = new ArrayList<Account>();
+	@FXML
+	private Button backButton;
+	
+	private App application;
+	
+	ObservableList<Account> accounts = FXCollections.observableArrayList();;;
 	
 	
-	public void viewAccount() {
+	public void viewAccount(String username) {
 
-		//
-
-		File data = new File("itnks.txt");
+		
+		if(this.application.getPortfolio().getAccounts().size() == 0){
+		File data = new File(username+".txt");
 		Scanner dataRead = null;
 
 		try {
@@ -72,10 +79,14 @@ public class AccountController {
 		}
 
 		dataRead.close();
-
+		application.getPortfolio().setAccounts(accounts);
+		accountTable.setItems(application.getPortfolio().getAccounts());
+		}else{
+			
+		}
 	}
 
-	public ArrayList<Account> getAccountArray() {
+	public ObservableList<Account> getAccountArray() {
 
 		return this.accounts;
 	}
@@ -91,24 +102,13 @@ public class AccountController {
 	public static void main(String args[]) {
 
 		AccountController evc = new AccountController();
-		evc.viewAccount();
+		evc.viewAccount("itnks");
 		System.out.println(evc.getAccountArray().get(1).toString());
 
 	}
 
 	@FXML
 	public void initialize() {
-		
-		viewAccount();
-		ObservableList<Account> data = FXCollections.observableArrayList(getAccountArray());
-		
-		//data.add(new Equity("ASSD","Assistance Co.",12.37,23.48,"20151013"));
-		//System.out.println(getEquityArray());
-		
-		accountTable.getItems().clear();
-		System.out.println("Before OwnedTable"+accountTable.getItems());
-		accountTable.setItems(data);
-		System.out.println("After OwnedTable"+accountTable.getItems());
 		
 		
 		typeCol.setCellValueFactory(cellData -> cellData.getValue().typeProperty());
@@ -120,5 +120,14 @@ public class AccountController {
 	
 		
 	}
+
+	public void setMainApp(App app) {
+		
+		this.application = app;
+		
+	}
+	
+	@FXML
+	public void backHandler() { this.application.showDashboardView(); }
 
 }

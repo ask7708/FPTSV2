@@ -22,12 +22,13 @@ public class BuyEquity implements TypeOfTransaction {
 		
 		this.boughtEq = boughtEq;
 		this.port = port;
+		
 	}
 	
 	public void execute(){
 		
-		port.getHoldings().add(this.boughtEq);
-
+		port.getEquityList().add(this.boughtEq);
+		
 	}
 
 	

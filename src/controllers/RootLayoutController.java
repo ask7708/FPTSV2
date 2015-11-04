@@ -78,6 +78,8 @@ public class RootLayoutController {
   
   public void viewOwnedEquityHandler() { this.application.showOwnedEquitiesView();}
   
+  public void viewAccountHandler() { this.application.showAccountsView();}
+  
   public void logoutHandler() { this.application.logout(); }
   
   public void disableAccountMenu() { accountMenu.setVisible(false); }

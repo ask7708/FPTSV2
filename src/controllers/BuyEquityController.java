@@ -3,6 +3,8 @@
  */
 package controllers;
 
+import java.time.LocalDateTime;
+
 import app.App;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -11,6 +13,7 @@ import javafx.stage.Stage;
 import model.BuyEquity;
 import model.Equity;
 import model.Market;
+import model.Transaction;
 import model.TypeOfTransactionManager;
 
 /**
@@ -52,10 +55,13 @@ public class BuyEquityController {
 	@FXML
 	public void buyPressed(){
 		
+		LocalDateTime now = LocalDateTime.now();
 		System.out.println(this.tickSymbolToBeSetLabel.getText());
-		System.out.println(this.market.findEquity(this.tickSymbolToBeSetLabel.getText()));
-		//BuyEquity be = new BuyEquity(newEquity, newPort);
-		//TypeOfTransactionManager tm = new TypeOfTransactionManager();
+		selectedEq = this.market.findEquity(this.tickSymbolToBeSetLabel.getText());
+		selectedEq.setTime(Integer.toString(now.getYear())+Integer.toString(now.getMonthValue())+Integer.toString(now.getDayOfMonth()));
+		BuyEquity be = new BuyEquity(selectedEq, this.application.getPortfolio());
+		TypeOfTransactionManager tm = new TypeOfTransactionManager();
+		tm.executeTransaction(be);
 	
 	}
 	
@@ -98,4 +104,9 @@ public class BuyEquityController {
 		this.market = market;
 	}
 	
+	
+	
+	public void setMainApp(App app) {
+		this.application = app;
+	}
 }

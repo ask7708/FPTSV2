@@ -221,6 +221,7 @@ public class MarketController {
 	            controller.setEquityNameLabel(selectedEq.getName());
 	            controller.setPriceLabel(Double.toString(selectedEq.getInitPrice()));
 	            controller.setMarket(this.market);
+	            controller.setMainApp(this.application);
 	            dialogStage.showAndWait();
 
 	        } catch (IOException e) {
