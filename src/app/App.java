@@ -10,10 +10,13 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.Equity;
 import model.Holdings;
@@ -64,7 +67,7 @@ public class App extends Application {
    public App() {
       
       this.portfolio = new Portfolio();
-      this.market = new Market("shorteqs.txt");
+      this.market = new Market("equities.txt");
       this.watchlist = new Watchlist();
       
       dowCompanies = FXCollections.observableArrayList();
@@ -73,18 +76,14 @@ public class App extends Application {
       
       for(dowFinder.first(); !dowFinder.isDone(); dowFinder.next()) {
          dowCompanies.add(dowFinder.currentItem());
-         System.out.println("Dow company found");
-
       }
       
-      System.out.println(dowCompanies.size());
    }
    
    
    @Override
    public void start(Stage primaryStage) throws Exception {
       
-
       // you can change this line to start the app with the fxml file you've made
       // it helps for testing your individual subsystem
       Parent root = FXMLLoader.load(getClass().getResource("../views/RootLayout.fxml"));
