@@ -35,6 +35,10 @@ public class App extends Application {
    // the logged in user's portfolio object
    private Portfolio portfolio;
    
+   private boolean readEquities;
+   
+   private boolean readAccounts;
+   
    // the market object holding all the equities we can buy
    private Market market;
    
@@ -58,6 +62,8 @@ public class App extends Application {
       this.portfolio = new Portfolio();
       this.market = new Market("shorteqs.txt");
       this.watchlist = new Watchlist();
+      this.setReadAccounts(false);
+      this.setReadEquities(false);
    }
    
    
@@ -331,5 +337,25 @@ public class App extends Application {
 	   
 	   return this.portfolio;
    }
+
+
+public boolean isReadAccounts() {
+	return readAccounts;
+}
+
+
+public void setReadAccounts(boolean readAccounts) {
+	this.readAccounts = readAccounts;
+}
+
+
+public boolean isReadEquities() {
+	return readEquities;
+}
+
+
+public void setReadEquities(boolean readEquities) {
+	this.readEquities = readEquities;
+}
    
 }

@@ -233,5 +233,6 @@ public class Portfolio {
    	public void setAccounts(ObservableList<Account> accounts) {
    		this.accounts = accounts;
    	}
+   	
 
 }

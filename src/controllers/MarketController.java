@@ -168,10 +168,7 @@ public class MarketController {
 		//data.add(new Equity("ASSD","Assistance Co.",12.37,23.48,"20151013"));
 		//System.out.println(getEquityArray());
 		
-		//marketTable.getItems().clear();
-		System.out.println("Before marketTable"+marketTable.getItems());
-		//marketTable.setItems(data);
-		System.out.println("After marketTable"+marketTable.getItems());
+	
 		
 		//tickerCol.setCellValueFactory(cellData -> cellData.getValue().tickSymbolProperty());
 		nameColumn.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
@@ -257,13 +254,16 @@ public class MarketController {
 	            BuyEquityController controller = loader.getController();
 	            controller.setDialogStage(dialogStage);
 	            Equity selectedEq = getSelectedEquity();
+	            if(selectedEq != null){
 	            controller.setTickSymbolLabel(selectedEq.getTickSymbol());
 	            controller.setEquityNameLabel(selectedEq.getName());
 	            controller.setPriceLabel(Double.toString(selectedEq.getInitPrice()));
 	            controller.setMarket(this.market);
 	            controller.setMainApp(this.application);
+	            controller.setAccounts(this.application.getPortfolio().getAccounts());
 	            dialogStage.showAndWait();
-
+	            }
+	            
 	        } catch (IOException e) {
 
 	            e.printStackTrace();

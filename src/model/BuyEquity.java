@@ -17,17 +17,25 @@ public class BuyEquity implements TypeOfTransaction {
 
 	private Equity boughtEq;
 	private Portfolio port;
+	private Account acc;
+	private double priceBoughtAt;
 	
-	public BuyEquity(Equity boughtEq, Portfolio port){
+	public BuyEquity(Account acc, Equity boughtEq, Portfolio port){
 		
+		this.acc = acc;
 		this.boughtEq = boughtEq;
 		this.port = port;
+		this.priceBoughtAt = boughtEq.getInitPrice();
 		
 	}
 	
 	public void execute(){
 		
+		if(this.acc.getAmount() > priceBoughtAt){
+			
+		this.acc.setAmount(this.acc.getAmount()-priceBoughtAt);	
 		port.getEquityList().add(this.boughtEq);
+		}
 		
 	}
 
@@ -41,7 +49,7 @@ public class BuyEquity implements TypeOfTransaction {
 	@Override
 	public void undo() {
 		
-		ObservableList<Equity> findBoughtEquity =  port.getEquityList();
+		ObservableList<Equity> findBoughtEquity =  this.port.getEquityList();
 		ListIterator li = findBoughtEquity.listIterator(findBoughtEquity.size());
 
 		// Iterate in reverse.
@@ -50,6 +58,7 @@ public class BuyEquity implements TypeOfTransaction {
 			if((((Equity) li.previous()).getTickSymbol()) == boughtEq.getTickSymbol()){
 				
 				port.removeEquity(boughtEq.getTickSymbol());
+				this.acc.setAmount(this.acc.getAmount()+priceBoughtAt);
 			}
 			
 		  
@@ -61,7 +70,8 @@ public class BuyEquity implements TypeOfTransaction {
 
 	@Override
 	public void redo() {
-		// TODO Auto-generated method stub
+		
+		this.execute();
 		
 	}
 	

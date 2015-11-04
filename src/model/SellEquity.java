@@ -56,7 +56,8 @@ public class SellEquity implements TypeOfTransaction{
 
 	@Override
 	public void redo() {
-		// TODO Auto-generated method stub
+		
+		
 		
 	}
 	

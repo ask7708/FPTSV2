@@ -14,9 +14,11 @@ public class TypeOfTransactionManager {
 	
 	private Stack<TypeOfTransaction> undoStack = new Stack();
 	private Stack<TypeOfTransaction> redoStack = new Stack();
+	private TypeOfTransaction t;
 	
 	public void executeTransaction(TypeOfTransaction t){
 		
+		this.t = t;
 		t.execute();
 		undoStack.add(t);
 		redoStack.add(t);
@@ -53,6 +55,13 @@ public class TypeOfTransactionManager {
 	
 		
 	
+	}
+
+	public void redo() {
+		
+		this.t.execute();
+		undoStack.add(t);
+		
 	}
 	
 }

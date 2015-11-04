@@ -10,6 +10,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import model.Account;
@@ -42,13 +43,17 @@ public class AccountController {
 	
 	private App application;
 	
-	ObservableList<Account> accounts = FXCollections.observableArrayList();;;
+	ObservableList<Account> accounts = FXCollections.observableArrayList();
+	
+   
 	
 	
 	public void viewAccount(String username) {
 
 		
-		if(this.application.getPortfolio().getAccounts().size() == 0){
+		if(this.application.isReadAccounts() == false){
+			
+		this.application.setReadAccounts(true);	
 		File data = new File(username+".txt");
 		Scanner dataRead = null;
 
@@ -82,7 +87,7 @@ public class AccountController {
 		application.getPortfolio().setAccounts(accounts);
 		accountTable.setItems(application.getPortfolio().getAccounts());
 		}else{
-			
+			accountTable.setItems(application.getPortfolio().getAccounts());
 		}
 	}
 

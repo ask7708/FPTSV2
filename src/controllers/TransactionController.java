@@ -54,7 +54,7 @@ public class TransactionController {
 		String name = "";
 		name = name + user + ".txt"; 
 		
-		File data = new File("itnks.txt");
+		File data = new File(user+".txt");
 		ParseTransaction build = new ParseTransaction();
 		ArrayList<String[]> temp = build.ParseFile(data);
 		for(int i = 0; i < temp.size(); i++){
