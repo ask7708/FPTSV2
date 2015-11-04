@@ -1,9 +1,11 @@
 package app;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import controllers.*;
 import javafx.application.Application;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -16,6 +18,7 @@ import javafx.stage.Stage;
 import model.Equity;
 import model.Holdings;
 import model.Market;
+import model.Market.DowIterator;
 import model.Portfolio;
 import model.UpdateTimer;
 import model.Watchlist;
@@ -55,15 +58,35 @@ public class App extends Application {
    // the update timer we will use to refresh stock prices at a certain interval
    private UpdateTimer timer;
    
+   // a list of the 30 Dow Jones Equities
+   private ObservableList<Equity> dowCompanies;
    
+   // if we can get price updates happening, I'd like to think I could store 
+   // the DJIA values here for comparision
+   private ArrayList<Double> DJIAvals;
    
    public App() {
       
       this.portfolio = new Portfolio();
       this.market = new Market("shorteqs.txt");
       this.watchlist = new Watchlist();
+
       this.setReadAccounts(false);
       this.setReadEquities(false);
+
+      
+      dowCompanies = FXCollections.observableArrayList();
+      
+      DowIterator dowFinder = market.getDowIterator();
+      
+      for(dowFinder.first(); !dowFinder.isDone(); dowFinder.next()) {
+         dowCompanies.add(dowFinder.currentItem());
+         System.out.println("Dow company found");
+
+      }
+      
+      System.out.println(dowCompanies.size());
+
    }
    
    
@@ -146,6 +169,7 @@ public class App extends Application {
          rootController.resetDashboardMenu();
          DashboardController dashboardController  = loader.getController();
          dashboardController.setMainApp(this);
+         dashboardController.setDowCompanies(dowCompanies);
 
      } catch (IOException e) {
          e.printStackTrace();

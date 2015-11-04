@@ -39,7 +39,7 @@ public class Equity implements Holdings {
      * A list containing the equity's market indices and industry sectors (if
      * it has one)
      */
-    private ArrayList<StringProperty> attributes;
+    private ArrayList<String> attributes;
 
     /**
      * The date the Equity was acquired
@@ -71,7 +71,7 @@ public class Equity implements Holdings {
 
         // dummy / default values
         this.shares = new SimpleDoubleProperty(0.0);
-        this.attributes = new ArrayList<StringProperty>();
+        this.attributes = new ArrayList<String>();
         this.priceChanges = null;
         this.date = new SimpleStringProperty("");
         
@@ -88,7 +88,7 @@ public class Equity implements Holdings {
 
         // dummy / default values
         this.shares = new SimpleDoubleProperty(shares);
-        this.attributes = new ArrayList<StringProperty>();
+        this.attributes = new ArrayList<String>();
         this.priceChanges = null;
         this.date = new SimpleStringProperty(date);
         
@@ -149,7 +149,7 @@ public class Equity implements Holdings {
     
     public void setTime(String time) { this.date.set(time);}
     
-    public ArrayList<StringProperty> getSectors(){
+    public ArrayList<String> getSectors(){
     	return this.attributes;
     }
     
@@ -160,7 +160,7 @@ public class Equity implements Holdings {
     
 	
     public void addAttribute(String Attribute){
-    	this.attributes.add(new SimpleStringProperty(Attribute));
+    	this.attributes.add(Attribute);
     }
 
     public StringProperty initPriceProperty() { 
@@ -241,12 +241,12 @@ public class Equity implements Holdings {
            	 newS += (this.getTime() +",");
             }
             
-            ArrayList<StringProperty> sectors = this.getSectors();
+            ArrayList<String> sectors = this.getSectors();
             
             if(!sectors.isEmpty()) {
                
-               for(StringProperty o: sectors){
-                  newS += "\""+o.get()+"\"" + ", ";
+               for(String o: sectors){
+                  newS += "\""+ o +"\"" + ", ";
                }
             }
             
