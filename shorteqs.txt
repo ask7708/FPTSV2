@@ -4,5 +4,7 @@
 "ADBE","Adobe Systems Incorporated","78.46","NASDAQ100"
 "AKAM","Akamai Technologies, Inc.","74.58","NASDAQ100"
 "ALXN","Alexion Pharmaceuticals, Inc.","168.8","NASDAQ100"
+"MSFT","Microsoft Corporation","43.04","DOW","NASDAQ100"
 "ALTR","Altera Corporation","50.44","NASDAQ100"
 "AMZN","Amazon.com, Inc.","521.38","NASDAQ100"
+"AAPL","Apple Inc.","115.31","DOW","NASDAQ100"

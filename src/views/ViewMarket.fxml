@@ -37,9 +37,9 @@
             <Label alignment="CENTER" prefHeight="110.0" prefWidth="146.0" text="N/A" GridPane.columnIndex="1" GridPane.rowIndex="3" />
          </children>
       </GridPane>
-      <Button fx:id="exitButton" layoutX="479.0" layoutY="324.0" mnemonicParsing="false" onAction="#exitHandler" prefHeight="27.0" prefWidth="84.0" text="Exit" textFill="RED" />
-      <Button fx:id="addButton" onAction="#addToWatchlist" layoutX="284.0" layoutY="325.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="111.0" text="Add to Watchlist" textFill="#14c36b" />
-      <Button fx:id="buyEquityButton" layoutX="395.0" layoutY="325.0" mnemonicParsing="false" onAction="#buyEquityViaMarket" prefHeight="25.0" prefWidth="84.0" text="Buy Equity" />
+      <Button fx:id="exitButton" layoutX="543.0" layoutY="325.0" mnemonicParsing="false" onAction="#exitHandler" prefHeight="27.0" prefWidth="43.0" text="Exit" textFill="RED" />
+      <Button fx:id="addButton" layoutX="293.0" layoutY="325.0" mnemonicParsing="false" onAction="#addToWatchlist" prefHeight="25.0" prefWidth="111.0" text="Watch Equity" textFill="#14c36b" />
+      <Button fx:id="buyEquityButton" layoutX="418.0" layoutY="325.0" mnemonicParsing="false" onAction="#buyEquityViaMarket" prefHeight="27.0" prefWidth="112.0" text="Buy Equity" />
    </children>
    <effect>
       <Blend />

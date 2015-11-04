@@ -14,10 +14,10 @@
       <Button layoutX="14.0" layoutY="46.0" mnemonicParsing="false" text="View Your Owned Equities" />
       <Label layoutX="255.0" layoutY="14.0" text="My Dashboard" />
       <Button fx:id="logoutB" layoutX="14.0" layoutY="324.0" mnemonicParsing="false" onAction="#logoutHandler" prefHeight="27.0" prefWidth="179.0" text="Logout" />
-      <TableView layoutX="386.0" layoutY="64.0" prefHeight="200.0" prefWidth="200.0">
+      <TableView fx:id="dowTable" layoutX="386.0" layoutY="64.0" prefHeight="200.0" prefWidth="200.0">
         <columns>
-          <TableColumn prefWidth="103.0" text="Company Name" />
-          <TableColumn prefWidth="96.0" text="Price" />
+          <TableColumn fx:id="companyNameColumn" prefWidth="103.0" text="Company Name" />
+          <TableColumn fx:id="priceColumn" prefWidth="96.0" text="Price" />
         </columns>
       </TableView>
       <Label alignment="TOP_LEFT" contentDisplay="CENTER" layoutX="395.0" layoutY="270.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="55.0" prefWidth="185.0" text="Dow Jones Industrial Average" textAlignment="CENTER" textOverrun="CLIP" wrapText="true">
@@ -25,19 +25,19 @@
             <Font size="21.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" layoutX="399.0" layoutY="319.0" prefHeight="38.0" prefWidth="89.0" text="17,730.95">
+      <Label fx:id="indexValue" alignment="CENTER" layoutX="399.0" layoutY="319.0" prefHeight="38.0" prefWidth="89.0" text="17,730.95">
          <font>
             <Font name="AppleGothic Regular" size="16.0" />
          </font>
       </Label>
-      <Label layoutX="528.0" layoutY="326.0" text="5.9%">
+      <Label fx:id="percentChange" layoutX="528.0" layoutY="326.0" text="5.9%">
          <font>
             <Font name="AppleGothic Regular" size="16.0" />
          </font>
       </Label>
-      <ImageView fitHeight="38.0" fitWidth="40.0" layoutX="501.0" layoutY="319.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="arrow" fitHeight="38.0" fitWidth="40.0" layoutX="501.0" layoutY="319.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../Sandbox/Java%20Scrap/SimulationSubsystem/src/img/redarrow.png" />
+            <Image />
          </image>
       </ImageView>
       <Button layoutX="14.0" onAction="#viewTransactionHandler" layoutY="186.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="179.0" text="View Your Transactions" />

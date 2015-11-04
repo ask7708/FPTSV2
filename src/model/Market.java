@@ -2,6 +2,8 @@ package model;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 import javafx.beans.property.SimpleStringProperty;
@@ -101,5 +103,72 @@ public class Market {
       return e;
    }
    
+   public static class DowIterator {
+      
+      private ObservableList<Equity> list;
+      private Iterator<Equity> iter;
+      private Equity first;
+      private Equity current;
+      
+      public DowIterator(ObservableList<Equity> equities) { this.list = equities; }
+      
+      public Equity first() {
+         
+         if(first != null)
+            return first;
+         
+         else {
+            
+            iter = list.iterator();
+            
+            while(iter.hasNext()) {
+               
+               try {
+                  
+                  Equity nextObj = iter.next();
+                  
+                  if(nextObj.getSectors().contains("DOW")) {
+                  
+                     first = nextObj;
+                     current = nextObj;
+                     return first;
+                  }
+                  
+               } catch (NoSuchElementException e) {
+                  current = null;
+               }
+            }
+            
+            current = null;
+            return first;
+         }
+      }
+      
+      public boolean isDone() { return current == null; }
+      
+      public Equity currentItem() { return current; }
+      
+      public void next() {
+         
+         while(iter.hasNext()) {
+            
+            try {
+               
+               Equity nextObj = iter.next();
+               
+               if(nextObj.getSectors().contains("DOW")) {
+                  
+                  current = nextObj;
+                  return;
+               }
+            } catch (NoSuchElementException e) {
+               current = null;
+            }
+         }
+         
+         current = null;
+      }
+   }
    
+   public DowIterator getDowIterator() { return new DowIterator(equities); }
 }
