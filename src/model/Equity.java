@@ -74,6 +74,9 @@ public class Equity implements Holdings {
         this.attributes = new ArrayList<StringProperty>();
         this.priceChanges = null;
         this.date = new SimpleStringProperty("");
+        
+        this.highTrigger = new SimpleDoubleProperty(0.0);
+        this.lowTrigger = new SimpleDoubleProperty(0.0);
 
     }
 
@@ -88,6 +91,9 @@ public class Equity implements Holdings {
         this.attributes = new ArrayList<StringProperty>();
         this.priceChanges = null;
         this.date = new SimpleStringProperty(date);
+        
+        this.highTrigger = new SimpleDoubleProperty(0.0);
+        this.lowTrigger = new SimpleDoubleProperty(0.0);
 
     }
 
@@ -116,6 +122,28 @@ public class Equity implements Holdings {
     public double getInitPrice() { return this.initPrice.get(); }
 
     public void setInitPrice(double price) { this.initPrice.set(price); }
+    
+    /** Getters and Setters for highTrigger property (JavaFX style) **/
+    public double getHighTrigger() { return this.highTrigger.get(); }
+    
+    public void setHighTrigger(double ht) { this.highTrigger.set(ht); }
+    
+    public StringProperty highTriggerProperty() { 
+       
+       //return this.highTrigger;
+       return new SimpleStringProperty("$" + String.format("%.02f", highTrigger.get()));
+    }
+    
+    /** Getters and Setters for lowTrigger property (JavaFX style) **/
+    public double getLowTrigger() { return this.lowTrigger.get(); }
+    
+    public void setLowTrigger(double lt) { this.lowTrigger.set(lt); }
+    
+    public StringProperty lowTriggerProperty() {
+       
+       //return this.lowTrigger; 
+       return new SimpleStringProperty("$" + String.format("%.02f", lowTrigger.get()));
+    }
     
     public String getTime(){ return this.date.get();}
     

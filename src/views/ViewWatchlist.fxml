@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="371.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.WatchlistController">
+   <children>
+      <Label layoutX="192.0" layoutY="2.0" text="Financial Portfolio Tracking System" textOverrun="CLIP" />
+      <Label layoutX="279.0" layoutY="19.0" text="Watchlist" />
+      <TableView fx:id="equityTable" layoutX="14.0" layoutY="46.0" prefHeight="279.0" prefWidth="302.0">
+        <columns>
+          <TableColumn fx:id="tickerColumn" prefWidth="58.0" text="Ticker" />
+            <TableColumn fx:id="priceColumn" prefWidth="76.0" text="Current $" />
+          <TableColumn fx:id="ltColumn" prefWidth="85.0" text="Low $" />
+            <TableColumn fx:id="htColumn" prefWidth="82.0" text="High $" />
+        </columns>
+      </TableView>
+      <TableView fx:id="triggersTable" layoutX="336.0" layoutY="46.0" prefHeight="279.0" prefWidth="254.0">
+        <columns>
+          <TableColumn prefWidth="253.0" text="Triggers Fired" />
+        </columns>
+      </TableView>
+      <Button fx:id="editEquityButton" layoutX="14.0" layoutY="334.0" mnemonicParsing="false" onAction="#editPressed" prefHeight="27.0" prefWidth="179.0" text="Edit Equity Triggers" />
+      <Button fx:id="removeEquityButton" layoutX="211.0" layoutY="334.0" mnemonicParsing="false" onAction="#removePressed" prefHeight="27.0" prefWidth="179.0" text="Remove Equity" />
+      <Button fx:id="exitButton" layoutX="408.0" layoutY="334.0" mnemonicParsing="false" onAction="#exitPressed" prefHeight="27.0" prefWidth="179.0" text="Exit" textFill="#ff0101" />
+   </children>
+</Pane>

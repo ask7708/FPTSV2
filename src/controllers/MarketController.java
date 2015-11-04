@@ -160,7 +160,7 @@ public class MarketController {
    
 	@FXML
 	public void initialize() {
-		
+	   
 		//viewEquities();
 		
 		//ObservableList<Equity> data = FXCollections.observableArrayList(market.getMarketEquities());
@@ -184,7 +184,45 @@ public class MarketController {
 	
 	public void setMainApp(App app) { this.application = app; }
 	   
+	@FXML public void addToWatchlist() {
 	   
+	   System.out.println("Add to watchlist");
+	   try {
+	      
+	      FXMLLoader loader = new FXMLLoader();
+	      loader.setLocation(App.class.getResource("../views/AddtoWatchlist.fxml"));
+	      AnchorPane page = (AnchorPane) loader.load();
+	      
+	      Stage dialogStage = new Stage();
+	      dialogStage.setTitle("FPTS - username - Add to Watchlist");
+	      dialogStage.initModality(Modality.WINDOW_MODAL);
+	      Scene scene = new Scene(page);
+	      dialogStage.setScene(scene);
+	      
+	      AddToWatchlistController controller = loader.getController();	     
+	      controller.setMainApp(application);
+	      controller.setDialogStage(dialogStage);
+	      controller.setWatchlist(watchlist);
+	      controller.setEquity(marketTable.getSelectionModel().getSelectedItem());
+	      
+	      controller.setNameText(marketTable.
+	            getSelectionModel().getSelectedItem().getName());
+	      
+	      controller.setTSymbolText(marketTable.
+	            getSelectionModel().getSelectedItem().getTickSymbol());
+	      
+	      double price = marketTable.getSelectionModel().getSelectedItem().getInitPrice();
+	      String priceStr = String.format("%.02f", price);
+	      controller.setcPriceText(priceStr);
+	      
+	      addButton.setDisable(true);
+	      dialogStage.showAndWait();
+	      addButton.setDisable(false);
+	      	      
+	   } catch (IOException e) {
+	      
+	   }
+	}
 	   
 	public void exitHandler() { this.application.showDashboardView(); }
 
@@ -194,6 +232,8 @@ public class MarketController {
 		marketTable.setItems(this.market.getMarketEquities());
 		
 	}
+   
+	public void setWatchlist(Watchlist wList) { this.watchlist = wList; }
 	
 	 @FXML
 	 public void buyEquityViaMarket() {
@@ -239,8 +279,5 @@ public class MarketController {
 		 Equity selecEq = marketTable.getSelectionModel().getSelectedItem();
 		 
 		 return selecEq;
-	 }
-
-	 
+	 }	 
 }
-

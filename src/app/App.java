@@ -189,7 +189,7 @@ public class App extends Application {
          MarketController marketController = loader.getController();
          marketController.setMainApp(this);
          marketController.setMarket(this.market);
-        // marketController.initialize();
+         marketController.setWatchlist(this.watchlist);
          
      } catch (IOException e) {
          e.printStackTrace();
@@ -219,6 +219,25 @@ public class App extends Application {
      } catch (IOException e) {
          e.printStackTrace();
      }
+   }
+   
+   public void showWatchlistView() {
+   
+      try {
+         
+         FXMLLoader loader = new FXMLLoader();
+         loader.setLocation(App.class.getResource("../views/ViewWatchlist.fxml"));
+         Pane watchlistView = (Pane) loader.load();
+         rootLayout.setCenter(watchlistView);
+         
+         primaryStage.setTitle("FPTS - " + username + " - Manage Watchlist");
+         WatchlistController watchlistController = loader.getController();
+         watchlistController.setMainApp(this);
+         watchlistController.setWatchlist(watchlist);
+         
+      } catch(IOException e) {
+         e.printStackTrace();
+      }
    }
    
    /**

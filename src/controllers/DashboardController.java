@@ -49,5 +49,6 @@ public class DashboardController {
 	      this.application.logout();
 	    }
 	
+	public void manageWatchlistHandler() { this.application.showWatchlistView(); }
 	public void setMainApp(App app) { this.application = app; }
 }
