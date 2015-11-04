@@ -1,9 +1,15 @@
 package controllers;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import app.App;
 import javafx.collections.FXCollections;
@@ -13,6 +19,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.stage.FileChooser;
 import model.Account;
 import model.Equity;
 import model.ReadAccountHolding;
@@ -41,6 +48,9 @@ public class AccountController {
 	@FXML
 	private Button backButton;
 	
+	@FXML
+	private Button importButton;
+	
 	private App application;
 	
 	ObservableList<Account> accounts = FXCollections.observableArrayList();
@@ -51,8 +61,8 @@ public class AccountController {
 	public void viewAccount(String username) {
 
 		
-		if(this.application.isReadAccounts() == false){
-			
+		if(application.getPortfolio().getAccounts().size() == 0){
+		System.out.println("AccountController");
 		this.application.setReadAccounts(true);	
 		File data = new File(username+".txt");
 		Scanner dataRead = null;
@@ -87,10 +97,61 @@ public class AccountController {
 		application.getPortfolio().setAccounts(accounts);
 		accountTable.setItems(application.getPortfolio().getAccounts());
 		}else{
+			
 			accountTable.setItems(application.getPortfolio().getAccounts());
 		}
 	}
 
+	public void importAccounts() {
+
+		this.application.setReadAccounts(false);	
+		FileChooser fileChooser = new FileChooser();
+		FileNameExtensionFilter filter = new FileNameExtensionFilter("Text Files", "txt");
+		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Text files (*.txt)", "*.txt");
+		fileChooser.getExtensionFilters().add(extFilter);
+		File selectedFile = fileChooser.showOpenDialog(null);
+
+		if (selectedFile != null) {
+			Scanner dataRead = null;
+			try {
+				dataRead = new Scanner(selectedFile);
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+			String line;
+			// StringBuffer sb = new StringBuffer();
+			PrintWriter out;
+
+			while (dataRead.hasNextLine()) {
+				line = dataRead.nextLine();
+				// System.out.println(line);
+				if (line.startsWith("\"!MM\"") || line.startsWith("\"!BANK\"")) {
+					// sb.append(line+"\n");
+					File writeFile = new File(this.application.getUserName()+".txt");
+					writeFile.setWritable(true);
+					try {
+						out = new PrintWriter(
+								new BufferedWriter(new FileWriter(this.application.getUserName() + ".txt", true)));
+						out.println(line);
+						out.close();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+
+				}
+
+			}
+
+			dataRead.close();
+		}
+
+
+	}
+	
+	
 	public ObservableList<Account> getAccountArray() {
 
 		return this.accounts;

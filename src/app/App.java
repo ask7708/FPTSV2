@@ -301,7 +301,7 @@ public class App extends Application {
       
       try {
 
-    	 System.out.println("ACCOUNTS");
+    	
          FXMLLoader loader = new FXMLLoader();
          loader.setLocation(App.class.getResource("../views/AccountView.fxml"));
          Pane accountView = (Pane) loader.load();

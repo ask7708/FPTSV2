@@ -17,6 +17,7 @@
             <TableColumn fx:id="dateCol" prefWidth="102.0" text="Date Acquired" />
         </columns>
       </TableView>
-      <Button fx:id="backButton" layoutX="539.0" layoutY="-1.0" mnemonicParsing="false" onAction="#backHandler" prefHeight="371.0" prefWidth="62.0" text="Dashboard" />
+      <Button fx:id="backButton" layoutX="539.0" layoutY="-1.0" mnemonicParsing="false" onAction="#backHandler" prefHeight="198.0" prefWidth="62.0" text="Dashboard" />
+      <Button fx:id="importButton" layoutX="538.0" layoutY="196.0" mnemonicParsing="false" onAction="#importAccounts" prefHeight="176.0" prefWidth="62.0" text="Import" />
    </children>
 </Pane>
