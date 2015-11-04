@@ -224,7 +224,7 @@ public class Portfolio {
 
 
    	public ObservableList<Account> getAccounts() {
-   		return accounts;
+   		return this.accounts;
    	}
 
 

@@ -116,6 +116,7 @@ public class OwnedEquityController {
 
 	public void importEquities() {
 
+	
 		FileChooser fileChooser = new FileChooser();
 		FileNameExtensionFilter filter = new FileNameExtensionFilter("Text Files", "txt");
 		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Text files (*.txt)", "*.txt");
@@ -140,7 +141,7 @@ public class OwnedEquityController {
 				// System.out.println(line);
 				if (line.startsWith("\"!OWNED\"")) {
 					// sb.append(line+"\n");
-					File writeFile = new File("itnks.txt");
+					File writeFile = new File(this.application.getUserName()+".txt");
 					writeFile.setWritable(true);
 					try {
 						out = new PrintWriter(
