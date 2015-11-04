@@ -5,6 +5,7 @@ package controllers;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -12,8 +13,12 @@ import app.App;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import model.Equity;
 import model.EquityStrategy;
 import model.Market;
@@ -25,6 +30,7 @@ import model.YahooContext;
 import model.YahooStrategy;
 import app.App;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -153,7 +159,7 @@ public class MarketController {
    
 	@FXML
 	public void initialize() {
-		
+	   
 		//viewEquities();
 		
 		//ObservableList<Equity> data = FXCollections.observableArrayList(market.getMarketEquities());
@@ -177,7 +183,45 @@ public class MarketController {
 	
 	public void setMainApp(App app) { this.application = app; }
 	   
+	@FXML public void addToWatchlist() {
 	   
+	   System.out.println("Add to watchlist");
+	   try {
+	      
+	      FXMLLoader loader = new FXMLLoader();
+	      loader.setLocation(App.class.getResource("../views/AddtoWatchlist.fxml"));
+	      AnchorPane page = (AnchorPane) loader.load();
+	      
+	      Stage dialogStage = new Stage();
+	      dialogStage.setTitle("FPTS - username - Add to Watchlist");
+	      dialogStage.initModality(Modality.WINDOW_MODAL);
+	      Scene scene = new Scene(page);
+	      dialogStage.setScene(scene);
+	      
+	      AddToWatchlistController controller = loader.getController();	     
+	      controller.setMainApp(application);
+	      controller.setDialogStage(dialogStage);
+	      controller.setWatchlist(watchlist);
+	      controller.setEquity(marketTable.getSelectionModel().getSelectedItem());
+	      
+	      controller.setNameText(marketTable.
+	            getSelectionModel().getSelectedItem().getName());
+	      
+	      controller.setTSymbolText(marketTable.
+	            getSelectionModel().getSelectedItem().getTickSymbol());
+	      
+	      double price = marketTable.getSelectionModel().getSelectedItem().getInitPrice();
+	      String priceStr = String.format("%.02f", price);
+	      controller.setcPriceText(priceStr);
+	      
+	      addButton.setDisable(true);
+	      dialogStage.showAndWait();
+	      addButton.setDisable(false);
+	      	      
+	   } catch (IOException e) {
+	      
+	   }
+	}
 	   
 	public void exitHandler() { this.application.showDashboardView(); }
 
@@ -188,7 +232,7 @@ public class MarketController {
 		
 	}
    
-
+	public void setWatchlist(Watchlist wList) { this.watchlist = wList; }
 
 }
 
