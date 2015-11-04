@@ -5,17 +5,18 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<Pane minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="505.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AccountController">
+<Pane minHeight="-Infinity" minWidth="-Infinity" prefHeight="371.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AccountController">
    <children>
-      <TableView fx:id="accountTable" layoutX="-1.0" prefHeight="400.0" prefWidth="681.0">
+      <TableView fx:id="accountTable" layoutX="-1.0" prefHeight="371.0" prefWidth="540.0">
         <columns>
           <TableColumn fx:id="typeCol" prefWidth="75.0" text="Type" />
           <TableColumn fx:id="nameCol" minWidth="0.0" prefWidth="54.0" text="Name" />
-            <TableColumn fx:id="amountCol" minWidth="1.0" prefWidth="165.0" text="Amount" />
-            <TableColumn fx:id="routingCol" minWidth="1.0" prefWidth="111.0" text="Routing No." />
-            <TableColumn fx:id="accountNumCol" prefWidth="169.0" text="Account No." />
-            <TableColumn fx:id="dateCol" prefWidth="106.0" text="Date Acquired" />
+            <TableColumn fx:id="amountCol" minWidth="1.0" prefWidth="97.0" text="Amount" />
+            <TableColumn fx:id="routingCol" minWidth="1.0" prefWidth="105.0" text="Routing No." />
+            <TableColumn fx:id="accountNumCol" prefWidth="105.0" text="Account No." />
+            <TableColumn fx:id="dateCol" prefWidth="102.0" text="Date Acquired" />
         </columns>
       </TableView>
+      <Button fx:id="backButton" layoutX="539.0" layoutY="-1.0" mnemonicParsing="false" onAction="#backHandler" prefHeight="371.0" prefWidth="62.0" text="Dashboard" />
    </children>
 </Pane>

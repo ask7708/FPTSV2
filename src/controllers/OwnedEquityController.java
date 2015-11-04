@@ -58,7 +58,10 @@ public class OwnedEquityController {
 
 	public void readOwnedEquities(String user) {
 
+		
+		if(this.application.getPortfolio().getEquityList().size() == 0){
 		// System.out.println("UserName"+this.application.getUserName());
+			System.out.println(this.application.getPortfolio().getEquityList().size());	
 		File data = new File(user + ".txt");
 		Scanner dataRead = null;
 
@@ -91,8 +94,14 @@ public class OwnedEquityController {
 		dataRead.close();
 		application.getPortfolio().setEquityList(ownedEquities);
 		ownedTable.setItems(application.getPortfolio().getEquityList());
+	}else{	
+		
+		
+		ownedTable.setItems(application.getPortfolio().getEquityList());
+		//System.out.println(application.getPortfolio().getEquityList());
 		//ownedTable.setItems(ownedEquities);
-
+	}
+		
 	}
 
 	public ObservableList<Equity> getEquityArray() {
@@ -203,6 +212,7 @@ public class OwnedEquityController {
 		 * System.out.println("After OwnedTable"+ownedTable.getItems());
 		 */
 
+
 		tickCol.setCellValueFactory(cellData -> cellData.getValue().tickSymbolProperty());
 		nameCol.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
 		priceCol.setCellValueFactory(cellData -> cellData.getValue().initPriceProperty());
@@ -215,6 +225,7 @@ public class OwnedEquityController {
 		this.application = app;
 	}
 
+	@FXML
 	public void backHandler() { this.application.showDashboardView(); }
 	
 }

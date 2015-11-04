@@ -41,6 +41,10 @@ public class App extends Application {
    // the logged in user's portfolio object
    private Portfolio portfolio;
    
+   private boolean readEquities;
+   
+   private boolean readAccounts;
+   
    // the market object holding all the equities we can buy
    private Market market;
    
@@ -67,8 +71,12 @@ public class App extends Application {
    public App() {
       
       this.portfolio = new Portfolio();
-      this.market = new Market("equities.txt");
+      this.market = new Market("shorteqs.txt");
       this.watchlist = new Watchlist();
+
+      this.setReadAccounts(false);
+      this.setReadEquities(false);
+
       
       dowCompanies = FXCollections.observableArrayList();
       
@@ -261,7 +269,7 @@ public class App extends Application {
    }
    
    /**
-    * Makes a transition to the transaction view
+    * Makes a transition to the equity view
     */
    public void showOwnedEquitiesView() {
       
@@ -275,7 +283,7 @@ public class App extends Application {
          rootController.resetDashboardMenu();
          //rootController.disableViewMarketItem();
          
-         primaryStage.setTitle("FPTS - " + username + " - View Owned Equities");
+        primaryStage.setTitle("FPTS - " + username + " - View Owned Equities");
         OwnedEquityController ownedEquityController = loader.getController();
         ownedEquityController.setMainApp(this);
         ownedEquityController.readOwnedEquities(username);
@@ -285,6 +293,32 @@ public class App extends Application {
      }
    }
    
+   
+   /**
+    * Makes a transition to the accounts view
+    */
+   public void showAccountsView() {
+      
+      try {
+
+    	 System.out.println("ACCOUNTS");
+         FXMLLoader loader = new FXMLLoader();
+         loader.setLocation(App.class.getResource("../views/AccountView.fxml"));
+         Pane accountView = (Pane) loader.load();
+         rootLayout.setCenter(accountView);
+
+         rootController.resetDashboardMenu();
+         //rootController.disableViewMarketItem();
+         
+        primaryStage.setTitle("FPTS - " + username + " - Accounts");
+        AccountController accountController = loader.getController();
+        accountController.setMainApp(this);
+        accountController.viewAccount(username);
+
+     } catch (IOException e) {
+         e.printStackTrace();
+     }
+   }
    
    /**
     * Makes a transition back to the login view by logging out 
@@ -325,5 +359,25 @@ public class App extends Application {
 	   
 	   return this.portfolio;
    }
+
+
+public boolean isReadAccounts() {
+	return readAccounts;
+}
+
+
+public void setReadAccounts(boolean readAccounts) {
+	this.readAccounts = readAccounts;
+}
+
+
+public boolean isReadEquities() {
+	return readEquities;
+}
+
+
+public void setReadEquities(boolean readEquities) {
+	this.readEquities = readEquities;
+}
    
 }

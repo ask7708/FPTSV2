@@ -10,6 +10,7 @@ public class Portfolio {
 
 
    private ObservableList<Holdings> holdings;
+   private ObservableList<Account> accounts;
    private ObservableList<Equity> equityList;
    private ObservableList<Transaction> transactions;
    private Watchlist watchlist;
@@ -17,6 +18,7 @@ public class Portfolio {
    public Portfolio() {
       
       this.equityList = FXCollections.observableArrayList();
+      this.accounts = FXCollections.observableArrayList();
       this.holdings = FXCollections.observableArrayList();
       this.transactions = FXCollections.observableArrayList();
       this.watchlist = new Watchlist();
@@ -217,5 +219,20 @@ public class Portfolio {
          System.out.println(eIter.currentItem());
 
    }
+
+
+
+
+   	public ObservableList<Account> getAccounts() {
+   		return accounts;
+   	}
+
+
+
+
+   	public void setAccounts(ObservableList<Account> accounts) {
+   		this.accounts = accounts;
+   	}
+   	
 
 }

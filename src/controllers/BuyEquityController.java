@@ -3,14 +3,21 @@
  */
 package controllers;
 
+import java.time.LocalDateTime;
+
 import app.App;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
+import model.Account;
 import model.BuyEquity;
 import model.Equity;
 import model.Market;
+import model.Transaction;
 import model.TypeOfTransactionManager;
 
 /**
@@ -26,6 +33,9 @@ public class BuyEquityController {
 	private Button cancelButton;
 	
 	@FXML
+	private Button undoButton;
+	
+	@FXML
 	private Label tickSymbolToBeSetLabel;
 	
 	@FXML
@@ -34,6 +44,13 @@ public class BuyEquityController {
 	@FXML
 	private Label priceToSetLabel;
 	
+	private ObservableList<String> accountChoices = FXCollections.observableArrayList();
+	
+	 @FXML
+	private ChoiceBox<String> accountChoiceComboBox;
+	
+	ObservableList<Account> accounts = FXCollections.observableArrayList();
+	  
 	private Stage dialogStage;
 	
 	private MarketController markControl;
@@ -44,7 +61,12 @@ public class BuyEquityController {
 	
 	private App application;
 	
+	TypeOfTransactionManager tm = new TypeOfTransactionManager();
+	
+	Account ac;
+	
 	public void initialize(){
+	
 	
 		
 	}
@@ -52,11 +74,33 @@ public class BuyEquityController {
 	@FXML
 	public void buyPressed(){
 		
-		System.out.println(this.tickSymbolToBeSetLabel.getText());
-		System.out.println(this.market.findEquity(this.tickSymbolToBeSetLabel.getText()));
-		//BuyEquity be = new BuyEquity(newEquity, newPort);
-		//TypeOfTransactionManager tm = new TypeOfTransactionManager();
+		LocalDateTime now = LocalDateTime.now();
+
+		
+		selectedEq = this.market.findEquity(this.tickSymbolToBeSetLabel.getText());
+		selectedEq.setTime(Integer.toString(now.getYear())+Integer.toString(now.getMonthValue())+Integer.toString(now.getDayOfMonth()));
+		ac = this.application.getPortfolio().getAccounts().get(accountChoiceComboBox.getSelectionModel().getSelectedIndex());
+		BuyEquity be = new BuyEquity(ac, selectedEq, this.application.getPortfolio());
+		
+		tm.executeTransaction(be);
+		
 	
+	}
+	
+	@FXML
+	public void undoPressed(){
+		
+		if(tm.isUndoAvailable())
+		tm.undo();
+		
+	}
+	
+	@FXML
+	public void redoPressed(){
+		
+		
+		tm.redo();
+		
 	}
 	
 	
@@ -98,4 +142,19 @@ public class BuyEquityController {
 		this.market = market;
 	}
 	
+	
+	
+	public void setMainApp(App app) {
+		this.application = app;
+	}
+	
+	public void setAccounts(ObservableList<Account> accounts){
+		
+		this.accounts = accounts;
+		for(Account e: accounts){
+			
+			accountChoices.add(e.getAccountName());
+		}
+		accountChoiceComboBox.getItems().addAll(accountChoices);
+	}
 }
