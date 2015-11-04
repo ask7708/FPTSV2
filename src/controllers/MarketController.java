@@ -150,6 +150,7 @@ public class MarketController {
    
    @FXML private Button addButton;
    @FXML private Button exitButton;
+   @FXML private Button buyEquityButton;
    
    private App application;
    
@@ -233,6 +234,49 @@ public class MarketController {
 	}
    
 	public void setWatchlist(Watchlist wList) { this.watchlist = wList; }
+	
+	 @FXML
+	 public void buyEquityViaMarket() {
 
+
+		 	
+	        try {
+
+	            FXMLLoader loader = new FXMLLoader();
+	            loader.setLocation(App.class.getResource("../views/BuyEquityView" +
+	                    ".fxml"));
+	            AnchorPane page = (AnchorPane) loader.load();
+
+	            Stage dialogStage = new Stage();
+	            dialogStage.setTitle("FPTS - Market - Buy an Equity");
+	            dialogStage.initModality(Modality.WINDOW_MODAL);
+	            Scene scene = new Scene(page);
+	            dialogStage.setScene(scene);
+	            
+	            
+	            BuyEquityController controller = loader.getController();
+	            controller.setDialogStage(dialogStage);
+	            Equity selectedEq = getSelectedEquity();
+	            controller.setTickSymbolLabel(selectedEq.getTickSymbol());
+	            controller.setEquityNameLabel(selectedEq.getName());
+	            controller.setPriceLabel(Double.toString(selectedEq.getInitPrice()));
+	            controller.setMarket(this.market);
+	            dialogStage.showAndWait();
+
+	        } catch (IOException e) {
+
+	            e.printStackTrace();
+
+	        }
+		 
+
+	    }
+   
+	 public Equity getSelectedEquity(){
+		 
+		 
+		 Equity selecEq = marketTable.getSelectionModel().getSelectedItem();
+		 
+		 return selecEq;
+	 }	 
 }
-

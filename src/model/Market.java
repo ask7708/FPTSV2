@@ -92,6 +92,12 @@ public class Market {
       
       Equity e = null;
       
+      for(Equity findThis : equities){
+    	  
+    	  if(findThis.getTickSymbol().equals(tSymbol))
+    		  return findThis;
+      }
+      
       return e;
    }
    

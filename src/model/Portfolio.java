@@ -40,6 +40,11 @@ public class Portfolio {
     	
 	
     }
+    
+    public void setEquityList(ObservableList<Equity> eqList){
+    	
+    	this.equityList= eqList;
+    }
 
    public ObservableList<Holdings> getHoldings() { return this.holdings; }
 

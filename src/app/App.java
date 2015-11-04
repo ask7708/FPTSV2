@@ -56,7 +56,7 @@ public class App extends Application {
    public App() {
       
       this.portfolio = new Portfolio();
-      this.market = new Market("equities.txt");
+      this.market = new Market("shorteqs.txt");
       this.watchlist = new Watchlist();
    }
    
@@ -241,6 +241,32 @@ public class App extends Application {
    }
    
    /**
+    * Makes a transition to the transaction view
+    */
+   public void showOwnedEquitiesView() {
+      
+      try {
+
+         FXMLLoader loader = new FXMLLoader();
+         loader.setLocation(App.class.getResource("../views/ViewOfEquity.fxml"));
+         Pane ownedEquityView = (Pane) loader.load();
+         rootLayout.setCenter(ownedEquityView);
+
+         rootController.resetDashboardMenu();
+         //rootController.disableViewMarketItem();
+         
+         primaryStage.setTitle("FPTS - " + username + " - View Owned Equities");
+        OwnedEquityController ownedEquityController = loader.getController();
+        ownedEquityController.setMainApp(this);
+        ownedEquityController.readOwnedEquities(username);
+
+     } catch (IOException e) {
+         e.printStackTrace();
+     }
+   }
+   
+   
+   /**
     * Makes a transition back to the login view by logging out 
     * (maybe prompt for saving the user's portfolio, cancel any scheduled price
     * updates, etc.)
@@ -270,4 +296,14 @@ public class App extends Application {
 	   return this.market;
    }
 
+   public String getUserName(){
+	   
+	   return this.username;
+   }
+   
+   public Portfolio getPortfolio(){
+	   
+	   return this.portfolio;
+   }
+   
 }

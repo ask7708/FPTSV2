@@ -88,6 +88,10 @@ public class LoginOverviewController {
 		String tempName = usernameText.getText().toString();
 		User theUserModel = new User(tempName, tempPassword);
 		
+		File newfile = new File(tempName+".txt");
+		boolean blnCreated = false;
+		  
+		  
 		File file = new File("users.txt");
 		if (!theUserModel.userExists(tempName)) {
 			//System.out.println("there no one with this username " + tempName);
@@ -98,13 +102,20 @@ public class LoginOverviewController {
     		alert.setTitle("Information Dialog");
     		alert.setContentText("you have registered successfully!/n Now,hit the login button.");
     		alert.showAndWait();
+    		
+    		try{
+    			 blnCreated = newfile.createNewFile();
+    			 System.out.print("the file is created");
+    		}catch(IOException e){
+    			System.out.println(e.toString());
+    		}
 			
 		}else{
     		Alert alert = new Alert(AlertType.ERROR);
     		alert.setTitle("Information Dialog");
     		alert.setContentText("The username is alreay taken");
     		alert.showAndWait();
-			System.out.println("there somone with this username " + tempName);
+			System.out.println("there is someone with this username " + tempName);
 		}
 		
 

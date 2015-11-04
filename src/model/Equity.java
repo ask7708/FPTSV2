@@ -231,14 +231,14 @@ public class Equity implements Holdings {
    	public String toString(){
    		
    		 String newS = new String();
-            newS += this.getTickSymbol();
-            newS += " , " + this.getName();
-            newS += " , $" + (this.getInitPrice() +" , ");
+            newS += "\""+this.getTickSymbol()+"\"";
+            newS += ",\"" + this.getName()+"\"";
+            newS += ",\"" + (this.getInitPrice() +"\",");
             if(this.getShares() != 0.0){
-           	 newS += "$" + (this.getShares() +" , ");
+           	 newS += "\"" + (this.getShares() +"\",");
             }
             if(this.getTime() != null){
-           	 newS += (this.getTime() +" , ");
+           	 newS += (this.getTime() +",");
             }
             
             ArrayList<StringProperty> sectors = this.getSectors();
@@ -246,12 +246,12 @@ public class Equity implements Holdings {
             if(!sectors.isEmpty()) {
                
                for(StringProperty o: sectors){
-                  newS += o.get() + ", ";
+                  newS += "\""+o.get()+"\"" + ", ";
                }
             }
             
             newS += "\n";
-            newS = newS.substring(0, newS.length()-2);
+            newS = newS.substring(0, newS.length()-3);
             return newS;
    		}
     
