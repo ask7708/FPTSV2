@@ -9,7 +9,7 @@ import java.util.Timer;
  */
 public class UpdateTimer extends Timer {
 
-    private PriceUpdate update;
+    public PriceUpdate update;
 
     public UpdateTimer() {}
 
@@ -24,10 +24,14 @@ public class UpdateTimer extends Timer {
         this.update.cancel();
     }
 
-    public void scheduleUpdate(int minutes, App app) {
+    public void scheduleUpdate(int initialDelay, int minutesInterval, App app) {
+
+        if(update != null)
+           this.update.cancel();
 
         this.update = new PriceUpdate(app);
-        int milliseconds = minutes * 60000;
-        this.schedule(update, 0, milliseconds);
+        int delayMilliseconds = initialDelay * 60000;
+        int intervalMilliseconds = minutesInterval * 60000;
+        this.schedule(update, delayMilliseconds, intervalMilliseconds);
     }
 }

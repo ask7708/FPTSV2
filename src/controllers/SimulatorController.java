@@ -74,20 +74,7 @@ public class SimulatorController {
 
         simulations = FXCollections.observableArrayList();
         equities = FXCollections.observableArrayList();
-        
-        Equity e1 = new Equity("GOOG", "Google Inc.", 50.00);
-        e1.putSimulationOn();
-        
-        Equity e2 = new Equity("AAPL", "Apple Inc.", 100.00);
-        e2.putSimulationOn();
-        
-        Equity e3 = new Equity("MSFT", "Microsoft Corporation", 150.00);
-        e3.putSimulationOn();
-        
-        equities.add(e1);
-        equities.add(e2);
-        equities.add(e3);
-        
+                
         tickSymbolColumn.setCellValueFactory(cellData -> cellData.getValue().tickSymbolProperty());
         nameColumn.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
         priceColumn.setCellValueFactory(cellData -> cellData.getValue().initPriceProperty());
@@ -128,10 +115,8 @@ public class SimulatorController {
             simulationsTable.setItems(simulations);
             
             for(Equity holding: equities)
-               //simulations.get(simulations.size()-1).changeHoldingPrice(holding);
                simulations.get(0).changeHoldingPrice(holding);
 
-            
             equitiesTable.setItems(equities);
             
             checkForResets();
@@ -150,7 +135,6 @@ public class SimulatorController {
         simulations.remove(0);
         
         for(Equity obj: this.equities) { obj.removePriceChange(); }
-        //simPriceColumn.setCellValueFactory(cellData -> cellData.getValue().getSimPriceProperty().asObject());
         checkForResets();
     }
 
