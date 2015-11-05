@@ -69,7 +69,7 @@ public class AccountController {
 
 	public void importAccounts() {
 
-		this.application.setReadAccounts(false);	
+			
 		FileChooser fileChooser = new FileChooser();
 		FileNameExtensionFilter filter = new FileNameExtensionFilter("Text Files", "txt");
 		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Text files (*.txt)", "*.txt");

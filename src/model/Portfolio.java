@@ -355,4 +355,22 @@ public class Portfolio {
         return e;
      }
    	
+    public double getPortfolioValue(){
+    	
+    	double sumValue = 0.0;
+    	
+    	for(Equity e : this.equityList){
+    		
+    		sumValue += e.getInitPrice() * e.getShares();
+    	}
+    	for(Account a : accounts){
+    		
+    		sumValue += a.getAmount();
+    	}
+    	
+    	
+    	
+    	return sumValue;
+    }
+    
 }

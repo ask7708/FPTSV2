@@ -59,7 +59,7 @@ public class TransactionController {
 	
 	public void importHandler() {
 
-		this.application.setReadAccounts(false);	
+		
 		FileChooser fileChooser = new FileChooser();
 		FileNameExtensionFilter filter = new FileNameExtensionFilter("Text Files", "txt");
 		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Text files (*.txt)", "*.txt");
@@ -103,7 +103,7 @@ public class TransactionController {
 			dataRead.close();
 		}
 
-
+		
 	}
 	
 	public void exportHandler() {

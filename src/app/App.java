@@ -51,9 +51,6 @@ public class App extends Application {
    // the logged in user's portfolio object
    private Portfolio portfolio;
 
-   private boolean readEquities;
-
-   private boolean readAccounts;
 
    // the market object holding all the equities we can buy
    private Market market;
@@ -80,11 +77,10 @@ public class App extends Application {
 
    public App() {
 
-      this.market = new Market("equities.txt");
+      this.market = new Market("shorteqs.txt");
       this.watchlist = new Watchlist();
       this.portfolio = null;
-      this.setReadAccounts(false);
-      this.setReadEquities(false);
+
 
       dowCompanies = FXCollections.observableArrayList();
 
@@ -173,7 +169,7 @@ public class App extends Application {
     	 if(this.portfolio == null){
     	 this.portfolio = new Portfolio(getUserName());
     	 }
-
+    	 
          FXMLLoader loader = new FXMLLoader();
          loader.setLocation(App.class.getResource("../views/TheOtherScene.fxml"));
          Pane loginView = (Pane) loader.load();
@@ -185,7 +181,9 @@ public class App extends Application {
          DashboardController dashboardController  = loader.getController();
          dashboardController.setMainApp(this);
          dashboardController.setDowCompanies(dowCompanies);
-
+         dashboardController.setPortfolioValue(this.portfolio.getPortfolioValue());
+         System.out.println(this.portfolio.getPortfolioValue());
+         
       } catch (IOException e) {
          e.printStackTrace();
       }
@@ -410,21 +408,4 @@ public class App extends Application {
    }
 
 
-   public boolean isReadAccounts() {
-      return readAccounts;
-   }
-
-   public void setReadAccounts(boolean readAccounts) {
-      this.readAccounts = readAccounts;
-   }
-
-
-   public boolean isReadEquities() {
-      return readEquities;
-   }
-
-
-   public void setReadEquities(boolean readEquities) {
-      this.readEquities = readEquities;
-   }
 }

@@ -27,10 +27,16 @@ public class DashboardController {
 	   
 	@FXML private Label indexValue;  
 	@FXML private Label percentChange;
+	@FXML private Label portfolioValueLabel;
 	
 	@FXML private ImageView arrow;
 		
 	public void viewTransactionHandler() { this.application.showTransactionView(); }
+	
+	
+	public void viewEquityHandler(){this.application.showOwnedEquitiesView();}
+	
+	public void viewMarketHandler(){this.application.showMarketView();}
 	
 	public void createSimulationHandler() { this.application.showSimulatorView(); }
 	
@@ -59,5 +65,11 @@ public class DashboardController {
 	   this.percentChange.setText("0.0%");
 	}
 	   
+	public void setPortfolioValue(double value){
+		
+		
+		this.portfolioValueLabel.setText("Portfolio Value: $"+this.application.getPortfolio().getPortfolioValue());
+	}
+	
 	
 }
