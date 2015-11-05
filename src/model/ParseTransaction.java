@@ -18,8 +18,8 @@ public class ParseTransaction {
 		
 	}
 	
-	public ArrayList<String[]> ParseFile(File file){
-		ArrayList<String[]> allTransactions = new ArrayList<String[]>();
+	public ObservableList<String[]> ParseFile(File file){
+		ObservableList<String[]> allTransactions = FXCollections.observableArrayList();
 		String[] temp;
 		Scanner numscan = null;
 		String line;
@@ -41,7 +41,7 @@ public class ParseTransaction {
 		return allTransactions;
 	}
 	
-	public void WriteList(ArrayList<String> allTransactions, String fileName){
+	public void WriteList(ObservableList<String> allTransactions, String fileName){
 		PrintWriter out = null;
 		try {
 			out = new PrintWriter(new BufferedWriter(new FileWriter(fileName, true)));
@@ -55,13 +55,13 @@ public class ParseTransaction {
 		out.close();
 	}
 	
-	public ArrayList<String> ReadtoCSV(ArrayList<String[]> Read){
+	public ObservableList<String> ReadtoCSV(ObservableList<String[]> Read){
 		//Transaction Format
 		//Transaction id, Ticker (Equity or Account), Name of Equity/Account
 		//CurrentValue, #Shares, Date, bankName
 		String cutter = "\",\"";
 		String ReadFinal = "";
-		ArrayList<String> change = new ArrayList<String>();
+		ObservableList<String> change = FXCollections.observableArrayList();
 		for(int x = 0; x < Read.size(); x++){
 			ReadFinal = Read.get(x)[0] + cutter + Read.get(x)[1] + cutter + Read.get(x)[2] + cutter + Read.get(x)[3] +
 					cutter + Read.get(x)[4] + cutter + Read.get(x)[5] + cutter + Read.get(x)[6];
@@ -76,8 +76,8 @@ public class ParseTransaction {
 	public static void main(String[] args){
 		File file = new File("Transaction.txt");
 		ParseTransaction parse = new ParseTransaction();
-		ArrayList<String[]> data = parse.ParseFile(file);
-		ArrayList<String> Data = parse.ReadtoCSV(data);
+		ObservableList<String[]> data = parse.ParseFile(file);
+		ObservableList<String> Data = parse.ReadtoCSV(data);
 		parse.WriteList(Data, "Transaction.txt");
 		
 		Account hi = new BankAccount("hi", "hi", 22, "hi", "hi", "hi");

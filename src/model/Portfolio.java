@@ -46,7 +46,7 @@ public class Portfolio {
 	   ParseTransaction data = new ParseTransaction();
 	      String usernameFile = userName + ".txt";
 	      File userFile = new File(usernameFile);
-	      ArrayList<String[]> info = data.ParseFile(userFile);
+	      ObservableList<String[]> info = data.ParseFile(userFile);
 	      for(int i = 0; i < info.size(); i++){
 	    	  Transaction temp = new Transaction(info.get(i));
 	    	  transactions.add(temp);
