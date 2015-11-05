@@ -22,10 +22,14 @@ import model.ReadOwnedEquities;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
 
 public class OwnedEquityController {
 
@@ -51,6 +55,9 @@ public class OwnedEquityController {
 
 	@FXML
 	private Button exportButton;
+	
+	@FXML
+	private Button sellButton;
 
 	ObservableList<Equity> ownedEquities = FXCollections.observableArrayList();;
 
@@ -152,6 +159,48 @@ public class OwnedEquityController {
 
 	}
 
+	 @FXML
+	 public void sellPressed() {
+
+
+		 	
+	        try {
+
+	            FXMLLoader loader = new FXMLLoader();
+	            loader.setLocation(App.class.getResource("../views/SellEquityView" +
+	                    ".fxml"));
+	            AnchorPane page = (AnchorPane) loader.load();
+
+	            Stage dialogStage = new Stage();
+	            dialogStage.setTitle("FPTS - Equities - Sell an Equity");
+	            dialogStage.initModality(Modality.WINDOW_MODAL);
+	            Scene scene = new Scene(page);
+	            dialogStage.setScene(scene);
+	            
+	            
+	            SellEquityController controller = loader.getController();
+	            controller.setDialogStage(dialogStage);
+	            Equity selectedEq = getSelectedEquity();
+	            if(selectedEq != null){
+	            controller.setTickSymbolLabel(selectedEq.getTickSymbol());
+	            controller.setEquityNameLabel(selectedEq.getName());
+	            controller.setPriceLabel(Double.toString(selectedEq.getInitPrice()));
+	            controller.setMainApp(this.application);
+	            controller.setAccounts(this.application.getPortfolio().getAccounts());
+	            dialogStage.showAndWait();
+	            }
+	            
+	        } catch (IOException e) {
+
+	            e.printStackTrace();
+
+	        }
+		 
+
+	    }
+   
+	
+	
 	public static void main(String args[]) {
 
 		OwnedEquityController evc = new OwnedEquityController();
@@ -187,5 +236,13 @@ public class OwnedEquityController {
 
 	@FXML
 	public void backHandler() { this.application.showDashboardView(); }
+	
+	public Equity getSelectedEquity(){
+		 
+		 
+		 Equity selecEq = ownedTable.getSelectionModel().getSelectedItem();
+		 
+		 return selecEq;
+	 }	 
 	
 }

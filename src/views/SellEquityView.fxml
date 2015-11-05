@@ -69,7 +69,7 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Button fx:id="sellButton" mnemonicParsing="false" onAction="#buyPressed" prefHeight="59.0" prefWidth="101.0" text="Sell" />
+            <Button fx:id="sellButton" mnemonicParsing="false" onAction="#sellPressed" prefHeight="59.0" prefWidth="101.0" text="Sell" />
             <Button fx:id="undoButton" mnemonicParsing="false" onAction="#undoPressed" prefHeight="51.0" prefWidth="109.0" text="Undo" GridPane.columnIndex="1" />
             <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#cancelPressed" prefHeight="61.0" prefWidth="100.0" text="Cancel" GridPane.columnIndex="3" />
             <Button fx:id="redoButton" mnemonicParsing="false" onAction="#redoPressed" prefHeight="60.0" prefWidth="100.0" text="Redo" GridPane.columnIndex="2" />
