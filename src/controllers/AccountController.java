@@ -22,6 +22,7 @@ import javafx.scene.control.TableView;
 import javafx.stage.FileChooser;
 import model.Account;
 import model.Equity;
+import model.MarketAccount;
 import model.ReadAccountHolding;
 import model.ReadHoldingsContext;
 import model.ReadOwnedEquities;
@@ -51,6 +52,9 @@ public class AccountController {
 	@FXML
 	private Button importButton;
 	
+	@FXML
+	private Button exportButton;
+	
 	private App application;
 	
 	ObservableList<Account> accounts = FXCollections.observableArrayList();
@@ -60,46 +64,6 @@ public class AccountController {
 	
 	public void viewAccount(String username) {
 
-		/*
-		if(application.getPortfolio().getAccounts().size() == 0){
-		System.out.println("AccountController");
-		this.application.setReadAccounts(true);	
-		File data = new File(username+".txt");
-		Scanner dataRead = null;
-
-		try {
-			dataRead = new Scanner(data);
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		String line;
-		String[] temp;
-
-		while (dataRead.hasNextLine()) {
-			line = dataRead.nextLine();
-			line = line.replace("\"", "");
-			line = line.replace(", ", "");
-			temp = line.split(",");
-			ReadHoldingsContext readAccountHolding = new ReadHoldingsContext(new ReadAccountHolding());
-
-			if (temp[0].equals("!MM") || temp[0].equals("!BANK")) {
-				Account accountInfo = (Account) readAccountHolding.executeStrategy(temp);
-
-				accounts.add(accountInfo);
-				
-			}
-
-		}
-
-		dataRead.close();
-		application.getPortfolio().setAccounts(accounts);
-		accountTable.setItems(application.getPortfolio().getAccounts());
-		}else{
-			
-			accountTable.setItems(application.getPortfolio().getAccounts());
-		}*/
 		accountTable.setItems(application.getPortfolio().getAccounts());
 	}
 
@@ -122,36 +86,71 @@ public class AccountController {
 			}
 
 			String line;
+			String[] temp;
 			// StringBuffer sb = new StringBuffer();
-			PrintWriter out;
 
 			while (dataRead.hasNextLine()) {
 				line = dataRead.nextLine();
 				// System.out.println(line);
 				if (line.startsWith("\"!MM\"") || line.startsWith("\"!BANK\"")) {
-					// sb.append(line+"\n");
-					File writeFile = new File(this.application.getUserName()+".txt");
-					writeFile.setWritable(true);
-					try {
-						out = new PrintWriter(
-								new BufferedWriter(new FileWriter(this.application.getUserName() + ".txt", true)));
-						out.println(line);
-						out.close();
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+					
+					line = line.replace("\"", "");
+					line = line.replace(", ", "");
+					temp = line.split(",");
+					ReadHoldingsContext readAccountHolding = new ReadHoldingsContext(new ReadAccountHolding());
+					Account accountInfo = (Account) readAccountHolding.executeStrategy(temp);
+					this.application.getPortfolio().getAccounts().add(accountInfo);
 
 				}
 
 			}
-
+			
 			dataRead.close();
 		}
 
 
 	}
 	
+	public void exportAccounts(){
+		
+		
+		StringBuilder writeToFile = new StringBuilder();
+
+		FileChooser fileChooser = new FileChooser();
+
+		// Set extension filter
+		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("TEXT files (*.txt)", "*.txt");
+		fileChooser.getExtensionFilters().add(extFilter);
+
+		// Show save file dialog
+		File file = fileChooser.showSaveDialog(null);
+	
+
+		PrintWriter outExport = null;
+
+		try {
+			outExport = new PrintWriter(new BufferedWriter(new FileWriter(file, true)));
+			for (Account a : application.getPortfolio().getAccounts()) {
+				
+				
+				if(a.getTypeOfAccount().equals("Money Market")){
+					System.out.println("Marketaccount instance");
+				outExport.println("\"!MM\"," + a.toString());
+				}else{
+				outExport.println("\"!BANK\"," + a.toString());
+
+				}
+				
+			}
+
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		outExport.close();
+
+		
+	}
 	
 	public ObservableList<Account> getAccountArray() {
 

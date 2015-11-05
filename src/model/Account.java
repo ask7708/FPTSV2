@@ -158,11 +158,11 @@ public abstract class Account implements Holdings {
 	public String toString(){
 		
 		String newS = new String();
-        newS += this.getAccountName();
-        newS += " , " + this.getAmount();
-        newS += " , " + (this.getRoutingNum() +" , ");
-        newS += (this.getAccountNum() +" , ");
-        newS += this.getDate();
+        newS += "\""+this.getAccountName()+"\"";
+        newS += ",\"" + this.getAmount()+"\"";
+        newS += ",\"" + (this.getRoutingNum() +"\",");
+        newS += "\""+(this.getAccountNum() +"\",");
+        newS += "\""+this.getDate()+"\"";
         
         newS += "\n";
         newS = newS.substring(0, newS.length()-1);
@@ -208,6 +208,10 @@ public abstract class Account implements Holdings {
 		return this.typeOfAccount;
 	}
 	
+	public String getTypeOfAccount(){
+		
+		return this.typeOfAccount.get();
+	}
 	
 	
 }

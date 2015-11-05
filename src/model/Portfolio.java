@@ -252,8 +252,11 @@ public class Portfolio {
    				ReadHoldingsContext readAccountHolding = new ReadHoldingsContext(new ReadAccountHolding());
 
    				if (temp[0].equals("!MM") || temp[0].equals("!BANK")) {
-   					Account accountInfo = (Account) readAccountHolding.executeStrategy(temp);
+   					
+   					Account accountInfo = null;
 
+   					accountInfo = (Account) readAccountHolding.executeStrategy(temp);
+   					
    					accounts.add(accountInfo);
    					
    				}
