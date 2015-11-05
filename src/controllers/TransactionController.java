@@ -125,7 +125,8 @@ public class TransactionController {
 
 		}
 		ParseTransaction read = new ParseTransaction();
-		read.WriteList(data);
+		System.out.print(file.toString());
+		read.WriteList(data, file.toString());
 	}
 	
 	public void setMainApp(App app) { this.application = app; } 

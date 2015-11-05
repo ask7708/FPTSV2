@@ -289,7 +289,7 @@ public class Transaction {
 	
 	public String toString(){
 		String[] temp = {null, null, null, null, null, null, null};
-		temp[0] = "!T";
+		temp[0] = "\"!T";
 		temp[5] = this.getTime();
 		if(this.receiver instanceof String){
 			if(this.getType().equals("AccountToAccount") || this.getType().equals("Deposit") || this.getType().equals("Withdraw")){
@@ -311,7 +311,19 @@ public class Transaction {
 				}
 			}
 			else{
-				
+				temp[3] = "" + this.getAmount();
+				if(this.getAmount() < 0){
+					temp[1] = (String) this.transfer;
+					temp[2] = "NameofEquity";
+					temp[4] = "-1";
+					temp[6] = (String) this.receiver;
+				}
+				else{
+					temp[4] = "1";
+					temp[1] = (String) this.receiver;
+					temp[2] = "NameofEquity";
+					temp[6] = (String) this.transfer;
+				}
 			}
 		}
 		else{
@@ -359,6 +371,7 @@ public class Transaction {
 				}
 			}
 		}
+		temp[6] = temp[6] + "\"";
 		ArrayList<String[]> tempArray = new ArrayList<String[]>();
 		tempArray.add(temp);
 		ParseTransaction read = new ParseTransaction();

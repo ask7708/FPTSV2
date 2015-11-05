@@ -41,10 +41,10 @@ public class ParseTransaction {
 		return allTransactions;
 	}
 	
-	public void WriteList(ArrayList<String> allTransactions){
+	public void WriteList(ArrayList<String> allTransactions, String fileName){
 		PrintWriter out = null;
 		try {
-			out = new PrintWriter(new BufferedWriter(new FileWriter("Transaction.txt", true)));
+			out = new PrintWriter(new BufferedWriter(new FileWriter(fileName, true)));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -78,7 +78,7 @@ public class ParseTransaction {
 		ParseTransaction parse = new ParseTransaction();
 		ArrayList<String[]> data = parse.ParseFile(file);
 		ArrayList<String> Data = parse.ReadtoCSV(data);
-		parse.WriteList(Data);
+		parse.WriteList(Data, "Transaction.txt");
 		
 		Account hi = new BankAccount("hi", "hi", 22, "hi", "hi", "hi");
 		Equity bye = new Equity("bye", "bye", 22);
