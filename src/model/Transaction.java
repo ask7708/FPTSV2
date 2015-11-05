@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 
 import model.Account;
 import model.BankAccount;
@@ -286,20 +287,112 @@ public class Transaction {
 		receiver = recivers;
 	}
 	
+	public String toString(){
+		String[] temp = {null, null, null, null, null, null, null};
+		temp[0] = "\"!T";
+		temp[5] = this.getTime();
+		if(this.receiver instanceof String){
+			if(this.getType().equals("AccountToAccount") || this.getType().equals("Deposit") || this.getType().equals("Withdraw")){
+				temp[1] = "!BANK";
+				if(this.getType().equals("Deposit") || this.getType().equals("AccountToAccount")){
+					temp[2] = (String) this.receiver;
+					temp[3] = "" + this.getAmount();
+					temp[4] = "1";
+					temp[5] = this.getTime();
+					temp[6] = (String) this.getTransfer();
+				}
+				else{
+					temp[2] = (String) this.transfer;
+					temp[3] = "-" + this.getAmount();
+					temp[4] = "-1";
+					temp[5] = this.getTime();
+					temp[6] = (String) this.getReceiver();
+					
+				}
+			}
+			else{
+				temp[3] = "" + this.getAmount();
+				if(this.getAmount() < 0){
+					temp[1] = (String) this.transfer;
+					temp[2] = "NameofEquity";
+					temp[4] = "-1";
+					temp[6] = (String) this.receiver;
+				}
+				else{
+					temp[4] = "1";
+					temp[1] = (String) this.receiver;
+					temp[2] = "NameofEquity";
+					temp[6] = (String) this.transfer;
+				}
+			}
+		}
+		else{
+			if(this.getType().equals("AccountToAccount") || this.getType().equals("Deposit") || this.getType().equals("Withdraw")){
+				temp[1] = "!BANK";
+				if(this.getAmount() > 0){
+					temp[4] = "1";
+					Account temp2 = (Account) this.getReceiver();
+					temp[2] = temp2.getAccountName();
+					temp[3] = "" + temp2.getAmount();
+					if(this.getType().equals("Deposit")){
+						temp[6] = "User";
+					}
+					else{
+						Account temp6 = (Account) this.getTransfer();
+						temp[6] = temp6.getAccountName();
+					}
+				}
+				else{
+					temp[4] = "-1";
+					Account temp2 = (Account) this.getTransfer();
+					temp[2] = temp2.getAccountName();
+					temp[3] = "" + temp2.getAmount() * -1;
+					temp[6] = "User";
+				}
+			}
+			else{
+				if(this.getAmount() < 0){
+					Equity tempEquity = (Equity) this.getTransfer();
+					temp[1] = tempEquity.getTickSymbol();
+					temp[2] = tempEquity.getName();
+					temp[3] = "" + tempEquity.getInitPrice();
+					Account tempAccount = (Account) this.getReceiver();
+					temp[6] = tempAccount.getAccountName();
+					temp[4] = "" + tempEquity.getShares();
+				}
+				else{
+					Equity tempEquity = (Equity) this.getReceiver();
+					temp[1] = tempEquity.getTickSymbol();
+					temp[2] = tempEquity.getName();
+					temp[3] = "" + tempEquity.getInitPrice();
+					Account tempAccount = (Account) this.getTransfer();
+					temp[6] = tempAccount.getAccountName();
+					temp[4] = "" + tempEquity.getShares();
+				}
+			}
+		}
+		temp[6] = temp[6] + "\"";
+		ArrayList<String[]> tempArray = new ArrayList<String[]>();
+		tempArray.add(temp);
+		ParseTransaction read = new ParseTransaction();
+		ArrayList<String> end = read.ReadtoCSV(tempArray);
+		return end.get(0);
+	}
+	
 	public void Transfer(){
-		if(typeString.get() == "Deposit"){
+		if(typeString.get().equals("Deposit")){
 			Deposit();
 		}
-		else if(typeString.get() == "Withdraw"){
+		else if(typeString.get().equals("Withdraw")){
 			Withdraw();
 		}
-		else if(typeString.get() == "AccountToAccount"){
+		else if(typeString.get().equals("AccountToAccount")){
 			AccountToAccount();
 		}
-		else if(typeString.get() == "EquityToAccount"){
+		else if(typeString.get().equals("EquityToAccount")){
 			EquityToAccount();
 		}
-		else if(typeString.get() == "AccountToEquity"){
+		else if(typeString.get().equals("AccountToEquity")){
 			AccountToEquity();
 		}
 	}

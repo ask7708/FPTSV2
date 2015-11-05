@@ -1,7 +1,10 @@
 package model;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+import java.util.Scanner;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,14 +17,18 @@ public class Portfolio {
    private ObservableList<Equity> equityList;
    private ObservableList<Transaction> transactions;
    private Watchlist watchlist;
+   private String userName;
 
-   public Portfolio() {
+   public Portfolio(String userName) {
       
       this.equityList = FXCollections.observableArrayList();
       this.accounts = FXCollections.observableArrayList();
       this.holdings = FXCollections.observableArrayList();
       this.transactions = FXCollections.observableArrayList();
       this.watchlist = new Watchlist();
+      this.userName = userName;
+      populateAccountsFromFile();
+      populateEquitiesFromFile();
    }
 
    
@@ -189,7 +196,7 @@ public class Portfolio {
 
    public static void main(String[] args) {
 
-      Portfolio myPortfolio = new Portfolio();
+      Portfolio myPortfolio = new Portfolio("itnks");
       ObservableList<Holdings> holdings = FXCollections.observableArrayList();
 
       holdings.add(new MarketAccount("!MM", "First Element", 123.45, "11/2/15", "0101010", "5434512"));
@@ -220,7 +227,85 @@ public class Portfolio {
 
    }
 
+   
+   	public void populateAccountsFromFile(){
+   		
+   		
+   			File data = new File(this.userName+".txt");
+   			Scanner dataRead = null;
 
+   			try {
+   				dataRead = new Scanner(data);
+   			} catch (FileNotFoundException e) {
+   				// TODO Auto-generated catch block
+   				e.printStackTrace();
+   			}
+
+   			String line;
+   			String[] temp;
+
+   			while (dataRead.hasNextLine()) {
+   				line = dataRead.nextLine();
+   				line = line.replace("\"", "");
+   				line = line.replace(", ", "");
+   				temp = line.split(",");
+   				ReadHoldingsContext readAccountHolding = new ReadHoldingsContext(new ReadAccountHolding());
+
+   				if (temp[0].equals("!MM") || temp[0].equals("!BANK")) {
+   					Account accountInfo = (Account) readAccountHolding.executeStrategy(temp);
+
+   					accounts.add(accountInfo);
+   					
+   				}
+
+   			}
+
+   			dataRead.close();
+   	
+   			
+   	}
+   	
+   	public void populateEquitiesFromFile(){
+   		
+
+   			YahooStrategy company = new EquityStrategy();
+   			YahooContext context = new YahooContext(company);
+   		
+   			File data = new File(userName+".txt");
+   			Scanner dataRead = null;
+
+   			try {
+   				dataRead = new Scanner(data);
+   			} catch (FileNotFoundException e) {
+   				// TODO Auto-generated catch block
+   				e.printStackTrace();
+   			}
+
+   			String line;
+   			String[] temp;
+
+   			while (dataRead.hasNextLine()) {
+   				line = dataRead.nextLine();
+   				line = line.replace("\"", "");
+   				line = line.replace(", ", " ");
+   				temp = line.split(",");
+   				ReadHoldingsContext readOwnedEquity = new ReadHoldingsContext(new ReadOwnedEquities());
+
+   				if (temp[0].equals("!OWNED")) {
+   					Equity OwnedEquityInfo = (Equity) readOwnedEquity.executeStrategy(temp);
+
+   					OwnedEquityInfo.setInitPrice((context.executeStrategy(OwnedEquityInfo.getTickSymbol())));
+   					equityList.add(OwnedEquityInfo);
+
+   				}
+
+   			}
+
+   			dataRead.close();
+   			
+   		
+   			
+   	}
 
 
    	public ObservableList<Account> getAccounts() {
@@ -235,4 +320,17 @@ public class Portfolio {
    	}
    	
 
+    public Equity findEquity(String tSymbol) {
+        
+        Equity e = null;
+        
+        for(Equity findThis : equityList){
+      	  
+      	  if(findThis.getTickSymbol().equals(tSymbol))
+      		  return findThis;
+        }
+        
+        return e;
+     }
+   	
 }

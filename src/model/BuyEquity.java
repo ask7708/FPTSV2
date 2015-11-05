@@ -19,23 +19,39 @@ public class BuyEquity implements TypeOfTransaction {
 	private Portfolio port;
 	private Account acc;
 	private double priceBoughtAt;
+	private double numberOfSharesBought;
 	
-	public BuyEquity(Account acc, Equity boughtEq, Portfolio port){
+	public BuyEquity(Account acc, Equity boughtEq, Portfolio port, double numberOfSharesBought){
 		
 		this.acc = acc;
 		this.boughtEq = boughtEq;
 		this.port = port;
 		this.priceBoughtAt = boughtEq.getInitPrice();
+		this.numberOfSharesBought = numberOfSharesBought;
 		
 	}
 	
 	public void execute(){
 		
-		if(this.acc.getAmount() > priceBoughtAt){
+		if(this.acc.getAmount() > (this.priceBoughtAt * this.numberOfSharesBought )){
 			
-		this.acc.setAmount(this.acc.getAmount()-priceBoughtAt);	
+		this.acc.setAmount(this.acc.getAmount()-(this.priceBoughtAt * this.numberOfSharesBought));	
+		
+		if(port.findEquity(this.boughtEq.getTickSymbol()) != null){
+			
+			
+			double totalShares = port.findEquity(this.boughtEq.getTickSymbol()).getShares() + this.numberOfSharesBought;
+			System.out.println(this.numberOfSharesBought);
+			port.findEquity(this.boughtEq.getTickSymbol()).setShares(totalShares);
+			System.out.println(port.findEquity(this.boughtEq.getTickSymbol()).getShares());
+			System.out.println(port.findEquity(this.boughtEq.getTickSymbol()));
+		}else{
+		
 		port.getEquityList().add(this.boughtEq);
+
 		}
+		
+	}
 		
 	}
 
@@ -49,6 +65,7 @@ public class BuyEquity implements TypeOfTransaction {
 	@Override
 	public void undo() {
 		
+		/*
 		ObservableList<Equity> findBoughtEquity =  this.port.getEquityList();
 		ListIterator li = findBoughtEquity.listIterator(findBoughtEquity.size());
 
@@ -63,7 +80,12 @@ public class BuyEquity implements TypeOfTransaction {
 			
 		  
 		
-		}
+		}*/
+		double backToOriginal = 0.0;
+		backToOriginal = port.findEquity(this.boughtEq.getTickSymbol()).getShares() - this.numberOfSharesBought;
+		port.findEquity(this.boughtEq.getTickSymbol()).setShares(backToOriginal);
+		this.acc.setAmount(this.acc.getAmount()+(this.priceBoughtAt*numberOfSharesBought));
+		
 		
 		
 	}

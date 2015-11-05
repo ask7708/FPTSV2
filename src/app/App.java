@@ -75,7 +75,6 @@ public class App extends Application {
 
    public App() {
 
-      this.portfolio = new Portfolio();
       this.market = new Market("equities.txt");
       this.watchlist = new Watchlist();
 
@@ -151,8 +150,9 @@ public class App extends Application {
 
          LoginOverviewController loginController = loader.getController();
          loginController.setMainApp(this);
-
-      } catch (IOException e) {
+      }
+      
+      catch (IOException e) {
          e.printStackTrace();
       }
    }
@@ -164,6 +164,7 @@ public class App extends Application {
 
       try {
 
+    	   this.portfolio = new Portfolio(getUserName());
          FXMLLoader loader = new FXMLLoader();
          loader.setLocation(App.class.getResource("../views/TheOtherScene.fxml"));
          Pane loginView = (Pane) loader.load();

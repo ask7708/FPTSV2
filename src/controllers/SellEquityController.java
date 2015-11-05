@@ -1,6 +1,3 @@
-/**
- * 
- */
 package controllers;
 
 import java.time.LocalDateTime;
@@ -20,20 +17,16 @@ import model.Account;
 import model.BuyEquity;
 import model.Equity;
 import model.Market;
-import model.Transaction;
+import model.SellEquity;
 import model.TypeOfTransactionManager;
 
-/**
- * @author Arsh
- *
- */
-public class BuyEquityController {
-
-	@FXML
-	private TextField sharesToBuyTextField;
+public class SellEquityController {
 	
 	@FXML
-	private Button buyButton;
+	private TextField sharesToSellTextField;
+	
+	@FXML
+	private Button sellButton;
 	
 	@FXML
 	private Button cancelButton;
@@ -59,9 +52,6 @@ public class BuyEquityController {
 	  
 	private Stage dialogStage;
 	
-	private MarketController markControl;
-	
-	private Market market;
 	
 	private Equity selectedEq;
 	
@@ -73,41 +63,33 @@ public class BuyEquityController {
 	
 	public void initialize(){
 	
-		sharesToBuyTextField.setText("0.0");
+		sharesToSellTextField.setText("0.0");
 		
 	}
 	
 	@FXML
-	public void buyPressed(){
+	public void sellPressed(){
 		
 		LocalDateTime now = LocalDateTime.now();
 		
 		if(accountChoiceComboBox.getSelectionModel().getSelectedIndex() != -1){
 			
-			if(Double.parseDouble(sharesToBuyTextField.getText()) > 0.0){
+			if(Double.parseDouble(sharesToSellTextField.getText()) > 0.0){
 				
 				
-		selectedEq = this.market.findEquity(this.tickSymbolToBeSetLabel.getText());
+		selectedEq = this.application.getPortfolio().findEquity(this.tickSymbolToBeSetLabel.getText());
 		selectedEq.setTime(Integer.toString(now.getYear())+Integer.toString(now.getMonthValue())+Integer.toString(now.getDayOfMonth()));
 		accountChoiceComboBox.getSelectionModel().getSelectedIndex();
 		ac = this.application.getPortfolio().getAccounts().get(accountChoiceComboBox.getSelectionModel().getSelectedIndex());
 		
-		if(ac.getAmount() > (Double.parseDouble(sharesToBuyTextField.getText())*selectedEq.getInitPrice())){
 		
-		BuyEquity be = new BuyEquity(ac, selectedEq, this.application.getPortfolio(), Double.parseDouble(sharesToBuyTextField.getText()));
+		SellEquity be = new SellEquity(ac, selectedEq, this.application.getPortfolio(), Double.parseDouble(sharesToSellTextField.getText()));
 		
 		tm.executeTransaction(be);
-		buyButton.setDisable(true);
+		sellButton.setDisable(true);
 		accountChoiceComboBox.setDisable(true);
-		sharesToBuyTextField.setDisable(true);
-		}else{
-			
-			Alert alert = new Alert(AlertType.CONFIRMATION);
-    		alert.setTitle("Invalid Funds Error");
-    		alert.setContentText("Invalid transcation. Account selected has invalid funds for purchase");
-    		alert.showAndWait();
-		}
-			
+		sharesToSellTextField.setDisable(true);
+		
 			
 			}else{
 				Alert alert = new Alert(AlertType.CONFIRMATION);
@@ -155,11 +137,6 @@ public class BuyEquityController {
 		this.dialogStage = dialogStage;
 	}
 
-	public void setMarketController(MarketController marketController) {
-		
-		this.markControl = marketController;
-		
-	}
 	
 	public void setTickSymbolLabel(String ticker){
 		
@@ -175,12 +152,6 @@ public class BuyEquityController {
 	
 	priceToSetLabel.setText(price);
 	}
-	
-	public void setMarket(Market market){
-		
-		this.market = market;
-	}
-	
 	
 	
 	public void setMainApp(App app) {
