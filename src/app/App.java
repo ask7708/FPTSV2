@@ -81,7 +81,6 @@ public class App extends Application {
       this.setReadAccounts(false);
       this.setReadEquities(false);
 
-
       dowCompanies = FXCollections.observableArrayList();
 
       DowIterator dowFinder = market.getDowIterator();

@@ -171,5 +171,11 @@ public class SimulatorController {
     
     public void setMainApp(App app) { this.application = app; }
     
-    public void getEquities(ObservableList<Equity> e) { this.equities = e; } 
+    public void getEquities(ObservableList<Equity> e) { 
+       
+       this.equities = e;
+       
+       for(Equity obj: this.equities)
+          obj.putSimulationOn();
+    } 
 }
