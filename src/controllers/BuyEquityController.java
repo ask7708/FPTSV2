@@ -12,6 +12,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import model.Account;
 import model.BuyEquity;
@@ -26,6 +27,9 @@ import model.TypeOfTransactionManager;
  */
 public class BuyEquityController {
 
+	@FXML
+	private TextField sharesToBuyTextField;
+	
 	@FXML
 	private Button buyButton;
 	
@@ -83,6 +87,9 @@ public class BuyEquityController {
 		BuyEquity be = new BuyEquity(ac, selectedEq, this.application.getPortfolio());
 		
 		tm.executeTransaction(be);
+		buyButton.setDisable(true);
+		accountChoiceComboBox.setDisable(true);
+		sharesToBuyTextField.setDisable(true);
 		
 	
 	}

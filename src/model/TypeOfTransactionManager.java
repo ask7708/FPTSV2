@@ -21,7 +21,7 @@ public class TypeOfTransactionManager {
 		this.t = t;
 		t.execute();
 		undoStack.add(t);
-		redoStack.add(t);
+		
 		
 	}
 
@@ -48,6 +48,7 @@ public class TypeOfTransactionManager {
 			
 			
 			TypeOfTransaction tot = undoStack.pop();
+			redoStack.add(tot);
 			tot.undo();
 			
 					
@@ -59,8 +60,17 @@ public class TypeOfTransactionManager {
 
 	public void redo() {
 		
-		this.t.execute();
-		undoStack.add(t);
+		if(redoStack.get(0) != null){
+			
+			
+			TypeOfTransaction tot = redoStack.pop();
+			undoStack.add(tot);
+			tot.redo();
+			
+					
+		}
+		
+		
 		
 	}
 	
