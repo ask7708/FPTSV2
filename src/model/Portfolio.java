@@ -268,6 +268,9 @@ public class Portfolio {
    	public void populateEquitiesFromFile(){
    		
 
+   			YahooStrategy company = new EquityStrategy();
+   			YahooContext context = new YahooContext(company);
+   		
    			File data = new File(userName+".txt");
    			Scanner dataRead = null;
 
@@ -284,13 +287,14 @@ public class Portfolio {
    			while (dataRead.hasNextLine()) {
    				line = dataRead.nextLine();
    				line = line.replace("\"", "");
-   				line = line.replace(", ", "");
+   				line = line.replace(", ", " ");
    				temp = line.split(",");
    				ReadHoldingsContext readOwnedEquity = new ReadHoldingsContext(new ReadOwnedEquities());
 
    				if (temp[0].equals("!OWNED")) {
    					Equity OwnedEquityInfo = (Equity) readOwnedEquity.executeStrategy(temp);
 
+   					OwnedEquityInfo.setInitPrice((context.executeStrategy(OwnedEquityInfo.getTickSymbol())));
    					equityList.add(OwnedEquityInfo);
 
    				}
@@ -316,4 +320,17 @@ public class Portfolio {
    	}
    	
 
+    public Equity findEquity(String tSymbol) {
+        
+        Equity e = null;
+        
+        for(Equity findThis : equityList){
+      	  
+      	  if(findThis.getTickSymbol().equals(tSymbol))
+      		  return findThis;
+        }
+        
+        return e;
+     }
+   	
 }

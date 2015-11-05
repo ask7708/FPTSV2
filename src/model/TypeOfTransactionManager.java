@@ -12,8 +12,8 @@ import java.util.Stack;
 public class TypeOfTransactionManager {
 	
 	
-	private Stack<TypeOfTransaction> undoStack = new Stack();
-	private Stack<TypeOfTransaction> redoStack = new Stack();
+	private Stack<TypeOfTransaction> undoStack = new Stack<TypeOfTransaction>();
+	private Stack<TypeOfTransaction> redoStack = new Stack<TypeOfTransaction>();
 	private TypeOfTransaction t;
 	
 	public void executeTransaction(TypeOfTransaction t){
@@ -39,7 +39,12 @@ public class TypeOfTransactionManager {
 	
 	public boolean isUndoAvailable(){
 		
-		return undoStack.get(0) != null;
+		return undoStack.size() != 0;
+	}
+	
+	public boolean isRedoAvailable(){
+		
+		return redoStack.size() != 0;
 	}
 	
 	public void undo(){

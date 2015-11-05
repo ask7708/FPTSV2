@@ -58,49 +58,6 @@ public class OwnedEquityController {
 
 	public void readOwnedEquities(String user) {
 
-		/*
-		if(this.application.getPortfolio().getEquityList().size() == 0){
-		// System.out.println("UserName"+this.application.getUserName());
-			System.out.println(this.application.getPortfolio().getEquityList().size());	
-		File data = new File(user + ".txt");
-		Scanner dataRead = null;
-
-		try {
-			dataRead = new Scanner(data);
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		String line;
-		String[] temp;
-
-		while (dataRead.hasNextLine()) {
-			line = dataRead.nextLine();
-			line = line.replace("\"", "");
-			line = line.replace(", ", "");
-			temp = line.split(",");
-			ReadHoldingsContext readOwnedEquity = new ReadHoldingsContext(new ReadOwnedEquities());
-
-			if (temp[0].equals("!OWNED")) {
-				Equity OwnedEquityInfo = (Equity) readOwnedEquity.executeStrategy(temp);
-
-				ownedEquities.add(OwnedEquityInfo);
-
-			}
-
-		}
-
-		dataRead.close();
-		application.getPortfolio().setEquityList(ownedEquities);
-		ownedTable.setItems(application.getPortfolio().getEquityList());
-	}else{	
-		
-		
-		ownedTable.setItems(application.getPortfolio().getEquityList());
-		//System.out.println(application.getPortfolio().getEquityList());
-		//ownedTable.setItems(ownedEquities);
-	}*/
 		
 		ownedTable.setItems(application.getPortfolio().getEquityList());
 		
