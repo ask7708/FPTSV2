@@ -1,6 +1,10 @@
 package app;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import controllers.AccountController;
@@ -23,6 +27,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import model.Account;
 import model.Equity;
 import model.Holdings;
 import model.Market;
@@ -77,7 +82,7 @@ public class App extends Application {
 
       this.market = new Market("equities.txt");
       this.watchlist = new Watchlist();
-
+      this.portfolio = null;
       this.setReadAccounts(false);
       this.setReadEquities(false);
 
@@ -163,7 +168,12 @@ public class App extends Application {
 
       try {
 
-    	   this.portfolio = new Portfolio(getUserName());
+
+
+    	 if(this.portfolio == null){
+    	 this.portfolio = new Portfolio(getUserName());
+    	 }
+
          FXMLLoader loader = new FXMLLoader();
          loader.setLocation(App.class.getResource("../views/TheOtherScene.fxml"));
          Pane loginView = (Pane) loader.load();
@@ -335,11 +345,40 @@ public class App extends Application {
     */
    public void logout() {
 
+	  
+	  File writeFile = new File(getUserName()+".txt");
+	  writeFile.setWritable(true);
+      PrintWriter out;
+      try {
+		out = new PrintWriter(
+					new BufferedWriter(new FileWriter(getUserName() + ".txt", false)));
+
+		for(Equity e: this.portfolio.getEquityList()){
+			
+			out.println("\"!OWNED\","+e.toString());
+		}
+		for(Account a: this.portfolio.getAccounts()){
+			
+			if(a.getTypeOfAccount().equals("Money Market")){
+			out.println("\"!MM\"," + a.toString());
+			}
+			else{
+			out.println("\"!BANK\"," + a.toString());
+			}
+		}
+		
+		out.close();
+	} catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+      
+     
+      
       this.portfolio = null;
       this.market = null;
       this.watchlist = null;
       this.username = null;
-
       showLoginView();   
    }
    

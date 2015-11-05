@@ -15,8 +15,9 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import app.App;
 import javafx.stage.Stage;
-
+import model.Account;
 import model.Equity;
+import model.ReadAccountHolding;
 import model.ReadHoldingsContext;
 import model.ReadOwnedEquities;
 import javafx.collections.FXCollections;
@@ -99,25 +100,21 @@ public class OwnedEquityController {
 			}
 
 			String line;
+			String temp[];
 			// StringBuffer sb = new StringBuffer();
-			PrintWriter out;
+
 
 			while (dataRead.hasNextLine()) {
 				line = dataRead.nextLine();
 				// System.out.println(line);
 				if (line.startsWith("\"!OWNED\"")) {
-					// sb.append(line+"\n");
-					File writeFile = new File(this.application.getUserName()+".txt");
-					writeFile.setWritable(true);
-					try {
-						out = new PrintWriter(
-								new BufferedWriter(new FileWriter(this.application.getUserName() + ".txt", true)));
-						out.println(line);
-						out.close();
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+
+					line = line.replace("\"", "");
+					line = line.replace(", ", "");
+					temp = line.split(",");
+					ReadHoldingsContext readEquity = new ReadHoldingsContext(new ReadOwnedEquities());
+					Equity addEquity = (Equity) readEquity.executeStrategy(temp);
+					this.application.getPortfolio().getEquityList().add(addEquity);
 
 				}
 
@@ -146,7 +143,7 @@ public class OwnedEquityController {
 
 		try {
 			outExport = new PrintWriter(new BufferedWriter(new FileWriter(file, true)));
-			for (Equity e : ownedEquities) {
+			for (Equity e : this.application.getPortfolio().getEquityList()) {
 				outExport.println("\"!OWNED\"," + e.toString());
 
 			}
@@ -235,7 +232,8 @@ public class OwnedEquityController {
 	}
 
 	@FXML
-	public void backHandler() { this.application.showDashboardView(); }
+	public void backHandler() {
+		this.application.showDashboardView(); }
 	
 	public Equity getSelectedEquity(){
 		 

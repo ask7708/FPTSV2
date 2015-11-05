@@ -17,7 +17,20 @@
             <TableColumn fx:id="dateCol" prefWidth="102.0" text="Date Acquired" />
         </columns>
       </TableView>
-      <Button fx:id="backButton" layoutX="539.0" layoutY="-1.0" mnemonicParsing="false" onAction="#backHandler" prefHeight="198.0" prefWidth="62.0" text="Dashboard" />
-      <Button fx:id="importButton" layoutX="538.0" layoutY="196.0" mnemonicParsing="false" onAction="#importAccounts" prefHeight="176.0" prefWidth="62.0" text="Import" />
+      <GridPane layoutX="537.0" layoutY="-4.0" prefHeight="377.0" prefWidth="68.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Button fx:id="backButton" mnemonicParsing="false" onAction="#backHandler" prefHeight="132.0" prefWidth="64.0" text="Dashboard" GridPane.rowIndex="2" />
+            <Button fx:id="importButton" mnemonicParsing="false" onAction="#importAccounts" prefHeight="128.0" prefWidth="63.0" text="Import" />
+            <Button fx:id="exportButton" mnemonicParsing="false" onAction="#exportAccounts" prefHeight="150.0" prefWidth="64.0" text="Export" GridPane.rowIndex="1" />
+         </children>
+      </GridPane>
    </children>
 </Pane>

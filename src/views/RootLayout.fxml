@@ -11,15 +11,11 @@
           <Menu fx:id="accountMenu" mnemonicParsing="false" text="My Accounts">
             <items>
               <MenuItem fx:id="viewAItem" mnemonicParsing="false" onAction="#viewAccountHandler" text="View Accounts" />
-                  <MenuItem fx:id="importAItem" mnemonicParsing="false" text="Import" />
-                  <MenuItem fx:id="exportAItem" mnemonicParsing="false" text="Export" />
             </items>
           </Menu>
           <Menu fx:id="equityMenu" mnemonicParsing="false" text="My Equities">
             <items>
               <MenuItem fx:id="viewEItem" mnemonicParsing="false" onAction="#viewOwnedEquityHandler" text="View Equities" />
-                  <MenuItem fx:id="importEItem" mnemonicParsing="false" text="Import" />
-                  <MenuItem fx:id="exportEItem" mnemonicParsing="false" text="Export" />
             </items>
           </Menu>
             <Menu fx:id="marketMenu" mnemonicParsing="false" text="Market">
