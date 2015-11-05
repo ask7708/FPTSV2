@@ -2,6 +2,7 @@ package model;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
@@ -29,10 +30,28 @@ public class Portfolio {
       this.userName = userName;
       populateAccountsFromFile();
       populateEquitiesFromFile();
+      populateTransactions();
    }
 
    
+   public ObservableList<Transaction> getTransactions(){
+	   return this.transactions;
+   }
    
+   public void addTransaction(Transaction data){
+	   this.transactions.add(data);
+   }
+   
+   public void populateTransactions(){
+	   ParseTransaction data = new ParseTransaction();
+	      String usernameFile = userName + ".txt";
+	      File userFile = new File(usernameFile);
+	      ArrayList<String[]> info = data.ParseFile(userFile);
+	      for(int i = 0; i < info.size(); i++){
+	    	  Transaction temp = new Transaction(info.get(i));
+	    	  transactions.add(temp);
+	      }
+   }
    
    public ObservableList<Equity> getEquityList() { return this.equityList; }
 

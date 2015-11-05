@@ -118,28 +118,25 @@ public class TransactionController {
 
 		// Show save file dialog
 		File file = fileChooser.showSaveDialog(null);
-		ArrayList<String> data = new ArrayList<String>();
+		ArrayList<String[]> data = new ArrayList<String[]>();
 	
 		for (Transaction t : transactions) {
-			data.add(t.toString());
+			data.add(t.toStringArray());
 
 		}
-		ParseTransaction read = new ParseTransaction();
 		System.out.print(file.toString());
-		read.WriteList(data, file.toString());
+		for(int i = 0; i < data.size(); i++){
+			Transaction temp = new Transaction(data.get(i));
+			this.application.getPortfolio().addTransaction(temp);
+		}
 	}
 	
 	public void setMainApp(App app) { this.application = app; } 
 	
 	public void setinformation(String user){
-		String name = "";
-		name = name + user + ".txt"; 
-		
-		File data = new File(user+".txt");
-		ParseTransaction build = new ParseTransaction();
-		ArrayList<String[]> temp = build.ParseFile(data);
+		ObservableList<Transaction> temp = this.application.getPortfolio().getTransactions();
 		for(int i = 0; i < temp.size(); i++){
-			Transaction TransactionTemp = new Transaction(temp.get(i));
+			Transaction TransactionTemp = temp.get(i);
 			transactions.add(TransactionTemp);
 		}
 		

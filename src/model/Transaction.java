@@ -28,6 +28,7 @@ public class Transaction {
 	private Object receiver;
 	private Object transfer;
 	final private StringProperty typeString;
+	private String EquityTicker;
 	
 	/**
 	 * 
@@ -74,6 +75,7 @@ public class Transaction {
 	
 	//Use this for display purposes only
 	public Transaction(String[] temp){
+		this.EquityTicker = temp[1];
 		this.time = new SimpleStringProperty(temp[5]);
 		this.cash = new SimpleDoubleProperty(Double.parseDouble(temp[4]));
 		if(this.cash.get() >= 0){
@@ -287,7 +289,7 @@ public class Transaction {
 		receiver = recivers;
 	}
 	
-	public String toString(){
+	public String[] toStringArray(){
 		String[] temp = {null, null, null, null, null, null, null};
 		temp[0] = "\"!T";
 		temp[5] = this.getTime();
@@ -313,15 +315,15 @@ public class Transaction {
 			else{
 				temp[3] = "" + this.getAmount();
 				if(this.getAmount() < 0){
-					temp[1] = (String) this.transfer;
-					temp[2] = "NameofEquity";
+					temp[2] = (String) this.transfer;
+					temp[1] = this.EquityTicker;
 					temp[4] = "-1";
 					temp[6] = (String) this.receiver;
 				}
 				else{
 					temp[4] = "1";
-					temp[1] = (String) this.receiver;
-					temp[2] = "NameofEquity";
+					temp[2] = (String) this.receiver;
+					temp[1] = this.EquityTicker;
 					temp[6] = (String) this.transfer;
 				}
 			}
@@ -372,11 +374,7 @@ public class Transaction {
 			}
 		}
 		temp[6] = temp[6] + "\"";
-		ArrayList<String[]> tempArray = new ArrayList<String[]>();
-		tempArray.add(temp);
-		ParseTransaction read = new ParseTransaction();
-		ArrayList<String> end = read.ReadtoCSV(tempArray);
-		return end.get(0);
+		return temp;
 	}
 	
 	public void Transfer(){

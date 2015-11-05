@@ -9,9 +9,6 @@ import model.Portfolio.AccountIterator;
 import model.Portfolio.EquityIterator;
 
 public class ReadTransaction {
-	public ReadTransaction(){
-		
-	}
 	
 	//Transaction Format
 	//Transaction id, Ticker (Equity or Account), Name of Equity/Account
