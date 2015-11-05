@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="436.0" prefWidth="402.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.SellEquityController">
+   <children>
+      <Label layoutY="2.0" prefHeight="39.0" prefWidth="402.0" text="                         Sell Equity" textAlignment="CENTER">
+         <font>
+            <Font name="System Bold Italic" size="22.0" />
+         </font>
+      </Label>
+      <GridPane layoutY="56.0" prefHeight="316.0" prefWidth="402.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints maxHeight="68.0" minHeight="10.0" prefHeight="68.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="68.0" minHeight="10.0" prefHeight="68.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label text="Ticker Symbol:">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <Label text="Equity Name:" GridPane.rowIndex="1">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <Label prefHeight="25.0" prefWidth="124.0" text="Price:" GridPane.rowIndex="2">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <Label prefHeight="20.0" prefWidth="117.0" text="Shares to Sell:" GridPane.rowIndex="3">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="sharesToSellTextField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Label fx:id="tickSymbolToBeSetLabel" prefHeight="17.0" prefWidth="131.0" GridPane.columnIndex="1" />
+            <Label fx:id="equityNameToSetLabel" prefHeight="17.0" prefWidth="193.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label fx:id="priceToSetLabel" prefHeight="17.0" prefWidth="136.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label prefHeight="20.0" prefWidth="192.0" text="Transfer Money to Account:" GridPane.rowIndex="4">
+               <font>
+                  <Font name="System Bold Italic" size="14.0" />
+               </font>
+            </Label>
+            <ChoiceBox fx:id="accountChoiceComboBox" prefHeight="25.0" prefWidth="203.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+         </children>
+      </GridPane>
+      <GridPane layoutY="383.0" prefHeight="51.0" prefWidth="402.0">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <Button fx:id="sellButton" mnemonicParsing="false" onAction="#buyPressed" prefHeight="59.0" prefWidth="101.0" text="Sell" />
+            <Button fx:id="undoButton" mnemonicParsing="false" onAction="#undoPressed" prefHeight="51.0" prefWidth="109.0" text="Undo" GridPane.columnIndex="1" />
+            <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#cancelPressed" prefHeight="61.0" prefWidth="100.0" text="Cancel" GridPane.columnIndex="3" />
+            <Button fx:id="redoButton" mnemonicParsing="false" onAction="#redoPressed" prefHeight="60.0" prefWidth="100.0" text="Redo" GridPane.columnIndex="2" />
+         </children>
+      </GridPane>
+   </children>
+</AnchorPane>
