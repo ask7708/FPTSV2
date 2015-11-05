@@ -13,6 +13,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.Equity;
+import model.Trigger;
 import model.Watchlist;
 
 public class WatchlistController {
@@ -23,7 +24,8 @@ public class WatchlistController {
       @FXML private TableColumn<Equity, String> htColumn;
       @FXML private TableColumn<Equity, String> ltColumn;
       
-   @FXML private TableView<String> triggersTable;
+   @FXML private TableView<Trigger> triggersTable;
+      @FXML private TableColumn<Trigger, String> triggers;
    
    @FXML private Button addEquityButton;
    @FXML private Button editEquityButton;
@@ -113,5 +115,7 @@ public class WatchlistController {
       priceColumn.setCellValueFactory(cellData -> cellData.getValue().initPriceProperty());
       htColumn.setCellValueFactory(cellData -> cellData.getValue().highTriggerProperty());
       ltColumn.setCellValueFactory(cellData -> cellData.getValue().lowTriggerProperty());
+      
+      triggers.setCellValueFactory(cellData -> cellData.getValue().messageProperty());
    }
 }

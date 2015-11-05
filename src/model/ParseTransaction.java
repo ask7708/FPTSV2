@@ -11,8 +11,6 @@ import java.util.Scanner;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 
 public class ParseTransaction {
 	
@@ -43,10 +41,10 @@ public class ParseTransaction {
 		return allTransactions;
 	}
 	
-	public static void WriteList(ArrayList<String> allTransactions){
+	public void WriteList(ArrayList<String> allTransactions, String fileName){
 		PrintWriter out = null;
 		try {
-			out = new PrintWriter(new BufferedWriter(new FileWriter("Transaction.txt", true)));
+			out = new PrintWriter(new BufferedWriter(new FileWriter(fileName, true)));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -57,7 +55,7 @@ public class ParseTransaction {
 		out.close();
 	}
 	
-	public static ArrayList<String> ReadtoCSV(ArrayList<String[]> Read){
+	public ArrayList<String> ReadtoCSV(ArrayList<String[]> Read){
 		//Transaction Format
 		//Transaction id, Ticker (Equity or Account), Name of Equity/Account
 		//CurrentValue, #Shares, Date, bankName
@@ -79,8 +77,8 @@ public class ParseTransaction {
 		File file = new File("Transaction.txt");
 		ParseTransaction parse = new ParseTransaction();
 		ArrayList<String[]> data = parse.ParseFile(file);
-		ArrayList<String> Data = ReadtoCSV(data);
-		WriteList(Data);
+		ArrayList<String> Data = parse.ReadtoCSV(data);
+		parse.WriteList(Data, "Transaction.txt");
 		
 		Account hi = new BankAccount("hi", "hi", 22, "hi", "hi", "hi");
 		Equity bye = new Equity("bye", "bye", 22);

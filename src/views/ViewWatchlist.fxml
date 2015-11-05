@@ -18,7 +18,7 @@
       </TableView>
       <TableView fx:id="triggersTable" layoutX="336.0" layoutY="46.0" prefHeight="279.0" prefWidth="254.0">
         <columns>
-          <TableColumn prefWidth="253.0" text="Triggers Fired" />
+          <TableColumn fx:id="triggers" prefWidth="253.0" text="Triggers Fired" />
         </columns>
       </TableView>
       <Button fx:id="editEquityButton" layoutX="14.0" layoutY="334.0" mnemonicParsing="false" onAction="#editPressed" prefHeight="27.0" prefWidth="179.0" text="Edit Equity Triggers" />

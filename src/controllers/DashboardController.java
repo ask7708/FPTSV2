@@ -56,7 +56,7 @@ public class DashboardController {
 	      total += obj.getInitPrice();
 	   
 	   this.indexValue.setText(String.format("%.02f", total / DJIAStrategy.dowDivisor));
-	   
+	   this.percentChange.setText("0.0%");
 	}
 	   
 	

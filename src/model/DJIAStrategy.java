@@ -30,7 +30,6 @@ public class DJIAStrategy implements YahooStrategy {
      * the current Dow Jones divisor used for the computation of the average
      */
     public static final double dowDivisor = 0.14967727343149;
-
     @Override
     /**
      *
