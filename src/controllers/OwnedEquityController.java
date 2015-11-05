@@ -58,7 +58,7 @@ public class OwnedEquityController {
 
 	public void readOwnedEquities(String user) {
 
-		
+		/*
 		if(this.application.getPortfolio().getEquityList().size() == 0){
 		// System.out.println("UserName"+this.application.getUserName());
 			System.out.println(this.application.getPortfolio().getEquityList().size());	
@@ -100,7 +100,9 @@ public class OwnedEquityController {
 		ownedTable.setItems(application.getPortfolio().getEquityList());
 		//System.out.println(application.getPortfolio().getEquityList());
 		//ownedTable.setItems(ownedEquities);
-	}
+	}*/
+		
+		ownedTable.setItems(application.getPortfolio().getEquityList());
 		
 	}
 

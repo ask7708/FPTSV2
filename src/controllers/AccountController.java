@@ -43,7 +43,7 @@ public class AccountController {
 	private TableColumn<Account, String> dateCol;
 	
 	@FXML
-	private TableView accountTable;
+	private TableView<Account> accountTable;
 	
 	@FXML
 	private Button backButton;
@@ -60,7 +60,7 @@ public class AccountController {
 	
 	public void viewAccount(String username) {
 
-		
+		/*
 		if(application.getPortfolio().getAccounts().size() == 0){
 		System.out.println("AccountController");
 		this.application.setReadAccounts(true);	
@@ -99,7 +99,8 @@ public class AccountController {
 		}else{
 			
 			accountTable.setItems(application.getPortfolio().getAccounts());
-		}
+		}*/
+		accountTable.setItems(application.getPortfolio().getAccounts());
 	}
 
 	public void importAccounts() {
