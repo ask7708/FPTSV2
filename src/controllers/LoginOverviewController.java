@@ -34,6 +34,11 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+/**
+ * 
+ * @author Talal Alsarrani, Daniel Roach, Arshdeep Khalsa , Daniel Cyphe
+ *
+ */
 
 public class LoginOverviewController {
 
@@ -51,7 +56,13 @@ public class LoginOverviewController {
 	
 
 
-
+	/**
+	 * checks if the user exists in the system or not.
+	 * @param usernamem 
+	 * @param password
+	 * @return
+	 * @throws FileNotFoundException
+	 */
 	public boolean userExists(String usernamem, String password) throws FileNotFoundException {
 
 		File f = new File("users.txt");
@@ -77,7 +88,9 @@ public class LoginOverviewController {
 		}
 		return false;
 	}
-	
+	/*
+	 * register the user into the system if it does not exist.
+	 */
 	public void registerHandler(ActionEvent even) throws IOException{
 		System.out.println("yes1");
 		
@@ -121,7 +134,10 @@ public class LoginOverviewController {
 
 	}
 	
-	
+		
+     /*
+     * login the user to the dash boars if the user exist. 
+     */
     public void loginHandler(ActionEvent even ) throws FileNotFoundException{
        
        if(userExists(usernameText.getText().toString(), passwordText.getText().toString())) {  
