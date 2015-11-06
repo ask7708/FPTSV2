@@ -5,204 +5,297 @@ import javafx.beans.property.*;
 import java.time.LocalDate;
 
 /**
+ * The representation a simulation made on the user's portfolio 
+ * 
  * @author dxr5716 Daniel Roach
+ * @author ask7708 Arshdeep Khalsa
+ * @author tna3531 Talal Alsarrani
+ * @author dcc7331 Daniel Cypher
  */
 public class Simulation {
 
-    private ObjectProperty<LocalDate> startDate;
-    private ObjectProperty<LocalDate> endDate;
-    private IntegerProperty amount;
-    private Interval step;
-    private SimulationType marketType;
-    private DoubleProperty percentage;
-    private StringProperty shortVersion;
+   /**
+    * the start date of the simulation
+    */
+   private ObjectProperty<LocalDate> startDate;
 
-    public Simulation() {
+   /**
+    * the calculated end date of the simulation
+    */
+   private ObjectProperty<LocalDate> endDate;
 
-        this.marketType = null;
-        this.step = null;
-        this.amount = null;
-        this.startDate = null;
-        this.endDate = null;
-        this.percentage = null;
-        this.shortVersion = new SimpleStringProperty("NOTHING HERE YET");
-    }
+   /**
+    * the number of time intervals used in the simulation
+    */
+   private IntegerProperty amount;
 
-    public Simulation(SimulationType type, Interval iType, int length, double
-            percent, LocalDate start) {
+   /**
+    * the type of time interval used in the simulation
+    * (DAY, MONTH, YEAR)
+    */
+   private Interval step;
 
-        this.marketType = type;
-        this.step = iType;
-        this.amount = new SimpleIntegerProperty(length);
-        this.percentage = new SimpleDoubleProperty(percent / 100.0);
-        this.startDate = new SimpleObjectProperty<LocalDate>(start);
+   /**
+    * the type of market type used in the simulation
+    * (Bull Market, Bear Market, No-Growth Market)
+    */
+   private SimulationType marketType;
 
-        switch(iType) {
+   /**
+    * the per annum percentage
+    */
+   private DoubleProperty percentage;
 
-            case DAY:
-                this.endDate = new SimpleObjectProperty<LocalDate>(startDate
-                        .get().plusDays(length));
-                break;
-            case MONTH:
-                this.endDate = new SimpleObjectProperty<LocalDate>(startDate
-                        .get().plusMonths(length));
-                break;
-            case YEAR:
-                this.endDate = new SimpleObjectProperty<LocalDate>(startDate
-                        .get().plusYears(length));
-                break;
-            default:
-                this.endDate = new SimpleObjectProperty<LocalDate>(null);
-                break;
-        }
+   /**
+    * the formatted representation of the simulation in string format
+    */
+   private StringProperty shortVersion;
 
-        this.shortVersion = toStringShortProperty();
-    }
+   /**
+    * A default constructor used when parameters cannot be specified
+    */
+   public Simulation() {
 
-    /** Getter for short version of toString property (JavaFX style) **/
-    public String getShortVersion() {
+      this.marketType = null;
+      this.step = null;
+      this.amount = null;
+      this.startDate = null;
+      this.endDate = null;
+      this.percentage = null;
+      this.shortVersion = new SimpleStringProperty("NOTHING HERE YET");
+   }
 
-        return marketType.toString() + "/" +
-                getTimeAmount() + " " + step.toString() + " @ " +
-                String.format("%.01f", percentageProperty().getValue()*100) +
-                "%" + "/" + getStartDate().toString();
-    }
+   /**
+    * 
+    * @param type the market type
+    * @param iType the interval type
+    * @param length the number of time intervals
+    * @param percent the per annum percentage
+    * @param start the start date
+    */
+   public Simulation(SimulationType type, Interval iType, int length, double
+         percent, LocalDate start) {
 
-    public void setShortVersion() {
+      this.marketType = type;
+      this.step = iType;
+      this.amount = new SimpleIntegerProperty(length);
+      this.percentage = new SimpleDoubleProperty(percent / 100.0);
+      this.startDate = new SimpleObjectProperty<LocalDate>(start);
 
-        this.shortVersion = toStringShortProperty();
-    }
+      switch(iType) {
 
-    public StringProperty shortVersionProperty() { return this.shortVersion; }
+      case DAY:
+         this.endDate = new SimpleObjectProperty<LocalDate>(startDate
+               .get().plusDays(length));
+         break;
+      case MONTH:
+         this.endDate = new SimpleObjectProperty<LocalDate>(startDate
+               .get().plusMonths(length));
+         break;
+      case YEAR:
+         this.endDate = new SimpleObjectProperty<LocalDate>(startDate
+               .get().plusYears(length));
+         break;
+      default:
+         this.endDate = new SimpleObjectProperty<LocalDate>(null);
+         break;
+      }
 
-    /** Getters and Setters for amount property (JavaFX style) **/
-    public int getTimeAmount() { return this.amount.get(); }
+      this.shortVersion = toStringShortProperty();
+   }
 
-    public void setTimeAmount(int amount) {
+   /**
+    * 
+    * @return
+    */
+   public String getShortVersion() {
 
-        this.amount = new SimpleIntegerProperty(amount);
-        /*this.amount.set(amount);*/ }
+      return marketType.toString() + "/" +
+            getTimeAmount() + " " + step.toString() + " @ " +
+            String.format("%.01f", percentageProperty().getValue()*100) +
+            "%" + "/" + getStartDate().toString();
+   }
 
-    public IntegerProperty amountProperty() { return this.amount; }
+   /**
+    * 
+    */
+   public void setShortVersion() {
 
-    /** Getters and Setters for percentage property (JavaFX style) **/
-    public double getPercentage() { return this.percentage.get(); }
+      this.shortVersion = toStringShortProperty();
+   }
 
-    public void setPercentage(double pct) {
+   /**
+    * 
+    * @return
+    */
+   public StringProperty shortVersionProperty() { return this.shortVersion; }
 
-        this.percentage = new SimpleDoubleProperty(pct);
-        /*this.percentage.set(pct)*/
-    }
+   /**
+    * 
+    * @return
+    */
+   public int getTimeAmount() { return this.amount.get(); }
 
-    public DoubleProperty percentageProperty() { return this.percentage; }
+   /**
+    * 
+    * @param amount
+    */
+   public void setTimeAmount(int amount) { this.amount = new SimpleIntegerProperty(amount); }
 
-    /** Getters and Setters for Interval property (JavaFX style) **/
-    public Interval getStep() { return this.step; }
+   /**
+    * 
+    * @return
+    */
+   public IntegerProperty amountProperty() { return this.amount; }
 
-    public void setStep(Interval step) { this.step = step; }
+   /**
+    * 
+    * @return
+    */
+   public double getPercentage() { return this.percentage.get(); }
 
-    /** Getters and Setters for SimulationType property (JavaFX style) **/
-    public SimulationType getMarketType() { return this.marketType; }
+   /**
+    * 
+    * @param pct
+    */
+   public void setPercentage(double pct) { this.percentage = new SimpleDoubleProperty(pct); }
 
-    public void setMarketType(SimulationType mType) { this.marketType = mType; }
+   /**
+    * 
+    * @return
+    */
+   public DoubleProperty percentageProperty() { return this.percentage; }
 
-//    /** Getters and Setters for old portfolio value property (JavaFX style) **/
-//    public double getOldPVal() { return this.portfolioValBefore.get(); }
-//
-//    public DoubleProperty oldPValProperty() { return this.portfolioValBefore; }
+   /**
+    * 
+    * @return
+    */
+   public Interval getStep() { return this.step; }
 
-    /** Getters and Setters for start date property (JavaFX style) **/
-    public LocalDate getStartDate() { return  this.startDate.get(); }
+   /**
+    * 
+    * @param step
+    */
+   public void setStep(Interval step) { this.step = step; }
 
-    public void setStartDate(LocalDate date) {
+   /**
+    * 
+    * @return
+    */
+   public SimulationType getMarketType() { return this.marketType; }
 
-        this.startDate = new SimpleObjectProperty<LocalDate>(date);
-        /*this.startDate.set(date);*/ }
+   /**
+    * 
+    * @param mType
+    */
+   public void setMarketType(SimulationType mType) { this.marketType = mType; }
 
-    public ObjectProperty<LocalDate> startDateProperty() { return this
-            .startDate; }
+   /**
+    * 
+    * @return
+    */
+   public LocalDate getStartDate() { return  this.startDate.get(); }
 
-    /** Getter and Setters for end date property (JavaFX style) **/
-    public LocalDate getEndDate() { return this.endDate.get(); }
+   /**
+    * 
+    * @param date
+    */
+   public void setStartDate(LocalDate date) { this.startDate = new SimpleObjectProperty<LocalDate>(date); }
 
-    public void setEndDate(LocalDate date) {
+   /**
+    * 
+    * @return
+    */
+   public ObjectProperty<LocalDate> startDateProperty() { return this.startDate; }
 
-        this.endDate = new SimpleObjectProperty<LocalDate>(date);
-        /*this.endDate.set(date);*/ }
+   /**
+    * 
+    * @return
+    */
+   public LocalDate getEndDate() { return this.endDate.get(); }
 
-    public ObjectProperty<LocalDate> endDateProperty() { return this.endDate; }
+   /**
+    * 
+    * @param date
+    */
+   public void setEndDate(LocalDate date) { this.endDate = new SimpleObjectProperty<LocalDate>(date); }
 
-     public void changeHoldingPrice(Equity holding) {
+   /**
+    * 
+    * @return
+    */
+   public ObjectProperty<LocalDate> endDateProperty() { return this.endDate; }
 
-        double time = 0;
-        double intrst = 0;
-        double price = holding.getSimPrice();
-        double newPrice = price;
-        int steps = getTimeAmount();
+   /**
+    * 
+    * @param holding
+    */
+   public void changeHoldingPrice(Equity holding) {
 
-        switch(step) {
+      double time = 0;
+      double intrst = 0;
+      double price = holding.getSimPrice();
+      double newPrice = price;
+      int steps = getTimeAmount();
 
-            case DAY:
-                time = getTimeAmount() / 365.0;
-                break;
-            case MONTH:
-                time = getTimeAmount() / 12.0;
-                break;
-            case YEAR:
-                time = getTimeAmount();
-                break;
-        }
+      switch(step) {
 
-        switch(marketType) {
+      case DAY:
+         time = getTimeAmount() / 365.0;
+         break;
+      case MONTH:
+         time = getTimeAmount() / 12.0;
+         break;
+      case YEAR:
+         time = getTimeAmount();
+         break;
+      }
+
+      switch(marketType) {
 
 
-            case NONE:
-                holding.addPriceChange(newPrice);
-                return;
+      case NONE:
+         holding.addPriceChange(newPrice);
+         return;
 
-            case BEAR:
-                intrst = price * getPercentage() * time;
-                steps = getTimeAmount();
+      case BEAR:
+         intrst = price * getPercentage() * time;
+         steps = getTimeAmount();
 
-                while(steps != 0) {
+         while(steps != 0) {
 
-                    newPrice -= ((1.0/getTimeAmount()) * intrst);
-                    steps--;
-                }
+            newPrice -= ((1.0/getTimeAmount()) * intrst);
+            steps--;
+         }
 
-                holding.addPriceChange(newPrice);
-                break;
+         holding.addPriceChange(newPrice);
+         break;
 
-            case BULL:
-                intrst = price * getPercentage() * time;
-                steps = getTimeAmount();
+      case BULL:
+         intrst = price * getPercentage() * time;
+         steps = getTimeAmount();
 
-                while(steps != 0) {
+         while(steps != 0) {
 
-                    newPrice += ((1.0/getTimeAmount()) * intrst);
-                    steps--;
-                }
+            newPrice += ((1.0/getTimeAmount()) * intrst);
+            steps--;
+         }
 
-                holding.addPriceChange(newPrice);
-                break;
-        }
+         holding.addPriceChange(newPrice);
+         break;
+      }
 
-    }
+   }
 
-    public StringProperty toStringShortProperty() {
+   /**
+    * 
+    * @return
+    */
+   public StringProperty toStringShortProperty() {
 
-        System.out.println("to string called now");
-        return new SimpleStringProperty(marketType.toString() + " / " +
-                getTimeAmount() + " " + step.toString() + " @ " +
-                String.format("%.01f", percentageProperty().getValue()*100) +
-                "%" + " / " + getStartDate().toString());
-    }
-
-    public static void main(String[] args) {
-
-        Simulation sim1 = new Simulation(SimulationType.BULL, Interval.MONTH,
-                7, 3.3, LocalDate.now());
-
-        System.out.println(sim1.toStringShortProperty().get());
-    }
+      return new SimpleStringProperty(marketType.toString() + " / " +
+            getTimeAmount() + " " + step.toString() + " @ " +
+            String.format("%.01f", percentageProperty().getValue()*100) +
+            "%" + " / " + getStartDate().toString());
+   }
 }

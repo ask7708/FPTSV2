@@ -18,29 +18,76 @@ import model.Watchlist;
 
 public class WatchlistController {
 
+   /**
+    * the table listing all of the equities being watched
+    */
    @FXML private TableView<Equity> equityTable;
+   
+      /**
+       * the column listing the ticker symbol of each equity
+       */
       @FXML private TableColumn<Equity, String> tickerColumn;
+      
+      /**
+       * the columns listing the current price of each equity
+       */
       @FXML private TableColumn<Equity, String> priceColumn;
+      
+      /**
+       * the column listing the high trigger price of each equity 
+       */
       @FXML private TableColumn<Equity, String> htColumn;
+      
+      /**
+       * the column listing the low trigger price of each equity
+       */
       @FXML private TableColumn<Equity, String> ltColumn;
       
+   /**
+    * the table listing of all the triggers fired from your watchlist   
+    */
    @FXML private TableView<Trigger> triggersTable;
-      @FXML private TableColumn<Trigger, String> triggers;
    
-   @FXML private Button addEquityButton;
+      /**
+       * the column listing each trigger fired in a formatted string
+       */
+      @FXML private TableColumn<Trigger, String> triggers;
+      
+   /**
+    * the 'Edit Equity Triggers' button
+    */
    @FXML private Button editEquityButton;
+   
+   /**
+    * the 'Remove Equity' button
+    */
    @FXML private Button removeEquityButton;
+   
+   /**
+    * the 'Exit' button
+    */
    @FXML private Button exitButton;
       
+   /**
+    * the reference to the running application
+    */
    private App application;
+   
+   /**
+    * the user's watchlist
+    */
    private Watchlist watchlist;
-   
-   @FXML private void initialize() {
       
-   }
-   
+   /**
+    * called when the 'Exit' button is pressed; making a transition to the
+    * dashboard view
+    */
    @FXML private void exitPressed() { this.application.showDashboardView(); }
    
+   /**
+    * called when the 'Edit Equity Triggers' button is pressed; opening up the
+    * Edit Watchlist Equity view
+    */
    @FXML private void editPressed() {
       
       if(equityTable.getSelectionModel().getSelectedItem() == null) {
@@ -94,6 +141,10 @@ public class WatchlistController {
       }
    }
    
+   /**
+    * called when the 'Remove Equity' button is pressed; removing the selected
+    * equity from the watchlist
+    */
    @FXML public void removePressed() {
       
       if(equityTable.getSelectionModel().getSelectedItem() == null) {
@@ -103,8 +154,19 @@ public class WatchlistController {
       
       watchlist.getEquities().remove(equityTable.getSelectionModel().getSelectedIndex());
    }
+   
+   /**
+    * Sets the reference to the running application so that it can retrieve
+    * what it needs for the view
+    * @param app the running application
+    */
    public void setMainApp(App app) { this.application = app; }
    
+   /**
+    * Sets the reference to the user's watchlist so that it can get the corresponding
+    * equities and triggers lists
+    * @param wList the user's watchlist
+    */
    public void setWatchlist(Watchlist wList) { 
       
       this.watchlist = wList; 
