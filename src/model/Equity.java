@@ -374,4 +374,34 @@ public class Equity implements Holdings {
 		return newS;
 	}
 
+	/**
+	 * Creates a toString method to print out an Equity Object
+	 * 
+	 * @param the
+	 *            String representation of Equity
+	 */
+	public String ownedToString() {
+
+		String newS = new String();
+		newS += "\"" + this.getTickSymbol() + "\"";
+		newS += ",\"" + this.getName() + "\"";
+		newS += ",\"" + (this.getInitPrice() + "\",");
+		if (this.getShares() != 0.0) {
+			newS += "\"" + (this.getShares() + "\",");
+		}
+
+		ArrayList<String> sectors = this.getSectors();
+
+		if (!sectors.isEmpty()) {
+
+			for (String o : sectors) {
+				newS += "\"" + o + "\"" + ", ";
+			}
+		}
+
+		newS += "\n";
+		newS = newS.substring(0, newS.length() - 3);
+		return newS;
+	}
+
 }

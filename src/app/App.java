@@ -354,7 +354,7 @@ public class App extends Application {
 
 		for(Equity e: this.portfolio.getEquityList()){
 			
-			out.println("\"!OWNED\","+e.toString());
+			out.println("\"!OWNED\","+e.ownedToString());
 		}
 		for(Account a: this.portfolio.getAccounts()){
 			

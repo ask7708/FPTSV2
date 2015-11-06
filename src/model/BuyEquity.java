@@ -74,7 +74,9 @@ public class BuyEquity implements TypeOfTransaction {
 						+ this.numberOfSharesBought;
 				port.findEquity(this.boughtEq.getTickSymbol()).setShares(totalShares);
 			} else {
-
+				
+				
+				this.boughtEq.setShares(this.numberOfSharesBought);
 				port.getEquityList().add(this.boughtEq);
 
 			}
