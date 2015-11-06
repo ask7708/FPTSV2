@@ -15,7 +15,7 @@ public class ReadTransaction {
 	//CurrentValue, #Shares (amount for account), Date, bankName
 	
 
-	public Transaction readTransaction(String[] temp, ObservableList<Holdings> holdings ){
+	public static Transaction readTransaction(String[] temp, ObservableList<Holdings> holdings ){
 		Object reciever = null;
 		Object transfer = null;
 		AccountIterator Aitr = new AccountIterator(holdings);

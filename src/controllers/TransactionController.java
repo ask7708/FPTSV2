@@ -59,7 +59,7 @@ public class TransactionController {
 	
 	public void importHandler() {
 
-		
+	
 		FileChooser fileChooser = new FileChooser();
 		FileNameExtensionFilter filter = new FileNameExtensionFilter("Text Files", "txt");
 		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Text files (*.txt)", "*.txt");
@@ -90,6 +90,10 @@ public class TransactionController {
 						out = new PrintWriter(
 								new BufferedWriter(new FileWriter(this.application.getUserName() + ".txt", true)));
 						out.println(line);
+						String[] temp = line.split("\",\"");
+						temp[6] = temp[6].replace("\"", "");
+						Transaction data = new Transaction(temp);
+						this.application.getPortfolio().addTransaction(data);
 						out.close();
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
@@ -103,7 +107,7 @@ public class TransactionController {
 			dataRead.close();
 		}
 
-		
+
 	}
 	
 	public void exportHandler() {
@@ -118,17 +122,15 @@ public class TransactionController {
 
 		// Show save file dialog
 		File file = fileChooser.showSaveDialog(null);
-		ArrayList<String[]> data = new ArrayList<String[]>();
-	
+		ObservableList<String[]> data = FXCollections.observableArrayList();
+ 	
 		for (Transaction t : transactions) {
 			data.add(t.toStringArray());
 
 		}
-		System.out.print(file.toString());
-		for(int i = 0; i < data.size(); i++){
-			Transaction temp = new Transaction(data.get(i));
-			this.application.getPortfolio().addTransaction(temp);
-		}
+		ParseTransaction Read = new ParseTransaction();
+		ObservableList<String> format = Read.ReadtoCSV(data);
+		Read.WriteList(format, file.toString());
 	}
 	
 	public void setMainApp(App app) { this.application = app; } 

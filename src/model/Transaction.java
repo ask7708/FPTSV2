@@ -96,6 +96,7 @@ public class Transaction {
 		this.EquityTicker = temp[1];
 		this.time = new SimpleStringProperty(temp[5]);
 		this.cash = new SimpleDoubleProperty(Double.parseDouble(temp[4]));
+		this.shares = Double.parseDouble(temp[3]);
 		if(this.cash.get() >= 0){
 			this.receiver = temp[6];
 			this.transfer = temp[2];
@@ -331,18 +332,18 @@ public class Transaction {
 				}
 			}
 			else{
-				temp[3] = "" + this.getAmount();
+				temp[4] = "" + this.getAmount();
 				if(this.getAmount() < 0){
-					temp[2] = (String) this.transfer;
+					temp[6] = (String) this.transfer;
 					temp[1] = this.EquityTicker;
-					temp[4] = "-1";
-					temp[6] = (String) this.receiver;
+					temp[3] = "" + this.shares;
+					temp[2] = (String) this.receiver;
 				}
 				else{
-					temp[4] = "1";
-					temp[2] = (String) this.receiver;
+					temp[3] = "" + this.shares;
+					temp[6] = (String) this.receiver;
 					temp[1] = this.EquityTicker;
-					temp[6] = (String) this.transfer;
+					temp[2] = (String) this.transfer;
 				}
 			}
 		}
