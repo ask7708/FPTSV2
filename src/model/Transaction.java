@@ -92,6 +92,13 @@ public class Transaction {
 	}
 	
 	//Use this for display purposes only
+	/**
+	 * A transaction constructor that will construct an object using a String[]
+	 * This will not generate the objects of the reciever and transfer, so it's
+	 * not as useful for computing buy and sell
+	 * 
+	 * @param temp
+	 */
 	public Transaction(String[] temp){
 		this.EquityTicker = temp[1];
 		this.time = new SimpleStringProperty(temp[5]);
@@ -308,6 +315,10 @@ public class Transaction {
 		receiver = recivers;
 	}
 	
+	/**
+	 * This generates an array String of the current Transaction
+	 * @return - the array String
+	 */
 	public String[] toStringArray(){
 		String[] temp = {null, null, null, null, null, null, null};
 		temp[0] = "\"!T";
@@ -397,7 +408,9 @@ public class Transaction {
 	}
 	
 	
-	
+	/**
+	 * This should generate the csv format of a Transaction
+	 */
 	public String toString(){
 		
 		 String newS = new String();
@@ -423,7 +436,10 @@ public class Transaction {
 		
 	
 	
-	
+	/**
+	 * This takes the type of the current transaction and then decides what type
+	 * of transfer should occur and then alters the object with it
+	 */
 	public void Transfer(){
 		if(typeString.get().equals("Deposit")){
 			Deposit();
@@ -442,16 +458,27 @@ public class Transaction {
 		}
 	}
 	
+	/**
+	 * Gets the account for the EquitytoAccount constructor method
+	 * @return
+	 */
 	public Account getAccount(){
 	
 		return this.account;
 	}
-	
+	/**
+	 * gets the equity for the equity to account Constructor method
+	 * @return
+	 */
 	public Equity getEquity(){
 	
 		return this.equity;
 	}
-	
+	/**
+	 * gets the shraes for the equity to Account Constructor method and
+	 * String[] constructor method
+	 * @return
+	 */
 	public double getShares(){
 	
 		return this.shares;
