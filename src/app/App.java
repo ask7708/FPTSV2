@@ -303,7 +303,7 @@ public class App extends Application {
          primaryStage.setTitle("FPTS - " + username + " - View Owned Equities");
          OwnedEquityController ownedEquityController = loader.getController();
          ownedEquityController.setMainApp(this);
-         ownedEquityController.readOwnedEquities(username);
+         ownedEquityController.readOwnedEquities();
 
       } catch (IOException e) {
          e.printStackTrace();
@@ -330,7 +330,7 @@ public class App extends Application {
          primaryStage.setTitle("FPTS - " + username + " - Accounts");
          AccountController accountController = loader.getController();
          accountController.setMainApp(this);
-         accountController.viewAccount(username);
+         accountController.viewAccount();
 
       } catch (IOException e) {
          e.printStackTrace();

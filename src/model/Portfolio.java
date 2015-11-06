@@ -12,364 +12,433 @@ import javafx.collections.ObservableList;
 
 public class Portfolio {
 
+	/**
+	 * The holdings of the portfolio
+	 */
+	private ObservableList<Holdings> holdings;
+	/**
+	 * The accounts of the portfolio
+	 */
+	private ObservableList<Account> accounts;
+	/**
+	 * List of equities in portfolio
+	 */
+	private ObservableList<Equity> equityList;
+	/**
+	 * The list of transactions
+	 */
+	private ObservableList<Transaction> transactions;
+	/**
+	 * The watchlist for the portfolio
+	 */
+	private Watchlist watchlist;
+	/**
+	 * The username of the logged in User
+	 */
+	private String userName;
+
+	/**
+	 * The Portfolio constructor which loads in respective holdings and
+	 * transaction fromt text file
+	 * 
+	 * @param userName
+	 */
+	public Portfolio(String userName) {
+
+		this.equityList = FXCollections.observableArrayList();
+		this.accounts = FXCollections.observableArrayList();
+		this.holdings = FXCollections.observableArrayList();
+		this.transactions = FXCollections.observableArrayList();
+		this.watchlist = new Watchlist();
+		this.userName = userName;
+		populateAccountsFromFile();
+		populateEquitiesFromFile();
+		populateTransactions();
+	}
+
+	/**
+	 * Returns the list of transactions
+	 * @return
+	 */
+	public ObservableList<Transaction> getTransactions() {
+		return this.transactions;
+	}
+
+	/**
+	 * Adds a transaction to the list
+	 * @param data
+	 */
+	public void addTransaction(Transaction data) {
+		this.transactions.add(data);
+	}
+
+	/**
+	 * Reads in the transactions to the list
+	 */
+	public void populateTransactions() {
+		ParseTransaction data = new ParseTransaction();
+		String usernameFile = userName + ".txt";
+		File userFile = new File(usernameFile);
+		ObservableList<String[]> info = data.ParseFile(userFile);
+		for (int i = 0; i < info.size(); i++) {
+			Transaction temp = new Transaction(info.get(i));
+			transactions.add(temp);
+		}
+	}
+
+	/**
+	 * Returns the list of equities persisted in portfolio
+	 * @return
+	 */
+	public ObservableList<Equity> getEquityList() {
+		return this.equityList;
+	}
+
+	/**
+	 * Removes a specific equity
+	 * @param tickSymbol
+	 */
+	public void removeEquity(String tickSymbol) {
+
+		for (int i = this.equityList.size() - 1; i >= 0; i--) {
+
+			if (this.equityList.get(i).getTickSymbol() == tickSymbol) {
+
+				this.equityList.remove(i);
+			}
+
+		}
+
+	}
+
+	/**
+	 * Sets the equity list to a specified list
+	 * @param eqList
+	 */
+	public void setEquityList(ObservableList<Equity> eqList) {
 
-   private ObservableList<Holdings> holdings;
-   private ObservableList<Account> accounts;
-   private ObservableList<Equity> equityList;
-   private ObservableList<Transaction> transactions;
-   private Watchlist watchlist;
-   private String userName;
-
-   public Portfolio(String userName) {
-      
-      this.equityList = FXCollections.observableArrayList();
-      this.accounts = FXCollections.observableArrayList();
-      this.holdings = FXCollections.observableArrayList();
-      this.transactions = FXCollections.observableArrayList();
-      this.watchlist = new Watchlist();
-      this.userName = userName;
-      populateAccountsFromFile();
-      populateEquitiesFromFile();
-      populateTransactions();
-   }
-
-   
-   public ObservableList<Transaction> getTransactions(){
-	   return this.transactions;
-   }
-   
-   public void addTransaction(Transaction data){
-	   this.transactions.add(data);
-   }
-   
-   public void populateTransactions(){
-	   ParseTransaction data = new ParseTransaction();
-	      String usernameFile = userName + ".txt";
-	      File userFile = new File(usernameFile);
-	      ObservableList<String[]> info = data.ParseFile(userFile);
-	      for(int i = 0; i < info.size(); i++){
-	    	  Transaction temp = new Transaction(info.get(i));
-	    	  transactions.add(temp);
-	      }
-   }
-   
-   public ObservableList<Equity> getEquityList() { return this.equityList; }
-
-    public void removeEquity(String tickSymbol) {
-	
-    	for(int i = this.equityList.size()-1; i >= 0; i--){
-    		
-    		if(this.equityList.get(i).getTickSymbol() == tickSymbol){
-    			
-    			this.equityList.remove(i);
-    		}
-    		
-    	}
-    	
-	
-    }
-    
-    public void setEquityList(ObservableList<Equity> eqList){
-    	
-    	this.equityList= eqList;
-    }
-
-   public ObservableList<Holdings> getHoldings() { return this.holdings; }
-
-   public static class EquityIterator {
-
-      private ObservableList<Holdings> list;
-      private Iterator<Holdings> iter;
-      private Equity first;
-      private Equity current;
-
-      public EquityIterator(ObservableList<Holdings> holdings) { this.list = holdings; }
+		this.equityList = eqList;
+	}
 
-      public Equity first() {
+	/**
+	 * Returns the holdings of the portfolio
+	 * @return
+	 */
+	public ObservableList<Holdings> getHoldings() {
+		return this.holdings;
+	}
 
-         if(first != null)
-            return first;
+	/**
+	 * Differentiates the holdings and helps
+	 * specify which are equities
+	 * @author Daniel R., Arsh K., Talal A., Daniel C.
+	 *
+	 */
+	public static class EquityIterator {
 
-         else {
+		private ObservableList<Holdings> list;
+		private Iterator<Holdings> iter;
+		private Equity first;
+		private Equity current;
 
-            iter = list.iterator();
+		public EquityIterator(ObservableList<Holdings> holdings) {
+			this.list = holdings;
+		}
 
-            while(iter.hasNext()) {
+		public Equity first() {
 
-               try {
+			if (first != null)
+				return first;
 
-                  Holdings nextObj = iter.next();
+			else {
 
-                  if(nextObj instanceof Equity) {
+				iter = list.iterator();
 
-                     first = (Equity) nextObj;
-                     current = (Equity) nextObj;
-                     return first;
-                  }
+				while (iter.hasNext()) {
 
-               } catch (NoSuchElementException e) {
-                  current = null;
-               }
-            }
-            return first;
-         }
-      }
+					try {
 
-      public boolean isDone() { return current == null; }
+						Holdings nextObj = iter.next();
 
-      public Equity currentItem() { return current; }
+						if (nextObj instanceof Equity) {
 
-      public void next() {
+							first = (Equity) nextObj;
+							current = (Equity) nextObj;
+							return first;
+						}
 
-         while(iter.hasNext()) {
+					} catch (NoSuchElementException e) {
+						current = null;
+					}
+				}
+				return first;
+			}
+		}
 
-            try {
+		public boolean isDone() {
+			return current == null;
+		}
 
-               Holdings nextObj = iter.next();
+		public Equity currentItem() {
+			return current;
+		}
 
-               if(nextObj instanceof Equity) {
+		public void next() {
 
-                  current = (Equity) nextObj;
-                  return;
-               }
+			while (iter.hasNext()) {
 
-            } catch (NoSuchElementException e) {
-               current = null;
-            }
-         }
-         current = null;
-      }
-   }
+				try {
 
-   public static class AccountIterator {
+					Holdings nextObj = iter.next();
 
-      private ObservableList<Holdings> list;
-      private Iterator<Holdings> iter;
-      private Account first;
-      private Account current;
+					if (nextObj instanceof Equity) {
 
-      public AccountIterator(ObservableList<Holdings> holdings) { this.list = holdings; }
+						current = (Equity) nextObj;
+						return;
+					}
 
-      public Account first() {
+				} catch (NoSuchElementException e) {
+					current = null;
+				}
+			}
+			current = null;
+		}
+	}
 
-         if(first != null)
-            return first;
+	/**
+	 * Differentiates the holdings and helps
+	 * specify which are accounts
+	 * @author Daniel R., Arsh K., Talal A., Daniel C.
+	 *
+	 */
+	public static class AccountIterator {
 
-         else {
-            iter = list.iterator();
+		private ObservableList<Holdings> list;
+		private Iterator<Holdings> iter;
+		private Account first;
+		private Account current;
 
-            while(iter.hasNext()) {
+		public AccountIterator(ObservableList<Holdings> holdings) {
+			this.list = holdings;
+		}
 
-               try {
+		public Account first() {
 
-                  Holdings nextObj = iter.next();
+			if (first != null)
+				return first;
 
-                  if(nextObj instanceof Account) {
+			else {
+				iter = list.iterator();
 
-                     first = (Account) nextObj;
-                     current = (Account) nextObj;
-                     return first;
-                  }
+				while (iter.hasNext()) {
 
-               } catch (NoSuchElementException e) {
-                  current = null;
-               }
-            }
+					try {
 
-            current = null;
-            return first;
-         }
+						Holdings nextObj = iter.next();
 
-      }
+						if (nextObj instanceof Account) {
 
-      public boolean isDone() { return current == null; }
+							first = (Account) nextObj;
+							current = (Account) nextObj;
+							return first;
+						}
 
-      public Account currentItem() { return current; }
+					} catch (NoSuchElementException e) {
+						current = null;
+					}
+				}
 
-      public void next() {
+				current = null;
+				return first;
+			}
 
-         while(iter.hasNext()) {
+		}
 
-            try {
+		public boolean isDone() {
+			return current == null;
+		}
 
-               Holdings nextObj = iter.next();
+		public Account currentItem() {
+			return current;
+		}
 
-               if(nextObj instanceof Account) {
+		public void next() {
 
-                  current = (Account) nextObj;
-                  return;
-               }
+			while (iter.hasNext()) {
 
-            } catch (NoSuchElementException e) {
-               current = null;
-            }
-         }
+				try {
 
-         current = null;
-      }
-   }
+					Holdings nextObj = iter.next();
 
-   public EquityIterator getEquityIterator() { return new EquityIterator(holdings); }
+					if (nextObj instanceof Account) {
 
-   public AccountIterator getAccountIterator() { return new AccountIterator(holdings); }
+						current = (Account) nextObj;
+						return;
+					}
 
-   public static void main(String[] args) {
+				} catch (NoSuchElementException e) {
+					current = null;
+				}
+			}
 
-      Portfolio myPortfolio = new Portfolio("itnks");
-      ObservableList<Holdings> holdings = FXCollections.observableArrayList();
+			current = null;
+		}
+	}
 
-      holdings.add(new MarketAccount("!MM", "First Element", 123.45, "11/2/15", "0101010", "5434512"));
-      holdings.add(new BankAccount("!BANK", "Second Element", 500.21, "11/2/15", "0101010", "5434512"));
-      holdings.add(new Equity("3RD", "Third Element", 200.15));
-      holdings.add(new Equity("4TH", "Fourth Element", 243.00));
-      holdings.add(new Equity("5TH", "Fifth Element", 500.00));
-      holdings.add(new MarketAccount("!MM", "Sixth Element", 1500.21, "11/2/15", "0101010", "5434512"));
-      holdings.add(new Equity("7TH", "Seventh Element", 1000.00));
-      holdings.add(new Equity("8TH", "Eighth Element", 550.00));
-      holdings.add(new BankAccount("!BANK", "Ninth Element", 300.21, "11/2/15", "0101010", "5434512"));
-      holdings.add(new Equity("10TH", "Tenth Element", 1000.00));
+	/**
+	 * Returns the iterator for equities
+	 * @return
+	 */
+	public EquityIterator getEquityIterator() {
+		return new EquityIterator(holdings);
+	}
 
-      myPortfolio.holdings = holdings;
+	/**
+	 * Returns the iterator for accounts
+	 * @return
+	 */
+	public AccountIterator getAccountIterator() {
+		return new AccountIterator(holdings);
+	}
 
-      AccountIterator aIter = myPortfolio.getAccountIterator();
-      EquityIterator eIter = myPortfolio.getEquityIterator();
+	/**
+	 * Populates the list of accounts from the 
+	 * user file
+	 */
+	public void populateAccountsFromFile() {
 
-      System.out.println("AccountIterator (only the 1st, 2nd, 6th, and 9th element should be shown)");
+		File data = new File(this.userName + ".txt");
+		Scanner dataRead = null;
 
-      for(aIter.first(); !aIter.isDone(); aIter.next())
-         System.out.println(aIter.currentItem());
+		try {
+			dataRead = new Scanner(data);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
-      System.out.println("\nEquityIterator (only the 3rd, 4th, 5th, 7th, 8th, and 10th element should be shown)");
+		String line;
+		String[] temp;
 
-      for(eIter.first(); !eIter.isDone(); eIter.next())
-         System.out.println(eIter.currentItem());
+		while (dataRead.hasNextLine()) {
+			line = dataRead.nextLine();
+			line = line.replace("\"", "");
+			line = line.replace(", ", "");
+			temp = line.split(",");
+			ReadHoldingsContext readAccountHolding = new ReadHoldingsContext(new ReadAccountHolding());
 
-   }
+			if (temp[0].equals("!MM") || temp[0].equals("!BANK")) {
 
-   
-   	public void populateAccountsFromFile(){
-   		
-   		
-   			File data = new File(this.userName+".txt");
-   			Scanner dataRead = null;
+				Account accountInfo = null;
 
-   			try {
-   				dataRead = new Scanner(data);
-   			} catch (FileNotFoundException e) {
-   				// TODO Auto-generated catch block
-   				e.printStackTrace();
-   			}
+				accountInfo = (Account) readAccountHolding.executeStrategy(temp);
 
-   			String line;
-   			String[] temp;
+				accounts.add(accountInfo);
 
-   			while (dataRead.hasNextLine()) {
-   				line = dataRead.nextLine();
-   				line = line.replace("\"", "");
-   				line = line.replace(", ", "");
-   				temp = line.split(",");
-   				ReadHoldingsContext readAccountHolding = new ReadHoldingsContext(new ReadAccountHolding());
+			}
 
-   				if (temp[0].equals("!MM") || temp[0].equals("!BANK")) {
-   					
-   					Account accountInfo = null;
+		}
 
-   					accountInfo = (Account) readAccountHolding.executeStrategy(temp);
-   					
-   					accounts.add(accountInfo);
-   					
-   				}
+		dataRead.close();
 
-   			}
+	}
 
-   			dataRead.close();
-   	
-   			
-   	}
-   	
-   	public void populateEquitiesFromFile(){
-   		
+	/**
+	 * Populates the equity list with the 
+	 * equities from the user file
+	 */
+	public void populateEquitiesFromFile() {
 
-   			YahooStrategy company = new EquityStrategy();
-   			YahooContext context = new YahooContext(company);
-   		
-   			File data = new File(userName+".txt");
-   			Scanner dataRead = null;
+		YahooStrategy company = new EquityStrategy();
+		YahooContext context = new YahooContext(company);
 
-   			try {
-   				dataRead = new Scanner(data);
-   			} catch (FileNotFoundException e) {
-   				// TODO Auto-generated catch block
-   				e.printStackTrace();
-   			}
+		File data = new File(userName + ".txt");
+		Scanner dataRead = null;
 
-   			String line;
-   			String[] temp;
+		try {
+			dataRead = new Scanner(data);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
-   			while (dataRead.hasNextLine()) {
-   				line = dataRead.nextLine();
-   				line = line.replace("\"", "");
-   				line = line.replace(", ", " ");
-   				temp = line.split(",");
-   				ReadHoldingsContext readOwnedEquity = new ReadHoldingsContext(new ReadOwnedEquities());
+		String line;
+		String[] temp;
 
-   				if (temp[0].equals("!OWNED")) {
-   					Equity OwnedEquityInfo = (Equity) readOwnedEquity.executeStrategy(temp);
+		while (dataRead.hasNextLine()) {
+			line = dataRead.nextLine();
+			line = line.replace("\"", "");
+			line = line.replace(", ", " ");
+			temp = line.split(",");
+			ReadHoldingsContext readOwnedEquity = new ReadHoldingsContext(new ReadOwnedEquities());
 
-   					OwnedEquityInfo.setInitPrice((context.executeStrategy(OwnedEquityInfo.getTickSymbol())));
-   					equityList.add(OwnedEquityInfo);
+			if (temp[0].equals("!OWNED")) {
+				Equity OwnedEquityInfo = (Equity) readOwnedEquity.executeStrategy(temp);
 
-   				}
+				OwnedEquityInfo.setInitPrice((context.executeStrategy(OwnedEquityInfo.getTickSymbol())));
+				equityList.add(OwnedEquityInfo);
 
-   			}
+			}
 
-   			dataRead.close();
-   			
-   		
-   			
-   	}
+		}
 
+		dataRead.close();
 
-   	public ObservableList<Account> getAccounts() {
-   		return this.accounts;
-   	}
+	}
 
+	/**
+	 * Returns the list of accounts
+	 * @return
+	 */
+	public ObservableList<Account> getAccounts() {
+		return this.accounts;
+	}
 
+	/**
+	 * Sets the account list to a specified list
+	 * @param accounts
+	 */
+	public void setAccounts(ObservableList<Account> accounts) {
+		this.accounts = accounts;
+	}
 
+	/**
+	 * Finds an equity from a specified symbol
+	 * @param tSymbol
+	 * @return
+	 */
+	public Equity findEquity(String tSymbol) {
 
-   	public void setAccounts(ObservableList<Account> accounts) {
-   		this.accounts = accounts;
-   	}
-   	
+		Equity e = null;
 
-    public Equity findEquity(String tSymbol) {
-        
-        Equity e = null;
-        
-        for(Equity findThis : equityList){
-      	  
-      	  if(findThis.getTickSymbol().equals(tSymbol))
-      		  return findThis;
-        }
-        
-        return e;
-     }
-   	
-    public double getPortfolioValue(){
-    	
-    	double sumValue = 0.0;
-    	
-    	for(Equity e : this.equityList){
-    		
-    		sumValue += e.getInitPrice() * e.getShares();
-    	}
-    	for(Account a : accounts){
-    		
-    		sumValue += a.getAmount();
-    	}
-    	
-    	
-    	return sumValue;
-    }
-    
+		for (Equity findThis : equityList) {
+
+			if (findThis.getTickSymbol().equals(tSymbol))
+				return findThis;
+		}
+
+		return e;
+	}
+
+	/**
+	 * Calculates the value of the portfolio
+	 * by summing the accounts and equities
+	 * @return
+	 */
+	public double getPortfolioValue() {
+
+		double sumValue = 0.0;
+
+		for (Equity e : this.equityList) {
+
+			sumValue += e.getInitPrice() * e.getShares();
+		}
+		for (Account a : accounts) {
+
+			sumValue += a.getAmount();
+		}
+
+		return sumValue;
+	}
+
 }

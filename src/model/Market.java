@@ -15,17 +15,24 @@ import javafx.scene.control.Alert.AlertType;
 
 public class Market {
    
+	/**
+	 * The list of tick symbols for each equity
+	 */
    private ObservableList<StringProperty> tSymbols;
+   /**
+    * The list of equities existing in portfolio
+    */
    private ObservableList<Equity> equities;
+   /**
+    * The name of the file used to set up the market
+    */
    private String fileName;
    
-   private static final String base = "http://query.yahooapis" +
-         ".com/v1/public/yql?q=select%20LastTradePriceOnly%20from" +
-         "%20yahoo.finance.quotes%20where%20symbol%20in%20(%22";
-   
-   private static final String end = "%22)&env=store://datatables" +
-         ".org/alltableswithkeys";
-   
+   /**
+    * Sets up the equity list in the market by a 
+    * specified file name
+    * @param fileName
+    */
    public Market(String fileName) {
       
 	  this.fileName = fileName;
@@ -35,18 +42,28 @@ public class Market {
       populateEquities();
    }
    
+   /**
+    * Adds an equity into the market
+    * @param e
+    */
    public void addEquity(Equity e) {
       
       this.tSymbols.add(new SimpleStringProperty(e.getTickSymbol()));
       this.equities.add(e);
    }
 
-   
+   /**
+    * Returns the list of market equities
+    * @return
+    */
    public ObservableList<Equity> getMarketEquities(){
 	   
 	   return this.equities;
    }
    
+   /**
+    * Populates the equities into the market object
+    */
    public void populateEquities(){
 	   
 	   //
@@ -105,6 +122,11 @@ public class Market {
       return e;
    }
    
+   /**
+    * The class used differentiate the equities 
+    * for retrieval of DOW equities
+    *
+    */
    public static class DowIterator {
       
       private ObservableList<Equity> list;
@@ -172,5 +194,10 @@ public class Market {
       }
    }
    
+   /**
+    * Returns the dow iterator to seperate
+    * dow equities
+    * @return
+    */
    public DowIterator getDowIterator() { return new DowIterator(equities); }
 }
