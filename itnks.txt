@@ -1,7 +1,5 @@
-"!OWNED","ALTR","Altera Corporation","52.73","10.0",NASDAQ
-"!OWNED","AMZN","Amazon.com Inc.","655.65","20.0",NASDAQ
+"!OWNED","ALTR","Altera Corporation","52.73","20.0",NASDA
+"!OWNED","AMZN","Amazon.com Inc.","655.65","20.0",NASDA
 "!OWNED","AAPL","Apple Inc.","120.92","10.0",DOW,"NASDAQ100"
-"!BANK","Bank of John Cena","1000.0","133333337","1333333337","20100101"
+"!BANK","Bank of John Cena","472.70000000000005","133333337","1333333337","20100101"
 "!MM","MONEY MONEY MONEYInc.","2000.0","123456789","987654321","20151013"
-"!T","ASST","Assistance Co.","12.34","34.56","20151013","Bank of John Cena"
-"!T","CHG","Change is a Promise","0.01","200.00","20151012","MONEY MONEY MONEY, Inc."
