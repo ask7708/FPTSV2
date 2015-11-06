@@ -9,6 +9,10 @@ package model;
  */
 public class ReadAccountHolding extends ReadHoldingsStrategy {
 
+	/**
+	 * Reads the string array for an account and returns the 
+	 * respective type of account
+	 */
 	@Override
 	public Holdings readHolding(String[] temp) {
 		String temp1 = temp[1];

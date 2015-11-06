@@ -34,53 +34,103 @@ import javafx.stage.Modality;
 
 public class OwnedEquityController {
 
+	/**
+	 * The column for the ticker symbols
+	 */
 	@FXML
 	private TableColumn<Equity, String> tickCol;
+	/**
+	 * The column for the names
+	 */
 	@FXML
 	private TableColumn<Equity, String> nameCol;
+	/**
+	 * The column for the prices
+	 */
 	@FXML
 	private TableColumn<Equity, String> priceCol;
+	/**
+	 * The column for the shares
+	 */
 	@FXML
 	private TableColumn<Equity, Number> shareCol;
+	/**
+	 * The column for the dates
+	 */
 	@FXML
 	private TableColumn<Equity, String> dateCol;
-
+	/**
+	 * The table that holds all the cols
+	 */
 	@FXML
 	private TableView<Equity> ownedTable;
 
+	/**
+	 * Button to import equities
+	 */
 	@FXML
 	private Button importButton;
 	
+	/**
+	 * Button to go back to home view
+	 */
 	@FXML
 	private Button backButton;
 
+	/**
+	 * Button to export equities
+	 */
 	@FXML
 	private Button exportButton;
 	
+	/**
+	 * Button to sell equities
+	 */
 	@FXML
 	private Button sellButton;
 
+	/**
+	 * List of all owned equities
+	 */
 	ObservableList<Equity> ownedEquities = FXCollections.observableArrayList();;
 
+	/**
+	 * Reference to the main application
+	 */
 	private App application;
 
-	public void readOwnedEquities(String user) {
+	/**
+	 * Sets the table to have list of equities
+	 * @param user
+	 */
+	public void readOwnedEquities() {
 
 		
 		ownedTable.setItems(application.getPortfolio().getEquityList());
 		
 	}
 
+	/**
+	 * Returns the list of equities
+	 * @return
+	 */
 	public ObservableList<Equity> getEquityArray() {
 
 		return this.ownedEquities;
 	}
 
+	/**
+	 * Returns the table data
+	 * @return
+	 */
 	public ObservableList getTableData() {
 
 		return ownedTable.getItems();
 	}
 
+	/**
+	 * Import the equities from a user specified file
+	 */
 	public void importEquities() {
 
 	
@@ -125,6 +175,10 @@ public class OwnedEquityController {
 
 	}
 
+	/**
+	 * The method to export equities to a 
+	 * user specified text file
+	 */
 	public void exportEquities() {
 
 		StringBuilder writeToFile = new StringBuilder();
@@ -156,6 +210,9 @@ public class OwnedEquityController {
 
 	}
 
+	/**
+	 * Performs the action when the sell button is pressed
+	 */
 	 @FXML
 	 public void sellPressed() {
 
@@ -197,26 +254,11 @@ public class OwnedEquityController {
 	    }
    
 	
-	
-	public static void main(String args[]) {
-
-		OwnedEquityController evc = new OwnedEquityController();
-		evc.readOwnedEquities("itnks");
-		System.out.println(evc.getEquityArray().get(1).toString());
-
-	}
-
+	 /**
+	  * Initializes the cols to respective elements
+	  */
 	@FXML
 	public void initialize() {
-
-		// data.add(new Equity("ASSD","Assistance Co.",12.37,23.48,"20151013"));
-		// System.out.println(getEquityArray());
-		/*
-		 * ObservableList<Equity> data = getEquityArray();
-		 * ownedTable.getItems().clear(); System.out.println("Before OwnedTable"
-		 * +ownedTable.getItems()); ownedTable.setItems(data);
-		 * System.out.println("After OwnedTable"+ownedTable.getItems());
-		 */
 
 
 		tickCol.setCellValueFactory(cellData -> cellData.getValue().tickSymbolProperty());
@@ -227,14 +269,25 @@ public class OwnedEquityController {
 
 	}
 
+	/**
+	 * Sets the reference to the main application
+	 * @param app
+	 */
 	public void setMainApp(App app) {
 		this.application = app;
 	}
 
+	/**
+	 * Returns the user back to the dashboard view
+	 */
 	@FXML
 	public void backHandler() {
 		this.application.showDashboardView(); }
 	
+	/**
+	 * Returns the selected equity in the table
+	 * @return
+	 */
 	public Equity getSelectedEquity(){
 		 
 		 

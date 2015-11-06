@@ -18,6 +18,16 @@ public class ParseTransaction {
 		
 	}
 	
+	/*
+	 * this functions takes a file that it will parse the information from
+	 * Then once this information is parsed it will place the parsed String[] information into
+	 * the given Observable list
+	 * 
+	 * file - the file the information is taken form
+	 * ObservableList<String[]> - a list that contains file information
+	 * 
+	 * Pre-conditions = the file's transaction fromat must be correct
+	 */
 	public ObservableList<String[]> ParseFile(File file){
 		ObservableList<String[]> allTransactions = FXCollections.observableArrayList();
 		String[] temp;
@@ -41,6 +51,14 @@ public class ParseTransaction {
 		return allTransactions;
 	}
 	
+	/**
+	 * This methods takes an observableList that contains the csv
+	 * format and a string that is the file that is going to be written to
+	 * then it will write the csv information to the file
+	 * 
+	 * @param allTransactions - a list of strings that represent transactions in csv format
+	 * @param fileName - A string name of the file that will be written too
+	 */
 	public void WriteList(ObservableList<String> allTransactions, String fileName){
 		PrintWriter out = null;
 		try {
@@ -55,6 +73,14 @@ public class ParseTransaction {
 		out.close();
 	}
 	
+	/**
+	 * This function is used to take an observable list of String[] that is generated using the
+	 * toStringArray transaction function and then placing those arrays in an observable list
+	 * This list is then looped through an they are all converted into a sring
+	 * 
+	 * @param Read - an observable list of string[] that will be converted into csv format
+	 * @return - an observable list of Strings in csv format
+	 */
 	public ObservableList<String> ReadtoCSV(ObservableList<String[]> Read){
 		//Transaction Format
 		//Transaction id, Ticker (Equity or Account), Name of Equity/Account
@@ -72,7 +98,10 @@ public class ParseTransaction {
 	}
 	
 	
-
+	/**
+	 * main methods for testing purposes
+	 * @param args
+	 */
 	public static void main(String[] args){
 		File file = new File("Transaction.txt");
 		ParseTransaction parse = new ParseTransaction();

@@ -27,21 +27,32 @@ import model.Account;
 import model.BankAccount;
 
 public class TransactionController {
-	
+	//table that contains transaction methods
 	@FXML private TableView<Transaction> Transactiontable;
-	
+		//type method
 	   @FXML private TableColumn<Transaction, String> typeColumn;
+	   //transfer method shows the transfers name 
 	   @FXML private TableColumn<Transaction, String> TransferColumn;
+	   //reciever methods shows the receiver name
 	   @FXML private TableColumn<Transaction, String> ReceiverColumn;
+	   //Amount method shows the amount being transferred
 	   @FXML private TableColumn<Transaction, Number> AmountColumn;
+	   //Date string that shows the date of Transaction
 	   @FXML private TableColumn<Transaction, String> DateColumn;
 	
+	//Button made to go back
 	@FXML private Button backButton;
 	
+	//The application that's being used
 	private App application;
 	
+	//The list of transactions that will be shown
 	private ObservableList<Transaction> transactions;
-	
+	/**
+	 * the intialize function that creates a transaction observable array
+	 * list and then creates the settings from the views using the various parameters
+	 * above that hav been specified with FXML format
+	 */
 	@FXML
 	private void initialize(){
 		transactions = FXCollections.observableArrayList();
@@ -55,8 +66,10 @@ public class TransactionController {
 		Transactiontable.setItems(transactions);
 	}
 	
+	//sends the user back to the dashboard
 	public void backHandler() { this.application.showDashboardView(); }
 	
+	//allows the user to import a file
 	public void importHandler() {
 
 	
@@ -110,6 +123,7 @@ public class TransactionController {
 
 	}
 	
+	//allows the user to export their informaion onto a text file on their computer
 	public void exportHandler() {
 
 		StringBuilder writeToFile = new StringBuilder();
@@ -133,8 +147,12 @@ public class TransactionController {
 		Read.WriteList(format, file.toString());
 	}
 	
+	//sets the  main application
+	//parameters app(this app that needs to be set)
 	public void setMainApp(App app) { this.application = app; } 
 	
+	//this function takes a string that is the users name that is current using the application
+	//Then the information of the transactions will be set so that it will be properly displayed from the view
 	public void setinformation(String user){
 		ObservableList<Transaction> temp = this.application.getPortfolio().getTransactions();
 		for(int i = 0; i < temp.size(); i++){

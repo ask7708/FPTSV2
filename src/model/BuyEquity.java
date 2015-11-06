@@ -15,90 +15,105 @@ import javafx.collections.ObservableList;
  */
 public class BuyEquity implements TypeOfTransaction {
 
+	/**
+	 * The equity that is bought
+	 */
 	private Equity boughtEq;
+	/**
+	 * The portfolio the equity is bought from
+	 */
 	private Portfolio port;
+	/**
+	 * The account used to buy the equity
+	 */
 	private Account acc;
+	/**
+	 * The price the equity was bought at
+	 */
 	private double priceBoughtAt;
+	/**
+	 * The number of shares bought
+	 */
 	private double numberOfSharesBought;
-	
-	public BuyEquity(Account acc, Equity boughtEq, Portfolio port, double numberOfSharesBought){
-		
+
+	/**
+	 * The constructor to create a buying object
+	 * 
+	 * @param acc
+	 *            - account used to buy
+	 * @param boughtEq
+	 *            - bought equity
+	 * @param port
+	 *            - portfolio bought into
+	 * @param numberOfSharesBought
+	 *            - number of shares bought
+	 */
+	public BuyEquity(Account acc, Equity boughtEq, Portfolio port, double numberOfSharesBought) {
+
 		this.acc = acc;
 		this.boughtEq = boughtEq;
 		this.port = port;
 		this.priceBoughtAt = boughtEq.getInitPrice();
 		this.numberOfSharesBought = numberOfSharesBought;
-		
+
 	}
-	
-	public void execute(){
-		
-		if(this.acc.getAmount() > (this.priceBoughtAt * this.numberOfSharesBought )){
-			
-		this.acc.setAmount(this.acc.getAmount()-(this.priceBoughtAt * this.numberOfSharesBought));	
-		
-		if(port.findEquity(this.boughtEq.getTickSymbol()) != null){
-			
-			
-			double totalShares = port.findEquity(this.boughtEq.getTickSymbol()).getShares() + this.numberOfSharesBought;
-			System.out.println(this.numberOfSharesBought);
-			port.findEquity(this.boughtEq.getTickSymbol()).setShares(totalShares);
-			System.out.println(port.findEquity(this.boughtEq.getTickSymbol()).getShares());
-			System.out.println(port.findEquity(this.boughtEq.getTickSymbol()));
-		}else{
-		
-		port.getEquityList().add(this.boughtEq);
+
+	/**
+	 * Executes the buy function. Buy the equity if it already hasnt been bought
+	 * otherwise increases shares
+	 */
+	public void execute() {
+
+		if (this.acc.getAmount() > (this.priceBoughtAt * this.numberOfSharesBought)) {
+
+			this.acc.setAmount(this.acc.getAmount() - (this.priceBoughtAt * this.numberOfSharesBought));
+
+			if (port.findEquity(this.boughtEq.getTickSymbol()) != null) {
+
+				double totalShares = port.findEquity(this.boughtEq.getTickSymbol()).getShares()
+						+ this.numberOfSharesBought;
+				port.findEquity(this.boughtEq.getTickSymbol()).setShares(totalShares);
+			} else {
+				
+				
+				this.boughtEq.setShares(this.numberOfSharesBought);
+				port.getEquityList().add(this.boughtEq);
+
+			}
 
 		}
-		
-	}
-		
+
 	}
 
-	
-	public String toString(){
-		
-		
-		return "bought "+this.boughtEq.toString();
+	/**
+	 * Return the buy object as String
+	 */
+	public String toString() {
+
+		return "bought " + this.boughtEq.toString();
 	}
-	
+
+	/**
+	 * Undoes the buying of an equity
+	 */
 	@Override
 	public void undo() {
-		
-		/*
-		ObservableList<Equity> findBoughtEquity =  this.port.getEquityList();
-		ListIterator li = findBoughtEquity.listIterator(findBoughtEquity.size());
 
-		// Iterate in reverse.
-		while(li.hasPrevious()) {
-			
-			if((((Equity) li.previous()).getTickSymbol()) == boughtEq.getTickSymbol()){
-				
-				port.removeEquity(boughtEq.getTickSymbol());
-				this.acc.setAmount(this.acc.getAmount()+priceBoughtAt);
-			}
-			
-		  
-		
-		}*/
 		double backToOriginal = 0.0;
 		backToOriginal = port.findEquity(this.boughtEq.getTickSymbol()).getShares() - this.numberOfSharesBought;
 		port.findEquity(this.boughtEq.getTickSymbol()).setShares(backToOriginal);
-		this.acc.setAmount(this.acc.getAmount()+(this.priceBoughtAt*numberOfSharesBought));
-		
-		
-		
+		this.acc.setAmount(this.acc.getAmount() + (this.priceBoughtAt * numberOfSharesBought));
+
 	}
 
+	/**
+	 * Redoes the action of buying
+	 */
 	@Override
 	public void redo() {
-		
+
 		this.execute();
-		
+
 	}
-	
-	
-	
-	
-	
+
 }
