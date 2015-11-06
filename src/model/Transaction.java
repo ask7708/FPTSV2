@@ -23,11 +23,11 @@ public class Transaction {
 	 * Receiver - the object that receives the money
 	 * transfer - the object that gives the money
 	 */
-	final private StringProperty time;
-	final private DoubleProperty cash;
+	private StringProperty time;
+	private DoubleProperty cash;
 	private Object receiver;
 	private Object transfer;
-	final private StringProperty typeString;
+	private StringProperty typeString;
 	private String EquityTicker;
 	
 	/**
@@ -43,6 +43,24 @@ public class Transaction {
 	 *
 	 *It also raises exceptions if there isn't enough in the account or equity
 	 */
+	
+	
+	private Equity equity;
+	
+	private Account account;
+	
+	private double shares;
+	
+	public Transaction(double shares, Equity equity, Account account){
+	
+		this.shares = shares;
+		this.equity = equity;
+		this.account = account;
+		
+		
+	}
+	
+	
 	
 	//Amount = user specified shares * price
 	//Use this for fuctionalitiy purposes 
@@ -377,6 +395,34 @@ public class Transaction {
 		return temp;
 	}
 	
+	
+	
+	public String toString(){
+		
+		 String newS = new String();
+         newS += ",\"" + this.getEquity().getTickSymbol()+"\"";
+         newS += ",\"" + (this.getEquity().getName() +"\",");
+         newS += ",\"" + (this.getEquity().getInitPrice() +"\",");
+         if(this.getShares() != 0.0){
+        	 newS += "\"" + (this.getShares() +"\",");
+         }
+         if(this.getTime() != null){
+        	 newS += (this.getTime() +",");
+         }
+         
+         newS += newS + this.getAccount().getAccountName();
+         
+         newS += "\n";
+         newS = newS.substring(0, newS.length()-3);
+         return newS;
+		}	
+		
+
+		
+		
+	
+	
+	
 	public void Transfer(){
 		if(typeString.get().equals("Deposit")){
 			Deposit();
@@ -395,7 +441,23 @@ public class Transaction {
 		}
 	}
 	
+	public Account getAccount(){
+	
+		return this.account;
+	}
+	
+	public Equity getEquity(){
+	
+		return this.equity;
+	}
+	
+	public double getShares(){
+	
+		return this.shares;
+	}
+	
 	public static void main(String[] args){
+		/*
 		Account things = new BankAccount("!BANK", "Dolla", 5000, "20150002", "1004", "99541");
 		Account thingsExtra = new MarketAccount("!MM", "Dollas", 5000, "20150002", "1005", "99542");
 		Equity stuff = new Equity("Stuff", "YaY", 40);
@@ -419,8 +481,8 @@ public class Transaction {
 		Transaction Depositdone = new Transaction("20150103", 10000.50, things, "User");
 		Depositdone.Transfer();
 		System.out.print("" + things.getAmount() + '\n');
-		
-	}
-	
+		*/
 
+	}
 }
+

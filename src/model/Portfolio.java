@@ -369,7 +369,6 @@ public class Portfolio {
     	}
     	
     	
-    	
     	return sumValue;
     }
     

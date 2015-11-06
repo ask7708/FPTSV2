@@ -31,6 +31,7 @@ import model.Account;
 import model.Equity;
 import model.Holdings;
 import model.Market;
+import model.ParseTransaction;
 import model.Market.DowIterator;
 import model.Portfolio;
 import model.UpdateTimer;
@@ -365,6 +366,8 @@ public class App extends Application {
 			}
 		}
 		
+	
+		
 		out.close();
 	} catch (IOException e) {
 		// TODO Auto-generated catch block
@@ -407,5 +410,11 @@ public class App extends Application {
       return this.portfolio;
    }
 
-
+   @Override
+   public void stop(){
+	
+	   System.exit(0);
+   }
+   
+   
 }
